@@ -1,0 +1,261 @@
+package fr.gda.model;
+
+/**
+ * @author KHARBECHE Bilel
+ *
+ */
+abstract class Utilisateur {
+
+	/** id : int */
+	private int id;
+	/** nom : String */
+	private String nom;
+	/** prenom : String */
+	private String prenom;
+	/** profil : String */
+	private String profil;
+	/** mail : String */
+	private String mail;
+	/** mdp : String */
+	private String mdp;
+	/** isAdmin : Boolean */
+	private Boolean isAdmin;
+	/** congeRestant : int */
+	private int congeRestant;
+	/** rttRestant : int */
+	private int rttRestant;
+	/** congePris : int */
+	private int congePris;
+	/** rttPris : int */
+	private int rttPris;
+	/** idHierarchie : int */
+	private int idHierarchie;
+
+	/**
+	 * Getter
+	 * 
+	 * @return the id
+	 */
+	public int getId() {
+		return id;
+	}
+
+	/**
+	 * Setter
+	 * 
+	 * @param id
+	 *            the id to set
+	 */
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	/**
+	 * Getter
+	 * 
+	 * @return the nom
+	 */
+	public String getNom() {
+		return nom;
+	}
+
+	/**
+	 * Setter
+	 * 
+	 * @param nom
+	 *            the nom to set
+	 */
+	public void setNom(String nom) {
+		this.nom = nom;
+	}
+
+	/**
+	 * Getter
+	 * 
+	 * @return the prenom
+	 */
+	public String getPrenom() {
+		return prenom;
+	}
+
+	/**
+	 * Setter
+	 * 
+	 * @param prenom
+	 *            the prenom to set
+	 */
+	public void setPrenom(String prenom) {
+		this.prenom = prenom;
+	}
+
+	/**
+	 * Getter
+	 * 
+	 * @return the profil
+	 */
+	public String getProfil() {
+		return profil;
+	}
+
+	/**
+	 * Setter
+	 * 
+	 * @param profil
+	 *            the profil to set
+	 */
+	public void setProfil(String profil) {
+		this.profil = profil;
+	}
+
+	/**
+	 * Getter
+	 * 
+	 * @return the mail
+	 */
+	public String getMail() {
+		return mail;
+	}
+
+	/**
+	 * Setter
+	 * 
+	 * @param mail
+	 *            the mail to set
+	 */
+	public void setMail(String mail) {
+		this.mail = mail;
+	}
+
+	/**
+	 * Getter
+	 * 
+	 * @return the mdp
+	 */
+	public String getMdp() {
+		return mdp;
+	}
+
+	/**
+	 * Setter
+	 * 
+	 * @param mdp
+	 *            the mdp to set
+	 */
+	public void setMdp(String mdp) {
+		this.mdp = mdp;
+	}
+
+	/**
+	 * Getter
+	 * 
+	 * @return the isAdmin
+	 */
+	public Boolean getIsAdmin() {
+		return isAdmin;
+	}
+
+	/**
+	 * Setter
+	 * 
+	 * @param isAdmin
+	 *            the isAdmin to set
+	 */
+	public void setIsAdmin(Boolean isAdmin) {
+		this.isAdmin = isAdmin;
+	}
+
+	/**
+	 * Getter
+	 * 
+	 * @return the congeRestant
+	 */
+	public int getCongeRestant() {
+		return congeRestant;
+	}
+
+	/**
+	 * Setter
+	 * 
+	 * @param congeRestant
+	 *            the congeRestant to set
+	 */
+	public void setCongeRestant(int congeRestant) {
+		this.congeRestant = congeRestant;
+	}
+
+	/**
+	 * Getter
+	 * 
+	 * @return the rttRestant
+	 */
+	public int getRttRestant() {
+		return rttRestant;
+	}
+
+	/**
+	 * Setter
+	 * 
+	 * @param rttRestant
+	 *            the rttRestant to set
+	 */
+	public void setRttRestant(int rttRestant) {
+		this.rttRestant = rttRestant;
+	}
+
+	/**
+	 * Getter
+	 * 
+	 * @return the congePris
+	 */
+	public int getCongePris() {
+		return congePris;
+	}
+
+	/**
+	 * Setter
+	 * 
+	 * @param congePris
+	 *            the congePris to set
+	 */
+	public void setCongePris(int congePris) {
+		this.congePris = congePris;
+	}
+
+	/**
+	 * Getter
+	 * 
+	 * @return the rttPris
+	 */
+	public int getRttPris() {
+		return rttPris;
+	}
+
+	/**
+	 * Setter
+	 * 
+	 * @param rttPris
+	 *            the rttPris to set
+	 */
+	public void setRttPris(int rttPris) {
+		this.rttPris = rttPris;
+	}
+
+	/**
+	 * Getter
+	 * 
+	 * @return the idHierarchie
+	 */
+	public int getIdHierarchie() {
+		return idHierarchie;
+	}
+
+	/**
+	 * Setter
+	 * 
+	 * @param idHierarchie
+	 *            the idHierarchie to set
+	 */
+	public void setIdHierarchie(int idHierarchie) {
+		this.idHierarchie = idHierarchie;
+	}
+}
