@@ -32,7 +32,7 @@ abstract class Utilisateur {
 	private int idHierarchie;
 
 	/**
-	 * Constructor
+	 * Constructeur
 	 * 
 	 * @param id
 	 * @param nom

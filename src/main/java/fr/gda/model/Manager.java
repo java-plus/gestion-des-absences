@@ -30,7 +30,9 @@ public class Manager extends Utilisateur {
 	 */
 	@Override
 	public boolean isAuthorized(String url) {
-		// TODO Auto-generated method stub
+		if (this.getIsAdmin()) {
+			return true;
+		}
 		return false;
 	}
 
