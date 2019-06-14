@@ -9,7 +9,11 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.codec.digest.DigestUtils;
+
 import fr.gda.dao.UtilisateurDao;
+import fr.gda.model.Employe;
+import fr.gda.model.Manager;
 
 /**
  * Servlet qui sert à valider la connexion au site
@@ -25,6 +29,7 @@ public class ConnexionController extends HttpServlet {
 
 		String email = req.getParameter("email");
 		String password = req.getParameter("password");
+		password = DigestUtils.sha512Hex(password);
 
 		UtilisateurDao utilisateurDao = new UtilisateurDao();
 
@@ -33,14 +38,17 @@ public class ConnexionController extends HttpServlet {
 		if (connexion) {
 
 			if (utilisateurDao.validerProfil(email).equals("employé")) {
-				if (utilisateurDao.validerAdmin(email)) {
-					RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("menu_admin");
+				Employe employe = utilisateurDao.getEmploye(email);
+				if (employe.getIsAdmin()) {
+					RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("");
+					dispatcher.forward(req, resp);
+				} else {
+					RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("");
 					dispatcher.forward(req, resp);
 				}
-				RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("menu_employe");
-				dispatcher.forward(req, resp);
 			} else if (utilisateurDao.validerProfil(email).equals("manager")) {
-				RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("menu_manager");
+				Manager manager = utilisateurDao.getManager(email);
+				RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("");
 				dispatcher.forward(req, resp);
 			}
 

@@ -13,11 +13,13 @@
    <h1>GDA</h1> 
    <h3>Gestion des absences</h3>
    
-   <form method="post" action="">
+   <form method="post" action="http://localhost:8080/gda/connexion">
    
    <p>Email</p><input type="email" name="email">
    <p>Mot de passe</p><input type="password" name="password">
    <input type="submit"  name="connexion" value="connexion">
+   
+ 
    
    
    </form>
