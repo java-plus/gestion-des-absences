@@ -8,6 +8,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import fr.gda.connexion.ConnexionManager;
+import fr.gda.exception.TechnicalException;
 import fr.gda.model.AbsenceParPersonne;
 
 /**
@@ -34,7 +36,8 @@ public class AbsenceParPersonneDao {
 
 		try {
 			conn.setAutoCommit(false);
-			statement = conn.prepareStatement("SELECT * FROM absence_personne WHERE statut = 'INITIALE'");
+			statement = conn
+					.prepareStatement("SELECT * FROM absence_personne WHERE statut = 'INITIALE' ORDER BY date_debut");
 
 			curseur = statement.executeQuery();
 
