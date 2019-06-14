@@ -40,17 +40,21 @@ public class ConnexionController extends HttpServlet {
 			if (utilisateurDao.validerProfil(email).equals("employé")) {
 				Employe employe = utilisateurDao.getEmploye(email);
 				if (employe.getIsAdmin()) {
-					RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("");
+					RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/");
 					dispatcher.forward(req, resp);
 				} else {
-					RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("");
+					RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/");
 					dispatcher.forward(req, resp);
 				}
 			} else if (utilisateurDao.validerProfil(email).equals("manager")) {
 				Manager manager = utilisateurDao.getManager(email);
-				RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("");
+				RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/");
 				dispatcher.forward(req, resp);
 			}
+
+		} else {
+			RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/");
+			dispatcher.forward(req, resp);
 
 		}
 	}

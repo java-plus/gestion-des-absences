@@ -19,7 +19,7 @@ import fr.gda.model.Manager;
 public class UtilisateurDao {
 
 	/**
-	 * Classe qui valide le mot de passe de la connexion pour l'authentifier
+	 * méthode qui valide le mot de passe de la connexion pour l'authentifier
 	 * 
 	 * @param email
 	 *            : email saisi par l'utilisateur
@@ -68,6 +68,12 @@ public class UtilisateurDao {
 
 	}
 
+	/**
+	 * méthode qui crée un employé
+	 * 
+	 * @param email
+	 * @return
+	 */
 	public Employe getEmploye(String email) {
 		Connection conn = ConnexionManager.getInstance();
 		PreparedStatement statement = null;
@@ -133,6 +139,12 @@ public class UtilisateurDao {
 
 	}
 
+	/**
+	 * méthode qui crée un manager
+	 * 
+	 * @param email
+	 * @return
+	 */
 	public Manager getManager(String email) {
 		Connection conn = ConnexionManager.getInstance();
 		PreparedStatement statement = null;
