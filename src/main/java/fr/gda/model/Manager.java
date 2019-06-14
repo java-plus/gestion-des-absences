@@ -6,4 +6,10 @@ public class Manager extends Utilisateur {
 		// TODO Auto-generated constructor stub
 	}
 
+	@Override
+	boolean isAuthorized(String url) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
 }

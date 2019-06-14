@@ -19,7 +19,7 @@ abstract class Utilisateur {
 	/** mdp : String */
 	private String mdp;
 	/** isAdmin : Boolean */
-	private Boolean isAdmin;
+	private boolean isAdmin;
 	/** congeRestant : int */
 	private int congeRestant;
 	/** rttRestant : int */
@@ -30,6 +30,12 @@ abstract class Utilisateur {
 	private int rttPris;
 	/** idHierarchie : int */
 	private int idHierarchie;
+
+	/**
+	 * @param url
+	 * @return
+	 */
+	abstract boolean isAuthorized(String url);
 
 	/**
 	 * Getter
