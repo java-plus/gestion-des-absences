@@ -2,12 +2,34 @@ package fr.gda.model;
 
 public class Manager extends Utilisateur {
 
-	public Manager() {
-		// TODO Auto-generated constructor stub
+	/**
+	 * Constructor
+	 * 
+	 * @param id
+	 * @param nom
+	 * @param prenom
+	 * @param profil
+	 * @param mail
+	 * @param mdp
+	 * @param isAdmin
+	 * @param congeRestant
+	 * @param rttRestant
+	 * @param congePris
+	 * @param rttPris
+	 * @param idHierarchie
+	 */
+	public Manager(int id, String nom, String prenom, String profil, String mail, String mdp, boolean isAdmin,
+			int congeRestant, int rttRestant, int congePris, int rttPris, int idHierarchie) {
+		super(id, nom, prenom, profil, mail, mdp, isAdmin, congeRestant, rttRestant, congePris, rttPris, idHierarchie);
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see fr.gda.model.Utilisateur#isAuthorized(java.lang.String)
+	 */
 	@Override
-	boolean isAuthorized(String url) {
+	public boolean isAuthorized(String url) {
 		// TODO Auto-generated method stub
 		return false;
 	}

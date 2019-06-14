@@ -32,6 +32,39 @@ abstract class Utilisateur {
 	private int idHierarchie;
 
 	/**
+	 * Constructor
+	 * 
+	 * @param id
+	 * @param nom
+	 * @param prenom
+	 * @param profil
+	 * @param mail
+	 * @param mdp
+	 * @param isAdmin
+	 * @param congeRestant
+	 * @param rttRestant
+	 * @param congePris
+	 * @param rttPris
+	 * @param idHierarchie
+	 */
+	public Utilisateur(int id, String nom, String prenom, String profil, String mail, String mdp, boolean isAdmin,
+			int congeRestant, int rttRestant, int congePris, int rttPris, int idHierarchie) {
+		super();
+		this.id = id;
+		this.nom = nom;
+		this.prenom = prenom;
+		this.profil = profil;
+		this.mail = mail;
+		this.mdp = mdp;
+		this.isAdmin = isAdmin;
+		this.congeRestant = congeRestant;
+		this.rttRestant = rttRestant;
+		this.congePris = congePris;
+		this.rttPris = rttPris;
+		this.idHierarchie = idHierarchie;
+	}
+
+	/**
 	 * @param url
 	 * @return
 	 */
