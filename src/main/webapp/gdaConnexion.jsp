@@ -15,8 +15,8 @@
    
    <form method="post" action="">
    
-   <p>Email</p><input type="email">
-   <p>Mot de passe</p><input type="password">
+   <p>Email</p><input type="email" name="email">
+   <p>Mot de passe</p><input type="password" name="password">
    <input type="submit"  name="connexion" value="connexion">
    
    

@@ -48,6 +48,7 @@ public class UtilisateurDao {
 			}
 
 			conn.commit();
+			return false;
 		} catch (SQLException e) {
 			try {
 				conn.rollback();
@@ -65,7 +66,104 @@ public class UtilisateurDao {
 				throw new TechnicalException("La fermeture ne s'est pas faite", e);
 			}
 		}
-		return false;
+
 	}
 
+	/**
+	 * méthode qui retourne si l'utilisateur est un employé ou un manager
+	 * 
+	 * @param email
+	 * @return
+	 */
+	public String validerProfil(String email) {
+		Connection conn = ConnexionManager.getInstance();
+		PreparedStatement statement = null;
+		ResultSet curseur = null;
+		String profil = null;
+
+		try {
+			conn.setAutoCommit(false);
+			statement = conn.prepareStatement("SELECT * FROM utilisateur WHERE mail = ?");
+			statement.setString(1, email);
+			curseur = statement.executeQuery();
+
+			if (curseur.next()) {
+
+				profil = curseur.getString("profil");
+
+			}
+
+			conn.commit();
+			return profil;
+		} catch (SQLException e) {
+			try {
+				conn.rollback();
+			} catch (SQLException e1) {
+				throw new TechnicalException("Le rollback n'a pas fonctionné", e);
+			}
+			throw new TechnicalException("L'ajout ne s'est pas fait", e);
+		} finally {
+			try {
+				if (statement != null) {
+					statement.close();
+				}
+			} catch (SQLException e) {
+
+				throw new TechnicalException("La fermeture ne s'est pas faite", e);
+			}
+		}
+
+	}
+
+	/**
+	 * méthode qui retourne si l'utilisateur est un admin
+	 * 
+	 * @param email
+	 * @return
+	 */
+	public boolean validerAdmin(String email) {
+		Connection conn = ConnexionManager.getInstance();
+		PreparedStatement statement = null;
+		ResultSet curseur = null;
+		int admin;
+		boolean adminBoolean = false;
+
+		try {
+			conn.setAutoCommit(false);
+			statement = conn.prepareStatement("SELECT * FROM utilisateur WHERE mail = ?");
+			statement.setString(1, email);
+			curseur = statement.executeQuery();
+
+			if (curseur.next()) {
+
+				admin = curseur.getInt("is_admin");
+				if (admin == 0) {
+					return adminBoolean = false;
+				} else {
+					return adminBoolean = true;
+				}
+
+			}
+
+			conn.commit();
+			return adminBoolean;
+		} catch (SQLException e) {
+			try {
+				conn.rollback();
+			} catch (SQLException e1) {
+				throw new TechnicalException("Le rollback n'a pas fonctionné", e);
+			}
+			throw new TechnicalException("L'ajout ne s'est pas fait", e);
+		} finally {
+			try {
+				if (statement != null) {
+					statement.close();
+				}
+			} catch (SQLException e) {
+
+				throw new TechnicalException("La fermeture ne s'est pas faite", e);
+			}
+		}
+
+	}
 }
