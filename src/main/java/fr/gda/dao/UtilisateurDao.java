@@ -9,6 +9,7 @@ import fr.gda.connexion.ConnexionManager;
 import fr.gda.exception.TechnicalException;
 import fr.gda.model.Employe;
 import fr.gda.model.Manager;
+import fr.gda.model.Utilisateur;
 
 /**
  * Classe qui gère les action des utilisateurs
@@ -188,6 +189,77 @@ public class UtilisateurDao {
 
 			conn.commit();
 			return manager;
+		} catch (SQLException e) {
+			try {
+				conn.rollback();
+			} catch (SQLException e1) {
+				throw new TechnicalException("Le rollback n'a pas fonctionné", e);
+			}
+			throw new TechnicalException("L'ajout ne s'est pas fait", e);
+		} finally {
+			try {
+				if (statement != null) {
+					statement.close();
+				}
+			} catch (SQLException e) {
+
+				throw new TechnicalException("La fermeture ne s'est pas faite", e);
+			}
+		}
+
+	}
+
+	/**
+	 * méthode qui crée un employé
+	 * 
+	 * @param email
+	 * @return
+	 */
+	public Utilisateur getUtilisateurs() {
+		Connection conn = ConnexionManager.getInstance();
+		PreparedStatement statement = null;
+		ResultSet curseur = null;
+
+		try {
+			conn.setAutoCommit(false);
+			statement = conn.prepareStatement("SELECT * FROM utilisateur");
+			curseur = statement.executeQuery();
+			Utilisateur utilisateur = null;
+
+			while (curseur.next()) {
+
+				int id = curseur.getInt("id");
+				String nom = curseur.getString("nom");
+				String prenom = curseur.getString("prenom");
+				String profil = curseur.getString("profil");
+				String email = curseur.getString("mail");
+				String mdp = curseur.getString("mdp");
+				int isAdmin = curseur.getInt("is_admin");
+				boolean isAdminBool;
+				if (isAdmin == 0) {
+					isAdminBool = false;
+				} else {
+					isAdminBool = true;
+				}
+				int congeRestant = curseur.getInt("conge_restant");
+				int rttRestant = curseur.getInt("rtt_restant");
+				int congePris = curseur.getInt("conge_pris");
+				int rttPris = curseur.getInt("rtt_restant");
+				int idHierarchie = curseur.getInt("id_hierarchie");
+
+				if (profil.equals("employe")) {
+					utilisateur = new Employe(id, nom, prenom, profil, email, mdp, isAdminBool, congeRestant,
+							rttRestant, congePris, rttPris, idHierarchie);
+				} else {
+					utilisateur = new Manager(id, nom, prenom, profil, email, mdp, isAdminBool, congeRestant,
+							rttRestant, congePris, rttPris, idHierarchie);
+				}
+
+			}
+
+			conn.commit();
+
+			return utilisateur;
 		} catch (SQLException e) {
 			try {
 				conn.rollback();

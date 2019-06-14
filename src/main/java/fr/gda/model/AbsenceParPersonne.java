@@ -23,6 +23,18 @@ public class AbsenceParPersonne {
 	/** motif : String */
 	private String motif;
 
+	public AbsenceParPersonne(int id, int idUtil, int idAbsence, Date dateDebut, Date dateFin, String statut,
+			String motif) {
+		super();
+		this.id = id;
+		this.idUtil = idUtil;
+		this.idAbsence = idAbsence;
+		this.dateDebut = dateDebut;
+		this.dateFin = dateFin;
+		this.statut = statut;
+		this.motif = motif;
+	}
+
 	/**
 	 * Getter
 	 * 
