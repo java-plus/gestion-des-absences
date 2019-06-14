@@ -8,8 +8,9 @@ public class Employe extends Utilisateur {
 
 	@Override
 	boolean isAuthorized(String url) {
-		// TODO Auto-generated method stub
+		if (getIsAdmin() == true) {
+			return true;
+		}
 		return false;
 	}
-
 }
