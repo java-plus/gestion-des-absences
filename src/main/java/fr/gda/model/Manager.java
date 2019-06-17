@@ -1,5 +1,11 @@
 package fr.gda.model;
 
+/**
+ * Classe qui gère un manager
+ * 
+ * @author Cécile Peyras
+ *
+ */
 public class Manager extends Utilisateur {
 
 	/**

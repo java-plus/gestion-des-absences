@@ -1,5 +1,11 @@
 package fr.gda.model;
 
+/**
+ * Classe qui gère un employe
+ * 
+ * @author Cécile Peyras
+ *
+ */
 public class Employe extends Utilisateur {
 
 	/**
