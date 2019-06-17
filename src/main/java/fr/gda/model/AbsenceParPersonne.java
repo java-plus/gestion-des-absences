@@ -10,6 +10,30 @@ public class AbsenceParPersonne {
 
 	/** id : int */
 	private int id;
+
+	/**
+	 * Constructeur
+	 * 
+	 * @param id
+	 * @param idUtil
+	 * @param idAbsence
+	 * @param dateDebut
+	 * @param dateFin
+	 * @param statut
+	 * @param motif
+	 */
+	public AbsenceParPersonne(int id, int idUtil, int idAbsence, Date dateDebut, Date dateFin, String statut,
+			String motif) {
+		super();
+		this.id = id;
+		this.idUtil = idUtil;
+		this.idAbsence = idAbsence;
+		this.dateDebut = dateDebut;
+		this.dateFin = dateFin;
+		this.statut = statut;
+		this.motif = motif;
+	}
+
 	/** idUtil : int */
 	private int idUtil;
 	/** idAbsence : int */
