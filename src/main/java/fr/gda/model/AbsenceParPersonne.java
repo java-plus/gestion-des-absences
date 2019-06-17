@@ -3,6 +3,8 @@ package fr.gda.model;
 import java.time.LocalDate;
 
 /**
+ * Classe qui gère une Absence par Personne
+ * 
  * @author KHARBECHE Bilel
  *
  */
