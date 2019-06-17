@@ -26,9 +26,6 @@
 
 
 
-
-
-
     <form class="form-signin" method="post" action="http://localhost:8080/gda/connexion">
         <div class="text-center mb-4">
             <img class="mb-4 logo" src="https://pbs.twimg.com/profile_images/810865682564911104/A3CM9RWz_400x400.jpg"

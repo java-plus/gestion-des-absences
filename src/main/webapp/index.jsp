@@ -28,8 +28,6 @@
 
 <body>
 
-
-
 	<%-- include du header manager ou employe
 		en fonction du profil de l'utilisateur on charge le menu correspondant
 		--%>
