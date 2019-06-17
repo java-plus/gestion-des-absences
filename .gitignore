@@ -4,3 +4,5 @@
 .project
 .classpath
 database.properties
+boutonconge.jsp
+visualisationabsence.jsp

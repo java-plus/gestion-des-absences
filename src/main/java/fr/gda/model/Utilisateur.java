@@ -4,7 +4,7 @@ package fr.gda.model;
  * @author KHARBECHE Bilel
  *
  */
-abstract class Utilisateur {
+public abstract class Utilisateur {
 
 	/** id : int */
 	private int id;
