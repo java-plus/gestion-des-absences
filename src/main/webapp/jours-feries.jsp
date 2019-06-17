@@ -15,8 +15,8 @@
 
     <link href="https://fonts.googleapis.com/css?family=Poppins:400,700|Roboto:400,700&display=swap" rel="stylesheet">
 
-    <link rel="stylesheet" href="../../css/font.css">
-    <link rel="stylesheet" href="../../css/global.css">
+    <link rel="stylesheet" href="css/font.css">
+    <link rel="stylesheet" href="css/global.css">
 
     <title>GDA - Jours fériés et RTT employeur</title>
 
@@ -36,18 +36,18 @@
 	<% 
 		if (monProfil == "manager") { 
 		%>
-	<%@ include file="WEB-INF/manager/menu.html"%>
+	<%@ include file="manager/menu.html"%>
 	<% 
 		} else if (monProfil == "employe") {
 		%>
-	<%@ include file="WEB-INF/employe/menu.html"%>
+	<%@ include file="employe/menu.html"%>
 	} %>
 
 
 
 
 	<%-- include du contenu --%>
-	<%@ include file="WEB-INF/global/jours-feries.html"%>
+	<%@ include file="global/jours-feries.html"%>
 	
 	
 	<%-- si t'utilisateur est Admin, alors on affiche la liste d'action : ajouter, modifier, supprimer --%>
@@ -60,7 +60,7 @@
 	%>
 
 	<%-- chargement des js de JQuery et Bootsrap et feather --%>
-	<%@ include file="WEB-INF/global/load.html"%>
+	<%@ include file="global/load.html"%>
 
 </body>
 

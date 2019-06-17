@@ -14,8 +14,8 @@
     <link href="https://fonts.googleapis.com/css?family=Poppins:400,700|Roboto:400,700&display=swap" rel="stylesheet">
 
 
-    <link rel="stylesheet" href="../../css/main.css">
-    <link rel="stylesheet" href="../../css/font.css">
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/font.css">
 
     <title>GDA - Connexion</title>
 
@@ -58,7 +58,7 @@
 
 
 		<%-- chargement des js de JQuery et Bootsrap et feather --%>
-	<%@ include file="WEB-INF/global/load.html"%>
+	<%@ include file="global/load.html"%>
 
 </body>
 
