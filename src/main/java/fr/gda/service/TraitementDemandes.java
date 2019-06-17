@@ -1,8 +1,11 @@
 package fr.gda.service;
 
+import java.time.temporal.ChronoUnit;
 import java.util.List;
 
 import fr.gda.dao.AbsenceParPersonneDao;
+import fr.gda.dao.UtilisateurDao;
+import fr.gda.exception.TechnicalException;
 import fr.gda.model.AbsenceParPersonne;
 
 /**
@@ -23,21 +26,76 @@ public class TraitementDemandes {
 		// Récupération des demandes dans l'ordre des dates des demandes
 		List<AbsenceParPersonne> absenceAuStatutInitiale = absenceParPersonneDao.lireDemandesEnStatutInitiale();
 
-		// * Pour les congés payés, congés sans solde et RTT employés:
+		// Création de Dao pour utilisateur
+		UtilisateurDao utilisateurDao = new UtilisateurDao();
 
-		// * S'il reste assez de jours pour le type d'absence demandé, la
-		// demande passe au statut EN_ATTENTE_VALIDATION et le compteur du
-		// collaborateur est décrémenté du nb de jours correspondant. Un mail de
-		// demande de validation est envoyé au manager de l'employé.
-		// * S'il ne reste pas assez de jours alors la demande est rejetée: elle
-		// passe au statut REJETEE.
-		// * Pour les demandes de type RTT employeur alors la demande passe au
-		// statut VALIDEE et l'ensemble des employés se voient retirer un jour
-		// de RTT.
+		// Pour chaque demande de congé au statut Initiale
+		for (AbsenceParPersonne abs : absenceAuStatutInitiale) {
+			// Nombre de jours = Ecart entre les dates en jours
+			Long nombreJoursDemandes = ChronoUnit.DAYS.between(abs.getDateDebut(), abs.getDateFin());
+			// System.out.println(nombreJoursDemandes);
 
-		for (AbsenceParPersonne abs : absenceAuStatutInitiale)
-			System.out.println(abs.getStatut());
+			// Pour les congés payés, congés sans solde et RTT employés:
+			if (abs.getIdAbsence() == 1 || abs.getIdAbsence() == 2 || abs.getIdAbsence() == 3) {
 
+				if ((abs.getIdAbsence() == 1) || (abs.getIdAbsence() == 2)) {
+					Integer nombreJoursRestants = utilisateurDao.recupererNombreJoursParTypeConge(abs.getIdUtil(),
+							abs.getIdAbsence());
+					if (nombreJoursDemandes <= nombreJoursRestants) {
+						// * S'il reste assez de jours pour le type d'absence
+						// demandé, la demande passe au statut
+						// EN_ATTENTE_VALIDATION et le
+						abs.setStatut("EN_ATTENTE_VALIDATION");
+						absenceParPersonneDao.modifierStatut(abs.getId(), "EN_ATTENTE_VALIDATION");
+						utilisateurDao.retirerJoursParTypeConge(abs.getIdUtil(), abs.getIdAbsence(),
+								nombreJoursRestants - nombreJoursDemandes);
+						try {
+							UtilMessagerie.EnvoyerMailManager(abs.getId(), abs.getIdUtil(), abs.getIdAbsence(),
+									nombreJoursDemandes);
+						} catch (Exception e) {
+
+							throw new TechnicalException("Le message n'a pas été envoyé", e);
+						}
+						// compteur
+						// du
+						// collaborateur est décrémenté du nb de jours
+						// correspondant. Un
+						// mail de
+						// demande de validation est envoyé au manager de
+						// l'employé.
+					} else {
+						// Pas assez de jours donc REJETEE
+						abs.setStatut("REJETEE");
+						absenceParPersonneDao.modifierStatut(abs.getId(), "REJETEE");
+					}
+				} else {
+					// Congé sans solde
+					abs.setStatut("EN_ATTENTE_VALIDATION");
+					absenceParPersonneDao.modifierStatut(abs.getId(), "EN_ATTENTE_VALIDATION");
+					// Utils.EnvoyerMailManager(abs.getIdUtil(),
+					// abs.getIdAbsence(), nombreJoursDemandes);
+					try {
+						UtilMessagerie.EnvoyerMailManager(abs.getId(), abs.getIdUtil(), abs.getIdAbsence(),
+								nombreJoursDemandes);
+					} catch (Exception e) {
+
+						throw new TechnicalException("Le message n'a pas été envoyé", e);
+					}
+
+				}
+
+			} else if (abs.getIdAbsence() == 5) {
+				// * Pour les demandes de type RTT employeur alors la demande
+				// passe au statut VALIDEE et l'ensemble des employés se voient
+				// retirer
+				// un jour
+				// de RTT.
+				abs.setStatut("VALIDEE");
+				absenceParPersonneDao.modifierStatut(abs.getId(), "VALIDEE");
+				utilisateurDao.retirerJoursParTypeConge(abs.getIdUtil(), 1, 1l);
+
+			}
+
+		}
 	}
-
 }

@@ -4,9 +4,12 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import fr.gda.connexion.ConnexionManager;
 import fr.gda.exception.TechnicalException;
@@ -19,6 +22,9 @@ import fr.gda.model.AbsenceParPersonne;
  *
  */
 public class AbsenceParPersonneDao {
+
+	/** SERVICE_LOG : Logger */
+	private static final Logger SERVICE_LOG = LoggerFactory.getLogger(AbsenceParPersonneDao.class);
 
 	/**
 	 * Récupération des demandes en statut "INITIALE"
@@ -47,8 +53,9 @@ public class AbsenceParPersonneDao {
 				Integer id = curseur.getInt("id");
 				Integer idUtil = curseur.getInt("id_util");
 				Integer idAbsence = curseur.getInt("id_absence");
-				Date dateDebut = curseur.getDate("date_debut");
-				Date dateFin = curseur.getDate("date_fin");
+				LocalDate dateDebut = curseur.getDate("date_debut").toLocalDate();
+				;
+				LocalDate dateFin = curseur.getDate("date_fin").toLocalDate();
 				String statut = curseur.getString("statut");
 				String motif = curseur.getString("motif");
 
@@ -63,7 +70,55 @@ public class AbsenceParPersonneDao {
 			} catch (SQLException e1) {
 				throw new TechnicalException("Le rollback n'a pas fonctionné", e);
 			}
-			throw new TechnicalException("L'ajout ne s'est pas fait", e);
+			throw new TechnicalException("La sélection s'est pas faite", e);
+		} finally {
+			try {
+				if (statement != null) {
+					statement.close();
+				}
+			} catch (SQLException e) {
+
+				throw new TechnicalException("La fermeture ne s'est pas faite", e);
+			}
+		}
+
+	}
+
+	/**
+	 * Modification de statut
+	 * 
+	 * @param Id
+	 *            de demande de congé
+	 * @param Statut
+	 * 
+	 * 
+	 *
+	 */
+	public void modifierStatut(Integer idDemandeConge, String statut) {
+
+		Connection conn = ConnexionManager.getInstance();
+		PreparedStatement statement = null;
+
+		try {
+			conn.setAutoCommit(false);
+			statement = conn.prepareStatement("UPDATE absence_personne SET statut = ? WHERE id = ?");
+			statement.setString(1, statut);
+			statement.setInt(2, idDemandeConge);
+
+			if (statement.executeUpdate() == 0) {
+				// Log de l'erreur
+				SERVICE_LOG.error("impossible de mettre à jour la table");
+			}
+
+			conn.commit();
+
+		} catch (SQLException e) {
+			try {
+				conn.rollback();
+			} catch (SQLException e1) {
+				throw new TechnicalException("Le rollback n'a pas fonctionné", e);
+			}
+			throw new TechnicalException("La mise à jour ne s'est pas faite", e);
 		} finally {
 			try {
 				if (statement != null) {
