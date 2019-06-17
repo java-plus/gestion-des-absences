@@ -36,21 +36,25 @@
 	<% 
 		if (monProfil == "manager") { 
 		%>
+
 	<%@ include file="html/manager/menu.html"%>
 	<% 
 		} else if (monProfil == "employe") {
 		%>
 	<%@ include file="html/employe/menu.html"%>
+
 	} %>
 
 
 
 
 	<%-- include du contenu --%>
+
 	<%@ include file="html/global/index.html"%>
 
 	<%-- chargement des js de JQuery et Bootsrap et feather --%>
 	<%@ include file="html/global/load.html"%>
+
 
 </body>
 

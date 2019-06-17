@@ -13,8 +13,8 @@
 
     <link href="https://fonts.googleapis.com/css?family=Poppins:400,700|Roboto:400,700&display=swap" rel="stylesheet">
 
-    <link rel="stylesheet" href="../../css/font.css">
-    <link rel="stylesheet" href="../../css/global.css">
+    <link rel="stylesheet" href="css/font.css">
+    <link rel="stylesheet" href="css/global.css">
 
     <title>GDA - Planning des absences</title>
 
@@ -34,21 +34,21 @@
 	<% 
 		if (monProfil == "manager") { 
 		%>
-	<%@ include file="WEB-INF/manager/menu.html"%>
+	<%@ include file="manager/menu.html"%>
 	<% 
 		} else if (monProfil == "employe") {
 		%>
-	<%@ include file="WEB-INF/employe/menu.html"%>
+	<%@ include file="employe/menu.html"%>
 	} %>
 
 
 
 
 	<%-- include du contenu --%>
-	<%@ include file="WEB-INF/global/planning-abs.html"%>
+	<%@ include file="global/planning-abs.html"%>
 
 	<%-- chargement des js de JQuery et Bootsrap et feather --%>
-	<%@ include file="WEB-INF/global/load.html"%>
+	<%@ include file="global/load.html"%>
 
 
 </body>

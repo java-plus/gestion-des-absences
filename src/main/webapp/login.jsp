@@ -54,8 +54,11 @@
 
 
 
+
 <!-- 		chargement des js de JQuery et Bootsrap et feather -->
 	<%@ include file="/html/global/load.html"%>
+
+
 
 </body>
 
