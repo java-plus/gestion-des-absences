@@ -36,20 +36,25 @@ public class ConnexionController extends HttpServlet {
 
 		boolean connexion = utilisateurDao.validerMdp(email, password);
 
+		String monProfil = null;
+
 		if (connexion) {
 			HttpSession session = req.getSession(true);
 
 			if (utilisateurDao.validerProfil(email).equals("employé")) {
 				Employe employe = utilisateurDao.getEmploye(email);
+				req.setAttribute("monProfil", monProfil);
+				monProfil = "employe";
 				if (employe.getIsAdmin()) {
-					RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/admin");
+					RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/index.jsp");
 					dispatcher.forward(req, resp);
 					session.setAttribute("utilisateurId", employe.getId());
 					session.setAttribute("prenom", employe.getPrenom());
 					session.setAttribute("profil", employe.getProfil());
 					session.setAttribute("isAdmin", employe.getIsAdmin());
+
 				} else {
-					RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/employe");
+					RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/index.jsp");
 					dispatcher.forward(req, resp);
 					session.setAttribute("utilisateurId", employe.getId());
 					session.setAttribute("prenom", employe.getPrenom());
@@ -58,7 +63,9 @@ public class ConnexionController extends HttpServlet {
 				}
 			} else if (utilisateurDao.validerProfil(email).equals("manager")) {
 				Manager manager = utilisateurDao.getManager(email);
-				RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/manager");
+				monProfil = "manager";
+				req.setAttribute("monProfil", monProfil);
+				RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/index.jsp");
 				dispatcher.forward(req, resp);
 				session.setAttribute("utilisateurId", manager.getId());
 				session.setAttribute("prenom", manager.getPrenom());
@@ -71,6 +78,7 @@ public class ConnexionController extends HttpServlet {
 			dispatcher.forward(req, resp);
 
 		}
+
 	}
 
 }
