@@ -10,10 +10,11 @@ import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 /**
- * Classe qui vérifie la session pour les servlets Controller
+ * Classe qui vérifie la session pour les servlets de type : controller
  * 
  * @author Cécile Peyras
  *
@@ -31,21 +32,20 @@ public class SessionFilter implements Filter {
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
 			throws IOException, ServletException {
 		HttpServletRequest req = (HttpServletRequest) request;
-		HttpServletRequest rep = (HttpServletRequest) response;
+		HttpServletResponse rep = (HttpServletResponse) response;
 		HttpSession session = req.getSession(false);
 
 		if (session == null) {
-			// TODO Auto-generated method stub
+
+			rep.sendRedirect("/gda/gdaConnexion.jsp");
 		} else {
-			// TODO Auto-generated method stub
+			chain.doFilter(request, response);
 		}
 
-		chain.doFilter(request, response);
 	}
 
 	@Override
 	public void destroy() {
-		// TODO Auto-generated method stub
 
 	}
 

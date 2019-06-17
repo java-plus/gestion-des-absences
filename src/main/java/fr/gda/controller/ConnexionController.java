@@ -42,14 +42,14 @@ public class ConnexionController extends HttpServlet {
 			if (utilisateurDao.validerProfil(email).equals("employé")) {
 				Employe employe = utilisateurDao.getEmploye(email);
 				if (employe.getIsAdmin()) {
-					RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/");
+					RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/admin");
 					dispatcher.forward(req, resp);
 					session.setAttribute("utilisateurId", employe.getId());
 					session.setAttribute("prenom", employe.getPrenom());
 					session.setAttribute("profil", employe.getProfil());
 					session.setAttribute("isAdmin", employe.getIsAdmin());
 				} else {
-					RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/");
+					RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/employe");
 					dispatcher.forward(req, resp);
 					session.setAttribute("utilisateurId", employe.getId());
 					session.setAttribute("prenom", employe.getPrenom());
@@ -58,7 +58,7 @@ public class ConnexionController extends HttpServlet {
 				}
 			} else if (utilisateurDao.validerProfil(email).equals("manager")) {
 				Manager manager = utilisateurDao.getManager(email);
-				RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/");
+				RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/manager");
 				dispatcher.forward(req, resp);
 				session.setAttribute("utilisateurId", manager.getId());
 				session.setAttribute("prenom", manager.getPrenom());
@@ -67,7 +67,7 @@ public class ConnexionController extends HttpServlet {
 			}
 
 		} else {
-			RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/");
+			RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/login");
 			dispatcher.forward(req, resp);
 
 		}

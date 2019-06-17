@@ -9,31 +9,48 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import fr.gda.dao.AbsenceParPersonneDao;
+import fr.gda.dao.UtilisateurDao;
 import fr.gda.model.AbsenceParPersonne;
+import fr.gda.model.Utilisateur;
 
-@WebServlet(urlPatterns = "/connexion/afficherConges*")
+@WebServlet(urlPatterns = "/controller/afficherConges/*")
 public class AfficherCongeController extends HttpServlet {
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		HttpSession session = req.getSession(false);
 
-	}
-
-	@Override
-	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		AbsenceParPersonneDao absenceDao = new AbsenceParPersonneDao();
 
-		Object userId = req.getAttribute("utilisateurId");
+		UtilisateurDao utilisateurDao = new UtilisateurDao();
+
+		Object userId = session.getAttribute("utilisateurId");
 		int utilisateurId = (int) userId;
 
 		List<AbsenceParPersonne> listeAbsences = absenceDao.afficherAbsencesPersonne(utilisateurId);
 
-		req.setAttribute("afficherConge", listeAbsences);
+		String typeConge = null;
 
-		RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/visualisationabsence.jsp");
+		for (AbsenceParPersonne liste : listeAbsences) {
+			typeConge = absenceDao.RecupererTypeConges(liste.getId());
+		}
+
+		Utilisateur utilisateur = utilisateurDao.getUtilisateur(utilisateurId);
+
+		req.setAttribute("afficherConge", listeAbsences);
+		req.setAttribute("afficherTypeConge", typeConge);
+		req.setAttribute("utilisateur", utilisateur);
+
+		RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/visualisationabsence");
 		dispatcher.forward(req, resp);
+	}
+
+	@Override
+	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+
 	}
 
 }

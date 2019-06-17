@@ -77,6 +77,12 @@ public class AbsenceParPersonneDao {
 
 	}
 
+	/**
+	 * méthode qui retourne la liste des absences pour une personne donnée
+	 * 
+	 * @param idUtilisateur
+	 * @return
+	 */
 	public List<AbsenceParPersonne> afficherAbsencesPersonne(int idUtilisateur) {
 
 		List<AbsenceParPersonne> listeAbsences = new ArrayList<>();
@@ -107,6 +113,54 @@ public class AbsenceParPersonneDao {
 			}
 
 			return listeAbsences;
+		} catch (SQLException e) {
+			try {
+				conn.rollback();
+			} catch (SQLException e1) {
+				throw new TechnicalException("Le rollback n'a pas fonctionné", e);
+			}
+			throw new TechnicalException("L'ajout ne s'est pas fait", e);
+		} finally {
+			try {
+				if (statement != null) {
+					statement.close();
+				}
+			} catch (SQLException e) {
+
+				throw new TechnicalException("La fermeture ne s'est pas faite", e);
+			}
+		}
+
+	}
+
+	/**
+	 * méthode qui récupère le type de congés en String
+	 * 
+	 * @param idUtilisateur
+	 * @return
+	 */
+	public String RecupererTypeConges(int idConge) {
+
+		Connection conn = ConnexionManager.getInstance();
+		PreparedStatement statement = null;
+		ResultSet curseur = null;
+		String typeConge = null;
+
+		try {
+			conn.setAutoCommit(false);
+			statement = conn.prepareStatement("SELECT * FROM absence WHERE id = ?");
+			statement.setInt(1, idConge);
+
+			curseur = statement.executeQuery();
+
+			conn.commit();
+
+			if (curseur.next()) {
+				typeConge = curseur.getString("type_conge");
+
+			}
+
+			return typeConge;
 		} catch (SQLException e) {
 			try {
 				conn.rollback();
