@@ -1,3 +1,4 @@
+<%@ page language="java" pageEncoding="UTF-8" isELIgnored="false"%>
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
 	integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
 	crossorigin="anonymous"></script>
@@ -14,7 +15,7 @@
 <script
 	src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
 
-<!-- excecution de la méthode pour remplacer les icons Feather par les svg correspondant -->
+<!-- excecution de la mÃ©thode pour remplacer les icons Feather par les svg correspondant -->
 <script>
 	feather.replace();
 </script>

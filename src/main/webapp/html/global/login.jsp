@@ -1,3 +1,4 @@
+<%@ page language="java" pageEncoding="UTF-8" isELIgnored="false"%>
 <!DOCTYPE html>
 <html lang="fr">
 
@@ -32,7 +33,7 @@
             <img class="mb-4 logo" src="https://pbs.twimg.com/profile_images/810865682564911104/A3CM9RWz_400x400.jpg"
                 alt="logo gda">
             <h1 class="h3 mb-3 ">Connexion</h1>
-            <p>Gestion des abscences, congés...</p>
+            <p>Gestion des abscences, congÃ©s...</p>
         </div>
 
         <div class="form-label-group">
