@@ -44,7 +44,7 @@ public class AfficherCongeController extends HttpServlet {
 		req.setAttribute("afficherTypeConge", typeConge);
 		req.setAttribute("utilisateur", utilisateur);
 
-		RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/visualisationabsence");
+		RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/gestion-absences.jsp");
 		dispatcher.forward(req, resp);
 	}
 

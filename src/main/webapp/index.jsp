@@ -6,6 +6,7 @@
 
 <head>
 <meta charset="UTF-8">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta http-equiv="X-UA-Compatible" content="ie=edge">
@@ -19,8 +20,8 @@
 	href="https://fonts.googleapis.com/css?family=Poppins:400,700|Roboto:400,700&display=swap"
 	rel="stylesheet">
 
-<link rel="stylesheet" href="../../css/font.css">
-<link rel="stylesheet" href="../../css/global.css">
+<link rel="stylesheet" href="css/font.css">
+<link rel="stylesheet" href="css/global.css">
 
 <title>GDA - Accueil</title>
 
@@ -36,23 +37,23 @@
 
 
 	<% 
-		if (monProfil == "manager") { 
+		if (((String)request.getAttribute("monProfil")).equals("manager")) { 
 		%>
-	<%@ include file="WEB-INF/manager/menu.html"%>
+	<%@ include file="html/manager/menu.jsp"%>
 	<% 
-		} else if (monProfil == "employe") {
+		} else {
 		%>
-	<%@ include file="WEB-INF/employe/menu.html"%>
-	} %>
+	<%@ include file="html/employe/menu.jsp"%>
+	<% } %>
 
 
 
 
 	<%-- include du contenu --%>
-	<%@ include file="WEB-INF/global/index.html"%>
+	<%@ include file="html/global/index.jsp"%>
 
 	<%-- chargement des js de JQuery et Bootsrap et feather --%>
-	<%@ include file="WEB-INF/global/load.html"%>
+	<%@ include file="html/global/load.jsp"%>
 
 </body>
 

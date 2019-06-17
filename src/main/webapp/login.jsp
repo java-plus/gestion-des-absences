@@ -14,8 +14,8 @@
     <link href="https://fonts.googleapis.com/css?family=Poppins:400,700|Roboto:400,700&display=swap" rel="stylesheet">
 
 
-    <link rel="stylesheet" href="../../css/main.css">
-    <link rel="stylesheet" href="../../css/font.css">
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/font.css">
 
     <title>GDA - Connexion</title>
 
@@ -29,7 +29,7 @@
 
 
 
-    <form class="form-signin">
+    <form class="form-signin" method="post" action="http://localhost:8080/gda/connexion">
         <div class="text-center mb-4">
             <img class="mb-4 logo" src="https://pbs.twimg.com/profile_images/810865682564911104/A3CM9RWz_400x400.jpg"
                 alt="logo gda">
@@ -58,7 +58,7 @@
 
 
 		<%-- chargement des js de JQuery et Bootsrap et feather --%>
-	<%@ include file="WEB-INF/global/load.html"%>
+	<%@ include file="html/global/load.jsp"%>
 
 </body>
 
