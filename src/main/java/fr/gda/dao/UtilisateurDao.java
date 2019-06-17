@@ -4,6 +4,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 import fr.gda.connexion.ConnexionManager;
 import fr.gda.exception.TechnicalException;
@@ -215,10 +217,11 @@ public class UtilisateurDao {
 	 * @param email
 	 * @return
 	 */
-	public Utilisateur getUtilisateurs() {
+	public List<Utilisateur> getUtilisateurs() {
 		Connection conn = ConnexionManager.getInstance();
 		PreparedStatement statement = null;
 		ResultSet curseur = null;
+		List<Utilisateur> user = new ArrayList<>();
 
 		try {
 			conn.setAutoCommit(false);
@@ -247,19 +250,23 @@ public class UtilisateurDao {
 				int rttPris = curseur.getInt("rtt_restant");
 				int idHierarchie = curseur.getInt("id_hierarchie");
 
-				if (profil.equals("employe")) {
+				if (profil.equals("employé")) {
 					utilisateur = new Employe(id, nom, prenom, profil, email, mdp, isAdminBool, congeRestant,
 							rttRestant, congePris, rttPris, idHierarchie);
+
+					user.add(utilisateur);
 				} else {
 					utilisateur = new Manager(id, nom, prenom, profil, email, mdp, isAdminBool, congeRestant,
 							rttRestant, congePris, rttPris, idHierarchie);
-				}
 
+					user.add(utilisateur);
+
+				}
 			}
 
 			conn.commit();
 
-			return utilisateur;
+			return user;
 		} catch (SQLException e) {
 			try {
 				conn.rollback();

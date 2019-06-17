@@ -77,7 +77,7 @@ public class AbsenceParPersonneDao {
 		}
 	}
 
-	public void addJourFerie(String date, String statut, String motif) {
+	public void addJourFerie(String date, String motif) {
 
 		// List<AbsenceParPersonne> jourFerie = new ArrayList<>();
 
@@ -90,18 +90,62 @@ public class AbsenceParPersonneDao {
 		try {
 			conn.setAutoCommit(false);
 			statement = conn.prepareStatement(
-					"INSERT INTO absence_personne (id, id_util, id_absence, date_debut, date_fin, statut, motif) VALUES (?, ?, ?, ?, ?, ?, ?)");
+					"INSERT INTO absence_personne (id_util, id_absence, date_debut, date_fin, statut, motif) VALUES (?, ?, ?, ?, ?, ?)");
 
 			for (Utilisateur user : users) {
-				statement.setInt(2, user.getId());
-				statement.setInt(3, 6);
+				statement.setInt(1, user.getId());
+				statement.setInt(2, 6);
+				statement.setString(3, date);
 				statement.setString(4, date);
-				statement.setString(5, date);
-				statement.setString(6, statut);
-				statement.setString(7, motif);
+				statement.setString(5, "VALIDEE");
+				statement.setString(6, motif);
+
+				statement.executeUpdate();
 			}
 
-			statement.executeUpdate();
+			conn.commit();
+		} catch (SQLException e) {
+			try {
+				conn.rollback();
+			} catch (SQLException e1) {
+				throw new TechnicalException("Le rollback n'a pas fonctionné", e);
+			}
+			throw new TechnicalException("L'ajout ne s'est pas fait", e);
+		} finally {
+			try {
+				if (statement != null) {
+					statement.close();
+				}
+			} catch (SQLException e) {
+
+				throw new TechnicalException("La fermeture ne s'est pas faite", e);
+			}
+		}
+	}
+
+	public void addRttEmployeur(String date, String motif) {
+
+		Connection conn = ConnexionManager.getInstance();
+		PreparedStatement statement = null;
+		// ResultSet curseur = null;
+		UtilisateurDao userDao = new UtilisateurDao();
+		List<Utilisateur> users = (List<Utilisateur>) userDao.getUtilisateurs();
+
+		try {
+			conn.setAutoCommit(false);
+			statement = conn.prepareStatement(
+					"INSERT INTO absence_personne (id_util, id_absence, date_debut, date_fin, statut, motif) VALUES (?, ?, ?, ?, ?, ?)");
+
+			for (Utilisateur user : users) {
+				statement.setInt(1, user.getId());
+				statement.setInt(2, 6);
+				statement.setString(3, date);
+				statement.setString(4, date);
+				statement.setString(5, "INITIALE");
+				statement.setString(6, motif);
+
+				statement.executeUpdate();
+			}
 
 			conn.commit();
 		} catch (SQLException e) {
