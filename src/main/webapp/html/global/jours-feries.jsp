@@ -1,11 +1,12 @@
+<%@ page language="java" pageEncoding="UTF-8" isELIgnored="false"%>
 <div class="container my-5">
 
-	<h1>Jours fériés et RTT employeurs</h1>
+	<h1>Jours fÃ©riÃ©s et RTT employeurs</h1>
 
 	<div class="row p-2">
 		<form class=" form-inline">
 			<div class="form-group">
-				<label for="inputPassword6">Année :</label> <select id="inputState" class="form-control">
+				<label for="inputPassword6">AnnÃ©e :</label> <select id="inputState" class="form-control">
 					<option>2019</option>
 					<option>2018</option>
 					<option>2017</option>
@@ -18,7 +19,7 @@
 	<div class="row p-2 my-1 bg-primary ">
 
 		<div class="col-sm-3 d-flex align-items-center">
-			<div>Date de début</div>
+			<div>Date de dÃ©but</div>
 			<div class="btn-group btn-group-sm" role="group" aria-label="...">
 				<button type="button" class="btn btn-secondary">
 					<i data-feather="chevron-up"></i>
@@ -129,5 +130,5 @@
 
 <div class="container">
 	<button class="btn btn-lg btn-outline-primary" type="button">Ajouter
-		un jour férié ou un RTT employeur</button>
+		un jour fÃ©riÃ© ou un RTT employeur</button>
 </div>

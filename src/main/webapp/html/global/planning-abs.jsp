@@ -1,3 +1,4 @@
+<%@ page language="java" pageEncoding="UTF-8" isELIgnored="false"%>
 <div class="container my-5">
 
         <h1>Planning des absences</h1>
@@ -48,7 +49,6 @@
             <div class="col-sm-3">valeur de fin</div>
             <div class="col-sm-3">valeur de type</div>
             <div class="col-sm-2">valeur de statut</div>
-            <div class="col-sm-1"><i data-feather="trash">supprimer</i></div>
         </div>
 
 
