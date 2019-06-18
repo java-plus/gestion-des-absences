@@ -75,8 +75,8 @@
 				if (liste.getStatut().equals("INITIALE")) {
 			%>
 			<a href="#"> <i data-feather="edit-2">modifier</i></a>
-			<button type="button" class="btn btn-dark" data-toggle="modal"
-				data-target="#modal" id="supprimer">
+			<button type="button" class="btn btn-dark btn-supp" data-toggle="modal"
+				data-target="#modal" id="<%=liste.getId()%>">
 				<i data-feather="trash">supprimer</i>
 			</button>
 			<%
@@ -116,8 +116,7 @@
 							<div class="modal-footer">
 								<a href="afficherConges"><button type="button"
 										class="btn btn-secondary">Annuler</button></a> 
-										<a href="afficherConges?idsup=<%=liste.getId()%>"><button type="button"
-										class="btn btn-success" data-dismiss="modal" name="suppressionConges">Confirmer</button></a>
+										<button type="button"class="btn btn-success" data-dismiss="modal" name="suppressionConges">Confirmer</button>
 						</form>
 					</div>
 				</div>
@@ -150,6 +149,12 @@
 
 <script type="text/javascript">
 	$('#modal').on('shown.bs.modal', function() {
-		$('#supprimer').trigger('focus')
+		$('#supprimer').trigger('focus');
 	})
+	
+	$( ".btn-supp" ).click(function() {
+		monBouton ="a href=' + 12 +   '>bountkjfnkfnr</a> "
+  		$('.modal-body').append(monBouton);
+	});
+	
 </script>
