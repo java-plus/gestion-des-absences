@@ -21,7 +21,7 @@
 			<div class="collapse navbar-collapse" id="navbarNav">
 
 				<ul class="navbar-nav text-uppercase">
-					<li class="nav-item active"><a class="nav-link" href="index.jsp">Accueil<span
+					<li class="nav-item active"><a class="nav-link" href="../login.jsp">Accueil<span
 							class="sr-only">(current)</span></a></li>
 					<li class="nav-item"><a class="nav-link" href="afficherConges">Gestion
 							des absences</a></li>

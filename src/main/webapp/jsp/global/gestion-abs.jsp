@@ -1,4 +1,4 @@
-<%@	page import="java.util.List, fr.gda.controller.*, fr.gda.filter.*, fr.gda.model.*" %>
+<%@	page import="java.util.List, fr.gda.controller.*, fr.gda.filter.*, fr.gda.model.*, fr.gda.dao.*" %>
 <%@ page language="java" pageEncoding="UTF-8" isELIgnored="false"%>
 
 
@@ -21,19 +21,19 @@
 			</div>
 		</div>
 		<div class="col-sm-3">
-			type
+			Type
 			<div>
 				<i data-feather="chevron-up"></i><i data-feather="chevron-down"></i>
 			</div>
 		</div>
 		<div class="col-sm-2">
-			statut
+			Statut
 			<div>
 				<i data-feather="chevron-up"></i><i data-feather="chevron-down"></i>
 			</div>
 		</div>
 		<div class="col-sm-1">
-			actions
+			Actions
 			<div>
 				<i data-feather="chevron-up"></i><i data-feather="archevronrow-down"></i>
 			</div>
@@ -43,9 +43,14 @@
 	<% List<AbsenceParPersonne> listeAbsences  = (List<AbsenceParPersonne>)request.getAttribute("afficherConge");
 		String typeConge = (String)request.getAttribute("afficherTypeConge"); 
 		Utilisateur utilisateur = (Utilisateur) request.getAttribute("utilisateur");
+		AbsenceParPersonneDao absenceDao = new AbsenceParPersonneDao();
 		if(listeAbsences != null){
 		for(AbsenceParPersonne liste : listeAbsences) {
-			
+			typeConge = absenceDao.RecupererTypeConges(liste.getIdAbsence());
+			if(typeConge.equals("férié") || typeConge.equals("RTT employeur")){
+				continue; 
+			}
+
 	%>
 	
 
@@ -55,7 +60,16 @@
 		<div class="col-sm-3"><%=typeConge %></div>
 		<div class="col-sm-2"><%=liste.getStatut() %></div>
 		<div class="col-sm-1">
-			<i data-feather="trash"> voir / modifier /supprimer</i>
+			 
+			
+			<% if(liste.getStatut().equals("INITIALE")){%>
+				<a href="#"><i data-feather="trash" >modifier</i></a>
+				<a href="#"><i data-feather="trash" href="#">supprimer</i> </a>
+				<%;
+			}	else  if(liste.getStatut().equals("EN_ATTENTE") || liste.getStatut().equals("VALIDEE")){%>
+				<a href="#"><i data-feather="trash" href="#">supprimer</i></a> <%;
+			}
+				%>
 		</div>
 	</div>
 	
