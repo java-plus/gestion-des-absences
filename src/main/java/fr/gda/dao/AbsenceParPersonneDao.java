@@ -14,6 +14,7 @@ import org.slf4j.LoggerFactory;
 import fr.gda.connexion.ConnexionManager;
 import fr.gda.exception.TechnicalException;
 import fr.gda.model.AbsenceParPersonne;
+import fr.gda.model.TraitementMailManager;
 import fr.gda.model.Utilisateur;
 
 /**
@@ -55,7 +56,6 @@ public class AbsenceParPersonneDao {
 				Integer idUtil = curseur.getInt("id_util");
 				Integer idAbsence = curseur.getInt("id_absence");
 				LocalDate dateDebut = curseur.getDate("date_debut").toLocalDate();
-				;
 				LocalDate dateFin = curseur.getDate("date_fin").toLocalDate();
 				String statut = curseur.getString("statut");
 				String motif = curseur.getString("motif");
@@ -65,6 +65,62 @@ public class AbsenceParPersonneDao {
 			}
 
 			return listeDemandesEnStatutInitiale;
+		} catch (SQLException e) {
+			try {
+				conn.rollback();
+			} catch (SQLException e1) {
+				throw new TechnicalException("Le rollback n'a pas fonctionné", e);
+			}
+			throw new TechnicalException("La sélection s'est pas faite", e);
+		} finally {
+			try {
+				if (statement != null) {
+					statement.close();
+				}
+			} catch (SQLException e) {
+
+				throw new TechnicalException("La fermeture ne s'est pas faite", e);
+			}
+		}
+
+	}
+
+	/**
+	 * Récupération des infos pour composition de mail au manager
+	 * 
+	 * @param idAbsence
+	 * 
+	 */
+	public TraitementMailManager lireDemandesPourMailManager(Integer idAbsence) {
+
+		Connection conn = ConnexionManager.getInstance();
+		PreparedStatement statement = null;
+		ResultSet curseur = null;
+
+		try {
+			conn.setAutoCommit(false);
+			statement = conn.prepareStatement(
+					"select AP.id, AP.date_debut, AP.date_fin, UT.prenom, UT.nom, HU.mail, type_conge from absence_personne AP inner join utilisateur UT on UT.id = AP.id_util inner join absence A on A.id = AP.id_absence inner join utilisateur HU on HU.id = UT.id_hierarchie WHERE AP.id = ?");
+			statement.setInt(1, idAbsence);
+			curseur = statement.executeQuery();
+
+			conn.commit();
+
+			if (curseur.next()) {
+				Integer apId = curseur.getInt("AP.id");
+				LocalDate dateDebut = curseur.getDate("AP.date_debut").toLocalDate();
+				LocalDate dateFin = curseur.getDate("AP.date_fin").toLocalDate();
+				String utPrenom = curseur.getString("UT.prenom");
+				String utNom = curseur.getString("UT.nom");
+				String huMail = curseur.getString("HU.mail");
+				String typeConge = curseur.getString("type_conge");
+
+				TraitementMailManager absencePourMail = new TraitementMailManager(apId, dateDebut, dateFin, utPrenom,
+						utNom, huMail, typeConge);
+				return absencePourMail;
+			} else
+				return null;
+
 		} catch (SQLException e) {
 			try {
 				conn.rollback();

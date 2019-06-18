@@ -151,7 +151,10 @@ public class UtilisateurDao {
 	/**
 	 * Récupération du nombre de jours restants de congés par type"
 	 * 
-	 * @ param idUtilisateur : Id de l'utilisateur typeConge : Type de congé
+	 * @param idUtilisateur
+	 *            : Id de l'utilisateur
+	 * @param typeConge
+	 *            : Type de congé
 	 * 
 	 * @return Entier représentant le nombre de jours de congés d'un type
 	 */

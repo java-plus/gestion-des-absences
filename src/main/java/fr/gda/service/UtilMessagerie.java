@@ -1,5 +1,6 @@
 package fr.gda.service;
 
+import java.time.format.DateTimeFormatter;
 import java.util.Properties;
 
 import javax.mail.Message;
@@ -7,6 +8,9 @@ import javax.mail.Session;
 import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
+
+import fr.gda.dao.AbsenceParPersonneDao;
+import fr.gda.model.TraitementMailManager;
 
 /**
  * Classe de gestion d'envoi par messagerie
@@ -22,7 +26,7 @@ public class UtilMessagerie {
 	static final String FROMNAME = "Gestion des absenses";
 
 	/** Destinataire */
-	static String to = "pat.allardin@gmail.com";
+	// static String to = "pat.allardin@gmail.com";
 
 	/** Nom d'utilisateur SMTP */
 	static final String SMTP_USERNAME = "be4a2c514ea2aa8eb96ab8bb776ac024";
@@ -43,15 +47,13 @@ public class UtilMessagerie {
 	/** Sujet de mail */
 	static final String SUBJECT = "Une demande de congé a été déposée";
 
-	/** Corps de mail */
-	static String body = String.join(System.getProperty("line.separator"), "<h1>Demande de congé</h1>",
-			"<p>Une demande de congé a été réalisée par ");
-
 	/** Méthode d'envoi de mail au manager */
 	public static void EnvoyerMailManager(Integer demande, Integer demandeur, Integer typeAbsence,
 			Long nombreJoursDemandes) throws Exception {
 		// Récupération des infos de mail du manager, nom de demandeur, type
 		// d'absence et nombre de jours de la demande, en fonction de la demande
+		AbsenceParPersonneDao absenceParPersonneDao = new AbsenceParPersonneDao();
+		TraitementMailManager traitementMailManager = absenceParPersonneDao.lireDemandesPourMailManager(demande);
 
 		// Création des propriétés
 		Properties props = System.getProperties();
@@ -66,9 +68,19 @@ public class UtilMessagerie {
 		// Création du message
 		MimeMessage msg = new MimeMessage(session);
 		msg.setFrom(new InternetAddress(FROM, FROMNAME));
-		msg.setRecipient(Message.RecipientType.TO, new InternetAddress(to));
+		msg.setRecipient(Message.RecipientType.TO, new InternetAddress(traitementMailManager.getEmailManager()));
 		msg.setSubject(SUBJECT);
-		msg.setContent(body, "text/html");
+		String body = String.join(System.getProperty("line.separator"), "<h1>Demande de congé</h1>",
+				"<p>Une demande de congé a été réalisée par ");
+		body += traitementMailManager.getPrenomDemandeur() + " " + traitementMailManager.getNomDemandeur() + ".<br>";
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+		body += "Cette demande est de type " + traitementMailManager.getTypeConge() + ", du "
+				+ traitementMailManager.getDateDebut().format(formatter).toString() + " au "
+				+ traitementMailManager.getDateFin().format(formatter).toString() + ".<br>";
+		body += "Nombre de jours : " + nombreJoursDemandes + ".<br>";
+		body += "<a href='http://localhost:8080/gda/login.jsp'>Gestion de congés</a>";
+
+		msg.setContent(body, "text/html; charset=UTF-8");
 
 		// Création d'entête de message
 		msg.setHeader("X-SES-CONFIGURATION-SET", CONFIGSET);

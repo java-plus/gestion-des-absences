@@ -49,6 +49,8 @@ public class TraitementDemandes {
 						absenceParPersonneDao.modifierStatut(abs.getId(), "EN_ATTENTE_VALIDATION");
 						utilisateurDao.retirerJoursParTypeConge(abs.getIdUtil(), abs.getIdAbsence(),
 								nombreJoursRestants - nombreJoursDemandes);
+						// absenceParPersonneDao.lireDemandesPourMailManager(abs.getId(),
+						// nombreJoursDemandes);
 						try {
 							UtilMessagerie.EnvoyerMailManager(abs.getId(), abs.getIdUtil(), abs.getIdAbsence(),
 									nombreJoursDemandes);
