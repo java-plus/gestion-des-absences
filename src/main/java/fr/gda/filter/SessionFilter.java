@@ -37,7 +37,7 @@ public class SessionFilter implements Filter {
 
 		if (session == null) {
 
-			rep.sendRedirect("/gda/gdaConnexion.jsp");
+			rep.sendRedirect("/gda/login.jsp");
 		} else {
 			chain.doFilter(request, response);
 		}

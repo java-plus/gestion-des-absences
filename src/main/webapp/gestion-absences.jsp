@@ -14,8 +14,8 @@
 
     <link href="https://fonts.googleapis.com/css?family=Poppins:400,700|Roboto:400,700&display=swap" rel="stylesheet">
 
-    <link rel="stylesheet" href="css/font.css">
-    <link rel="stylesheet" href="css/global.css">
+    <link rel="stylesheet" href="../css/font.css">
+    <link rel="stylesheet" href="../css/global.css">
 
     <title>GDA - Gestion des absences</title>
 

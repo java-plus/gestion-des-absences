@@ -1,4 +1,6 @@
 <%@ page language="java" pageEncoding="UTF-8" isELIgnored="false"%>
+
+
 <div class="container-fluid m-0 p-0">
 
 	<header>
@@ -19,7 +21,7 @@
 			<div class="collapse navbar-collapse" id="navbarNav">
 
 				<ul class="navbar-nav text-uppercase">
-					<li class="nav-item active"><a class="nav-link" href="../index.jsp">Accueil<span
+					<li class="nav-item active"><a class="nav-link" href="index.jsp">Accueil<span
 							class="sr-only">(current)</span></a></li>
 					<li class="nav-item"><a class="nav-link" href="controller/afficherConges">Gestion
 							des absences</a></li>
