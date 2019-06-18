@@ -1,4 +1,6 @@
 <%@ page language="java" pageEncoding="UTF-8" isELIgnored="false"%>
+
+
 <div class="container-fluid m-0 p-0">
 
 	<header>
@@ -12,24 +14,20 @@
 			</button>
 
 			<a class="navbar-brand" href="../index.jsp"><img
-				src="img/logo.jpg" width="30" height="30" alt="Accueil">
+				src="../img/logo.jpg"
+				width="30" height="30" alt="Accueil">
 			</a>
 
 			<div class="collapse navbar-collapse" id="navbarNav">
 
 				<ul class="navbar-nav text-uppercase">
-					<li class="nav-item active"><a class="nav-link"
-						href="../index.jsp">Accueil<span class="sr-only">(current)</span></a></li>
-					<li class="nav-item"><a class="nav-link" href="controller/afficherConges">Gestion
+					<li class="nav-item active"><a class="nav-link" href="index.jsp">Accueil<span
+							class="sr-only">(current)</span></a></li>
+					<li class="nav-item"><a class="nav-link" href="afficherConges">Gestion
 							des absences</a></li>
 					<li class="nav-item"><a class="nav-link" href="planning-abs.jsp">Planning
 							des absences</a></li>
-					<li class="nav-item"><a class="nav-link" href="#">Validation
-							demandes</a></li>
-					<li class="nav-item"><a class="nav-link" href="#">Vues
-							synthétiques</a></li>
-					<li class="nav-item"><a class="nav-link" href="jours-feries.jsp">Jours
-							fériés</a></li>
+					<li class="nav-item"><a class="nav-link" href="jours-feries.jsp">Jours fériés</a></li>
 				</ul>
 
 			</div>
