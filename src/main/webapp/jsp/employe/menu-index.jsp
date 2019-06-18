@@ -1,3 +1,4 @@
+<%@ page language="java" pageEncoding="UTF-8" isELIgnored="false"%>
 <div class="container-fluid m-0 p-0">
 
 	<header>
@@ -10,21 +11,20 @@
 				<span class="navbar-toggler-icon"></span>
 			</button>
 
-			<a class="navbar-brand" href="../../../index.jsp"><img
-				src="../../img/logo.jpg"
+			<a class="navbar-brand" href="index.jsp"><img src="img/logo.jpg"
 				width="30" height="30" alt="Accueil">
 			</a>
 
 			<div class="collapse navbar-collapse" id="navbarNav">
 
 				<ul class="navbar-nav text-uppercase">
-					<li class="nav-item active"><a class="nav-link" href="../../../index.jsp">Accueil<span
+					<li class="nav-item active"><a class="nav-link" href="index.jsp">Accueil<span
 							class="sr-only">(current)</span></a></li>
-					<li class="nav-item"><a class="nav-link" href="#">Gestion
+					<li class="nav-item"><a class="nav-link" href="controller/afficherConges">Gestion
 							des absences</a></li>
-					<li class="nav-item"><a class="nav-link" href="#">Planning
+					<li class="nav-item"><a class="nav-link" href="controller/planning-abs.jsp">Planning
 							des absences</a></li>
-					<li class="nav-item"><a class="nav-link" href="#">Jours fériés</a></li>
+					<li class="nav-item"><a class="nav-link" href="controller/jours-feries.jsp">Jours fériés</a></li>
 				</ul>
 
 			</div>
@@ -34,7 +34,7 @@
 					<i data-feather="user"></i>
 				</div>
 				<div>
-					bonjour <span class="user-name">Untel</span>
+					bonjour <span class="user-name"><%=(String)session.getAttribute("prenom")%></span>
 				</div>
 
 				<button class="btn btn-sm btn-none" type="button">

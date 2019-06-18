@@ -1,3 +1,4 @@
+<%@ page language="java" pageEncoding="UTF-8" isELIgnored="false"%>
 <div class="container my-5">
 
 	<h1>Gestion des absences</h1>
@@ -34,6 +35,7 @@
 			</div>
 		</div>
 	</div>
+	
 
 	<div class="row p-2">
 		<div class="col-sm-3">valeur debut</div>

@@ -1,3 +1,4 @@
+<%@ page language="java" pageEncoding="UTF-8" isELIgnored="false"%>
 <!DOCTYPE html>
 <html lang="fr">
 
@@ -53,7 +54,7 @@
                             <a class="nav-link" href="#">Validation demandes</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Vues synthétiques</a>
+                            <a class="nav-link" href="#">Vues synthÃ©tiques</a>
                         </li>
 
                     </ul>
@@ -127,7 +128,7 @@
 
     <div class="container my-5">
         <div>Soldes des compteurs : </div>
-        <div>Congés payés</div>
+        <div>CongÃ©s payÃ©s</div>
         <div>RTT</div>
     </div>
 
