@@ -59,8 +59,7 @@
 		%>
 
 		<div>
-			<p class="text-danger text-center">Vos identifiants de connexion sont
-				incorrects !
+			<p class="text-danger text-center">Vos informations d'authentification sont invalides.
 			<p>
 		</div>
 
