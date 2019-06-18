@@ -11,7 +11,7 @@
 				<span class="navbar-toggler-icon"></span>
 			</button>
 
-			<a class="navbar-brand" href="../index.jsp"><img
+			<a class="navbar-brand" href="index.jsp"><img
 				src="img/logo.jpg" width="30" height="30" alt="Accueil">
 			</a>
 
@@ -19,16 +19,16 @@
 
 				<ul class="navbar-nav text-uppercase">
 					<li class="nav-item active"><a class="nav-link"
-						href="../index.jsp">Accueil<span class="sr-only">(current)</span></a></li>
+						href="index.jsp">Accueil<span class="sr-only">(current)</span></a></li>
 					<li class="nav-item"><a class="nav-link" href="controller/afficherConges">Gestion
 							des absences</a></li>
-					<li class="nav-item"><a class="nav-link" href="planning-abs.jsp">Planning
+					<li class="nav-item"><a class="nav-link" href="controller/planning-abs.jsp">Planning
 							des absences</a></li>
-					<li class="nav-item"><a class="nav-link" href="#">Validation
+					<li class="nav-item"><a class="nav-link" href="controller/#">Validation
 							demandes</a></li>
-					<li class="nav-item"><a class="nav-link" href="#">Vues
+					<li class="nav-item"><a class="nav-link" href="controller/#">Vues
 							synthétiques</a></li>
-					<li class="nav-item"><a class="nav-link" href="jours-feries.jsp">Jours
+					<li class="nav-item"><a class="nav-link" href="controller/jours-feries.jsp">Jours
 							fériés</a></li>
 				</ul>
 

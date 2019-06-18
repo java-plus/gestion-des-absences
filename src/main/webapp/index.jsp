@@ -38,12 +38,12 @@
 		if (((String)request.getAttribute("monProfil")).equals("manager")) { 
 		%>
 
-	<%@ include file="html/manager/menu.jsp"%>
+	<%@ include file="html/manager/menu-index.jsp"%>
 
 	<% 
 		} else {
 		%>
-	<%@ include file="html/employe/menu.jsp"%>
+	<%@ include file="html/employe/menu-index.jsp"%>
 	<% } %>
 
 
