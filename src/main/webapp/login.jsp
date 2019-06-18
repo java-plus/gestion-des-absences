@@ -26,6 +26,7 @@
 
 
 
+
     <form class="form-signin" method="post" action="http://localhost:8080/gda/connexion">
         <div class="text-center mb-4">
             <img class="mb-4 logo" src="https://pbs.twimg.com/profile_images/810865682564911104/A3CM9RWz_400x400.jpg"
@@ -53,11 +54,8 @@
 
 
 
-
-
-<!-- 		chargement des js de JQuery et Bootsrap et feather -->
-	<%@ include file="/html/global/load.html"%>
-
+		<%-- chargement des js de JQuery et Bootsrap et feather --%>
+	<%@ include file="html/global/load.jsp"%>
 
 
 </body>
