@@ -3,6 +3,8 @@ package fr.gda.model;
 import java.util.Date;
 
 /**
+ * Classe qui gère une Absence par Personne
+ * 
  * @author KHARBECHE Bilel
  *
  */
@@ -10,6 +12,18 @@ public class AbsenceParPersonne {
 
 	/** id : int */
 	private int id;
+	/** idUtil : int */
+	private int idUtil;
+	/** idAbsence : int */
+	private int idAbsence;
+	/** dateDebut : Date */
+	private Date dateDebut;
+	/** dateFin : Date */
+	private Date dateFin;
+	/** statut : String */
+	private String statut;
+	/** motif : String */
+	private String motif;
 
 	/**
 	 * Constructeur
@@ -33,19 +47,6 @@ public class AbsenceParPersonne {
 		this.statut = statut;
 		this.motif = motif;
 	}
-
-	/** idUtil : int */
-	private int idUtil;
-	/** idAbsence : int */
-	private int idAbsence;
-	/** dateDebut : Date */
-	private Date dateDebut;
-	/** dateFin : Date */
-	private Date dateFin;
-	/** statut : String */
-	private String statut;
-	/** motif : String */
-	private String motif;
 
 	/**
 	 * Getter

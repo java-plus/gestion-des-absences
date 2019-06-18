@@ -36,29 +36,29 @@ public class ConnexionController extends HttpServlet {
 
 		boolean connexion = utilisateurDao.validerMdp(email, password);
 
+		String monProfil = null;
+
 		if (connexion) {
 			HttpSession session = req.getSession(true);
 
 			if (utilisateurDao.validerProfil(email).equals("employé")) {
 				Employe employe = utilisateurDao.getEmploye(email);
-				if (employe.getIsAdmin()) {
-					RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/admin");
-					dispatcher.forward(req, resp);
-					session.setAttribute("utilisateurId", employe.getId());
-					session.setAttribute("prenom", employe.getPrenom());
-					session.setAttribute("profil", employe.getProfil());
-					session.setAttribute("isAdmin", employe.getIsAdmin());
-				} else {
-					RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/employe");
-					dispatcher.forward(req, resp);
-					session.setAttribute("utilisateurId", employe.getId());
-					session.setAttribute("prenom", employe.getPrenom());
-					session.setAttribute("profil", employe.getProfil());
-					session.setAttribute("isAdmin", employe.getIsAdmin());
-				}
+				monProfil = "employe";
+				req.setAttribute("monProfil", monProfil);
+
+				session.setAttribute("utilisateurId", employe.getId());
+				session.setAttribute("prenom", employe.getPrenom());
+				session.setAttribute("profil", employe.getProfil());
+				session.setAttribute("isAdmin", employe.getIsAdmin());
+
+				RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/index.jsp");
+				dispatcher.forward(req, resp);
+
 			} else if (utilisateurDao.validerProfil(email).equals("manager")) {
 				Manager manager = utilisateurDao.getManager(email);
-				RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/manager");
+				monProfil = "manager";
+				req.setAttribute("monProfil", monProfil);
+				RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/index.jsp");
 				dispatcher.forward(req, resp);
 				session.setAttribute("utilisateurId", manager.getId());
 				session.setAttribute("prenom", manager.getPrenom());
@@ -67,10 +67,11 @@ public class ConnexionController extends HttpServlet {
 			}
 
 		} else {
-			RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/login");
+			RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/login.jsp");
 			dispatcher.forward(req, resp);
 
 		}
+
 	}
 
 }
