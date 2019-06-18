@@ -29,8 +29,6 @@
 
 <body>
 
-
-
 	<%-- include du header manager ou employe
 		en fonction du profil de l'utilisateur on charge le menu correspondant
 		--%>
@@ -39,21 +37,25 @@
 	<% 
 		if (((String)request.getAttribute("monProfil")).equals("manager")) { 
 		%>
-	<%@ include file="html/manager/menu.jsp"%>
+
+	<%@ include file="jsp/manager/menu-index.jsp"%>
+
 	<% 
 		} else {
 		%>
-	<%@ include file="html/employe/menu.jsp"%>
+	<%@ include file="jsp/employe/menu-index.jsp"%>
 	<% } %>
 
 
 
 
 	<%-- include du contenu --%>
-	<%@ include file="html/global/index.jsp"%>
+
+	<%@ include file="jsp/global/index.jsp"%>
 
 	<%-- chargement des js de JQuery et Bootsrap et feather --%>
-	<%@ include file="html/global/load.jsp"%>
+	<%@ include file="jsp/global/load.jsp"%>
+
 
 </body>
 

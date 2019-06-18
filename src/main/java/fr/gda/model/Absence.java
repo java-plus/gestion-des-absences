@@ -1,6 +1,8 @@
 package fr.gda.model;
 
 /**
+ * Classe qui gère une absence
+ * 
  * @author KHARBECHE Bilel
  *
  */

@@ -31,9 +31,6 @@
 
 
 
-
-
-
 	<form class="form-signin" method="post"
 		action="http://localhost:8080/gda/connexion">
 		<div class="text-center mb-4">
@@ -56,6 +53,15 @@
 				for="password">Mot de passe</label>
 		</div>
 
+    <form class="form-signin" method="post" action="http://localhost:8080/gda/connexion">
+        <div class="text-center mb-4">
+            <img class="mb-4 logo" src="https://pbs.twimg.com/profile_images/810865682564911104/A3CM9RWz_400x400.jpg"
+                alt="logo gda">
+            <h1 class="h3 mb-3 ">Connexion</h1>
+            <p>Gestion des abscences, congés...</p>
+        </div>
+
+
 		<%if(){ %>
 
 		<div>
@@ -74,9 +80,9 @@
 
 
 
+		<%-- chargement des js de JQuery et Bootsrap et feather --%>
+	<%@ include file="jsp/global/load.jsp"%>
 
-	<%-- chargement des js de JQuery et Bootsrap et feather --%>
-	<%@ include file="html/global/load.jsp"%>
 
 </body>
 

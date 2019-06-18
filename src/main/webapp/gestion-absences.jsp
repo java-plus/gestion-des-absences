@@ -14,8 +14,8 @@
 
     <link href="https://fonts.googleapis.com/css?family=Poppins:400,700|Roboto:400,700&display=swap" rel="stylesheet">
 
-    <link rel="stylesheet" href="css/font.css">
-    <link rel="stylesheet" href="css/global.css">
+    <link rel="stylesheet" href="../css/font.css">
+    <link rel="stylesheet" href="../css/global.css">
 
     <title>GDA - Gestion des absences</title>
 
@@ -34,22 +34,25 @@
 	<% 
 		if (((String)session.getAttribute("profil")).equals("manager")) { 
 		%>
-	<%@ include file="html/manager/menu.jsp"%>
+
+	<%@ include file="jsp/manager/menu.jsp"%>
 	<% 
 		} else {
 		%>
-	<%@ include file="html/employe/menu.jsp"%>
+	<%@ include file="jsp/employe/menu.jsp"%>
 	<% } %>
 
 
 
 
 
+
 	<%-- include du contenu --%>
-	<%@ include file="html/global/gestion-abs.jsp"%>
+	<%@ include file="jsp/global/gestion-abs.jsp"%>
 
 	<%-- chargement des js de JQuery et Bootsrap et feather --%>
-	<%@ include file="html/global/load.jsp"%>
+	<%@ include file="jsp/global/load.jsp"%>
+
 
 </body>
 
