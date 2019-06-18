@@ -34,16 +34,16 @@
 
 
 	<% 
-		if (monProfil == "manager") { 
+		if (monProfil.equals("manager")) { 
 		%>
 
 	<%@ include file="html/manager/menu.html"%>
 	<% 
-		} else if (monProfil == "employe") {
+		} else {
 		%>
 	<%@ include file="html/employe/menu.html"%>
 
-	} %>
+	<%} %>
 
 
 
