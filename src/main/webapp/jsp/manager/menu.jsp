@@ -12,7 +12,7 @@
 			</button>
 
 			<a class="navbar-brand" href="../index.jsp"><img
-				src="img/logo.jpg" width="30" height="30" alt="Accueil">
+				src="../img/logo.jpg" width="30" height="30" alt="Accueil">
 			</a>
 
 			<div class="collapse navbar-collapse" id="navbarNav">

@@ -12,7 +12,7 @@
 			</button>
 
 			<a class="navbar-brand" href="../index.jsp"><img
-				src="img/logo.jpg"
+				src="../img/logo.jpg"
 				width="30" height="30" alt="Accueil">
 			</a>
 
