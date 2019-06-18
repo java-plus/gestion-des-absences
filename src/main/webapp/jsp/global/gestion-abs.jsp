@@ -6,40 +6,46 @@
 
 <div class="container my-5">
 
+	<!-- Titres du tableau -->
+
 	<h1>Gestion des absences</h1>
 
 	<div class="row p-2 bg-primary">
 		<div class="col-sm-3 ">
 			Date de début
 			<div>
-				<i data-feather="chevron-up"></i><i data-feather="chevron-down"></i>
+				<!-- 				<i data-feather="chevron-up"></i><i data-feather="chevron-down"></i> -->
 			</div>
 		</div>
 		<div class="col-sm-3">
 			Date de fin
 			<div>
-				<i data-feather="chevron-up"></i><i data-feather="chevron-down"></i>
+				<!-- 				<i data-feather="chevron-up"></i><i data-feather="chevron-down"></i> -->
 			</div>
 		</div>
 		<div class="col-sm-3">
 			Type
 			<div>
-				<i data-feather="chevron-up"></i><i data-feather="chevron-down"></i>
+				<!-- 				<i data-feather="chevron-up"></i><i data-feather="chevron-down"></i> -->
 			</div>
 		</div>
 		<div class="col-sm-2">
 			Statut
 			<div>
-				<i data-feather="chevron-up"></i><i data-feather="chevron-down"></i>
+				<!-- 				<i data-feather="chevron-up"></i><i data-feather="chevron-down"></i> -->
 			</div>
 		</div>
 		<div class="col-sm-1">
 			Actions
 			<div>
-				<i data-feather="chevron-up"></i><i data-feather="archevronrow-down"></i>
+				<!-- 				<i data-feather="chevron-up"></i><i data-feather="archevronrow-down"></i> -->
 			</div>
 		</div>
 	</div>
+
+	<!-- contenu du tableau -->
+
+	<!-- 	boucle qui retourne les résultats pour le tableau -->
 
 	<%
 		List<AbsenceParPersonne> listeAbsences = (List<AbsenceParPersonne>) request.getAttribute("afficherConge");
@@ -54,6 +60,7 @@
 				}
 	%>
 
+	<!-- 	Remplissage des cases du tableau avec les infos de la boucle -->
 
 	<div class="row p-2">
 		<div class="col-sm-3"><%=liste.getDateDebut()%></div>
@@ -62,30 +69,66 @@
 		<div class="col-sm-2"><%=liste.getStatut()%></div>
 		<div class="col-sm-1">
 
+			<!-- 		Affichage des boutons modifier / supprimer en fonction du statut -->
 
 			<%
 				if (liste.getStatut().equals("INITIALE")) {
 			%>
 			<a href="#"> <i data-feather="edit-2">modifier</i></a>
-			</a> <a href="#"><i data-feather="trash" href="#">supprimer</i> </a>
+			<button type="button" class="btn btn-dark" data-toggle="modal"
+				data-target="#modal" id="supprimer">
+				<i data-feather="trash">supprimer</i>
+			</button>
 			<%
 				;
 						} else if (liste.getStatut().equals("EN_ATTENTE") || liste.getStatut().equals("VALIDEE")) {
 			%>
-			<a href="#"><i data-feather="trash" href="#">supprimer</i></a>
+			<a href="afficherConges?idsup=<%=liste.getId()%>"><i
+				data-feather="trash">supprimer</i></a>
 			<%
 				;
 						}
 			%>
+
+
+
+<%
+	}
+	}
+%>
+
+			<!-- 		Modal -->
+
+			<div class="modal" tabindex="-1" role="dialog" id="modal">
+				<div class="modal-dialog" role="document">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h5 class="modal-title text-dark">Confirmation suppression</h5>
+							<button type="button" class="close" data-dismiss="modal"
+								aria-label="Close">
+								<span aria-hidden="true">&times;</span>
+							</button>
+						</div>
+						<div class="modal-body text-muted">
+							<p>Confirmez-vous la suppression de ces congés?</p>
+						</div>
+						<form method="POST" action="afficherConges">
+							<div class="modal-footer">
+								<a href="afficherConges"><button type="button"
+										class="btn btn-secondary">Annuler</button></a> 
+										<a href="afficherConges?idsup=<%=liste.getId()%>"><button type="button"
+										class="btn btn-success" data-dismiss="modal" name="suppressionConges">Confirmer</button></a>
+						</form>
+					</div>
+				</div>
+			</div>
 		</div>
 	</div>
-
-	<%
-		}
-		}
-	%>
+</div>
 
 </div>
+
+<!-- Affichage des congés restants -->
 
 <div class="container">
 	Demander une absence
@@ -103,3 +146,10 @@
 </div>
 
 
+<!-- javascript pour la modal -->
+
+<script type="text/javascript">
+	$('#modal').on('shown.bs.modal', function() {
+		$('#supprimer').trigger('focus')
+	})
+</script>

@@ -46,6 +46,15 @@ public class AfficherCongeController extends HttpServlet {
 
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		AbsenceParPersonneDao absenceDao = new AbsenceParPersonneDao();
+
+		String idCongeString = req.getParameter("");
+		Integer idConge = Integer.parseInt(idCongeString);
+
+		absenceDao.SupprimerConges(idConge);
+
+		RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/gestion-absences.jsp");
+		dispatcher.forward(req, resp);
 
 	}
 
