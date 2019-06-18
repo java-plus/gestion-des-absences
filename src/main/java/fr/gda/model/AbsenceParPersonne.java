@@ -1,6 +1,6 @@
 package fr.gda.model;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 /**
  * Classe qui gère une Absence par Personne
@@ -17,9 +17,9 @@ public class AbsenceParPersonne {
 	/** idAbsence : int */
 	private int idAbsence;
 	/** dateDebut : Date */
-	private Date dateDebut;
+	private LocalDate dateDebut;
 	/** dateFin : Date */
-	private Date dateFin;
+	private LocalDate dateFin;
 	/** statut : String */
 	private String statut;
 	/** motif : String */
@@ -36,7 +36,7 @@ public class AbsenceParPersonne {
 	 * @param statut
 	 * @param motif
 	 */
-	public AbsenceParPersonne(int id, int idUtil, int idAbsence, Date dateDebut, Date dateFin, String statut,
+	public AbsenceParPersonne(int id, int idUtil, int idAbsence, LocalDate dateDebut, LocalDate dateFin, String statut,
 			String motif) {
 		super();
 		this.id = id;
@@ -110,7 +110,7 @@ public class AbsenceParPersonne {
 	 * 
 	 * @return the dateDebut
 	 */
-	public Date getDateDebut() {
+	public LocalDate getDateDebut() {
 		return dateDebut;
 	}
 
@@ -120,7 +120,7 @@ public class AbsenceParPersonne {
 	 * @param dateDebut
 	 *            the dateDebut to set
 	 */
-	public void setDateDebut(Date dateDebut) {
+	public void setDateDebut(LocalDate dateDebut) {
 		this.dateDebut = dateDebut;
 	}
 
@@ -129,7 +129,7 @@ public class AbsenceParPersonne {
 	 * 
 	 * @return the dateFin
 	 */
-	public Date getDateFin() {
+	public LocalDate getDateFin() {
 		return dateFin;
 	}
 
@@ -139,7 +139,7 @@ public class AbsenceParPersonne {
 	 * @param dateFin
 	 *            the dateFin to set
 	 */
-	public void setDateFin(Date dateFin) {
+	public void setDateFin(LocalDate dateFin) {
 		this.dateFin = dateFin;
 	}
 
