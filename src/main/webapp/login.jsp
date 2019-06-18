@@ -53,24 +53,20 @@
 				for="password">Mot de passe</label>
 		</div>
 
-    <form class="form-signin" method="post" action="http://localhost:8080/gda/connexion">
-        <div class="text-center mb-4">
-            <img class="mb-4 logo" src="https://pbs.twimg.com/profile_images/810865682564911104/A3CM9RWz_400x400.jpg"
-                alt="logo gda">
-            <h1 class="h3 mb-3 ">Connexion</h1>
-            <p>Gestion des abscences, congés...</p>
-        </div>
-
-
-		<%if(){ %>
+		<%
+			String erreur = (String) request.getAttribute("erreur");
+			if (erreur != null) {
+		%>
 
 		<div>
-			<p class="text-danger">Vos indentifiants de connexion sont
+			<p class="text-danger text-center">Vos identifiants de connexion sont
 				incorrects !
 			<p>
 		</div>
 
-		<%} %>
+		<%
+			}
+		%>
 
 		<button id="#btn-login-submit"
 			class="btn btn-lg btn-primary btn-block" type="submit">Se
@@ -80,7 +76,7 @@
 
 
 
-		<%-- chargement des js de JQuery et Bootsrap et feather --%>
+	<%-- chargement des js de JQuery et Bootsrap et feather --%>
 	<%@ include file="jsp/global/load.jsp"%>
 
 
