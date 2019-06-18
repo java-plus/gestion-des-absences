@@ -21,7 +21,7 @@
 <link rel="stylesheet" href="../css/font.css">
 <link rel="stylesheet" href="../css/global.css">
 
-<title>GDA - Vues synthetiques</title>
+<title>GDA - Vues synthetiques par département par jour et par collaborateur</title>
 
 </head>
 
@@ -30,8 +30,10 @@
 	<%-- include du header manager --%>
 	<%@ include file="jsp/manager/menu.jsp"%>
 
+
 	<%-- include du contenu --%>
-	<%@ include file="jsp/manager/vues-synth.jsp"%>
+	<%@ include file="jsp/manager/vues-departement.jsp"%>
+
 
 	<%-- chargement des js de JQuery et Bootsrap et feather --%>
 	<%@ include file="jsp/global/load.jsp"%>

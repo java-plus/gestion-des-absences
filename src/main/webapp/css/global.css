@@ -8,6 +8,10 @@ body {
     background-color: transparent;
 }
 
+.cal-vue-dept {
+	flex:1;
+}
+
 /* 
 .bg-primary {
     background-color: red;

@@ -29,10 +29,10 @@
 
 	<%-- include du header manager --%>
 	<%@ include file="jsp/manager/menu.jsp"%>
-	
-	
+
+
 	<%-- include du contenu --%>
-	<%@ include file="jsp/manager/vue-histo.jsp"%>
+	<%@ include file="jsp/manager/vues-histo.jsp"%>
 
 
 	<%-- chargement des js de JQuery et Bootsrap et feather --%>

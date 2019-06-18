@@ -1,4 +1,5 @@
-<%@ page language="java" pageEncoding="UTF-8" isELIgnored="false"%>
+<%@ page language="java" pageEncoding="UTF-8" isELIgnored="false"%> 
+
 <div class="container-fluid m-0 p-0">
 
 	<header>
@@ -26,7 +27,7 @@
 							des absences</a></li>
 					<li class="nav-item"><a class="nav-link" href="#">Validation
 							demandes</a></li>
-					<li class="nav-item"><a class="nav-link" href="vue-synth.jsp">Vues
+					<li class="nav-item"><a class="nav-link" href="afficherVueDepart?vue=menu">Vues
 							synthétiques</a></li>
 					<li class="nav-item"><a class="nav-link" href="jours-feries.jsp">Jours
 							fériés</a></li>

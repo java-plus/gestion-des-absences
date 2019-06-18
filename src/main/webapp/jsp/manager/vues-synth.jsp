@@ -14,7 +14,7 @@
 		<div class="col-sm-9">Vue par département par jour et par
 			collaborateur</div>
 		<div class="col-sm-3">
-		<a href="afficherVueDepart/collab"><i data-feather="eye">voir</i></a>
+		<a href="afficherVueDepart?vue=collab"><i data-feather="eye">voir</i></a>
 		
 			
 			
@@ -23,7 +23,7 @@
 	<div class="row p-2">
 		<div class="col-sm-9">Histogramme par département et par jour</div>
 		<div class="col-sm-3">
-			<a href="afficherVueDepart/histo"><i data-feather="eye">voir</i></a>
+			<a href="afficherVueDepart?vue=histo"><i data-feather="eye">voir</i></a>
 		</div>
 	</div>
 

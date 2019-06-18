@@ -5,48 +5,46 @@
 	<h1>Vue par département par jour et par collaborateur</h1>
 
 
-	<div>Département input</div>
-	<div>Mois input</div>
-	<div>Année input</div>
-	<div>btn loupe</div>
-	<div>btn export excel</div>
+	<%-- include des filtres --%>
+	<%@ include file="vues-filtres.jsp" %>
 
-
-	<div class="row p-2 bg-primary">
-		<div class="col-sm-2 ">Nom</div>
-		<div class="col-sm-10">Action</div>
-	</div>
-
-
-	<div class="row p-2">
-	
-		<div class="col-sm-9">Vue par département par jour et par
-			collaborateur</div>
-		<div class="col-sm-3">
-			<button class="btn btn-sm btn-none" type="button">
-				<i data-feather="eye">voir</i>
-			</button>
+	<div class="row my-2 bg-primary">
+		<div class="col-sm-2">nom</div>
+		<div class="col-sm-10 d-flex flex-row ">
+			<%
+			for(int i=1; i<=31; i++) {
+			%>
+			<div class="cal-vue-dept"><%= i %></div>
+			<%
+			}
+			%>
 		</div>
-		
 	</div>
-	
-	<div class="row p-2">
-	
-		<div class="col-sm-9">Histogramme par département et par jour</div>
-		<div class="col-sm-3">
-			<button class="btn btn-sm btn-none" type="button">
-				<i data-feather="eye">voir</i>
-			</button>
+
+
+	<div class="row py-2">
+		<div class="col-sm-2">machin</div>
+		<div class="col-sm-10 d-flex flex-row ">
+			<%
+			for(int i=1; i<=31; i++) {
+			%>
+			<div class="cal-vue-dept"><%= i %></div>
+			<%
+			}
+			%>
 		</div>
-		
 	</div>
 
 
-	<button>retour</button>
 	
-	<div>légende ... .. . . .</div>
-
 
 </div>
 
 
+<div class="container my-5">
+
+	<button class="btn btn-outline-primary">retour</button>
+	
+	<div>légende ... .. . . .</div>
+
+	</div>

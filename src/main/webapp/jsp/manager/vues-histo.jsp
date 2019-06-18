@@ -3,15 +3,10 @@
 <div class="container my-5">
 
 
-	
 
-	<p>url : <%= (String)request.getAttribute("url") %></p>
-	<p>uri : <%= (String)request.getAttribute("uri") %></p>
-	<p>pathInfo : <%= (String)request.getAttribute("pathInfo") %></p>
-	<p>scheme : <%= (String)request.getAttribute("scheme") %></p>
-	<p>contextPath : <%= (String)request.getAttribute("contextPath") %></p>
-	<p>servletPath : <%= (String)request.getAttribute("servletPath") %></p>
-	
+	<p>
+		query :
+		<%=(String) request.getAttribute("choix")%></p>
 
 
 
@@ -20,21 +15,23 @@
 	<h1>Histogramme par département et par jour</h1>
 
 
-	<div>Département input</div>
-	<div>Mois input</div>
-	<div>Année input</div>
-	<div>btn loupe</div>
-	<div>btn export excel</div>
+
+	<%-- include des filtres --%>
+	<%@ include file="vues-filtres.jsp" %>
+	
+	
+
+	
 
 
 	<div class="row p-2 bg-primary">
-		<div class="col-sm-2 ">Nom</div>
+		<div class="col-sm-2">Nom</div>
 		<div class="col-sm-10">Action</div>
 	</div>
 
 
 	<div class="row p-2">
-	
+
 		<div class="col-sm-9">Vue par département par jour et par
 			collaborateur</div>
 		<div class="col-sm-3">
@@ -42,24 +39,24 @@
 				<i data-feather="eye">voir</i>
 			</button>
 		</div>
-		
+
 	</div>
-	
+
 	<div class="row p-2">
-	
+
 		<div class="col-sm-9">Histogramme par département et par jour</div>
 		<div class="col-sm-3">
 			<button class="btn btn-sm btn-none" type="button">
 				<i data-feather="eye">voir</i>
 			</button>
 		</div>
-		
+
 	</div>
 
 
-	<button>retour</button>
-	
-	<div>légende ... .. . . .</div>
+	<button class="btn btn-outline-primary">retour</button>
+
+	<div class="my-3">légende ... .. . . .</div>
 
 
 </div>
