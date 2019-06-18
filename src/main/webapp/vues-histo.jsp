@@ -18,8 +18,8 @@
 <link
 	href="https://fonts.googleapis.com/css?family=Poppins:400,700|Roboto:400,700&display=swap"
 	rel="stylesheet">
-<link rel="stylesheet" href="css/font.css">
-<link rel="stylesheet" href="css/global.css">
+<link rel="stylesheet" href="../css/font.css">
+<link rel="stylesheet" href="../css/global.css">
 
 <title>GDA - Vues synthetiques</title>
 
@@ -28,7 +28,7 @@
 <body>
 
 	<%-- include du header manager --%>
-	<%@ include file="html/manager/menu.jsp"%>
+	<%@ include file="jsp/manager/menu.jsp"%>
 
 	<div class="container my-5">
 
@@ -57,7 +57,7 @@
     </div>
 
 	<%-- chargement des js de JQuery et Bootsrap et feather --%>
-	<%@ include file="html/global/load.sjp"%>
+	<%@ include file="jsp/global/load.jsp"%>
 
 
 </body>
