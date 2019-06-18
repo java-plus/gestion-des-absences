@@ -28,7 +28,7 @@
 <body>
 
 	<%-- include du header manager --%>
-	<%@ include file="html/manager/menu.html"%>
+	<%@ include file="html/manager/menu.jsp"%>
 
 	<div class="container my-5">
 
@@ -57,7 +57,7 @@
     </div>
 
 	<%-- chargement des js de JQuery et Bootsrap et feather --%>
-	<%@ include file="html/global/load.html"%>
+	<%@ include file="html/global/load.sjp"%>
 
 
 </body>

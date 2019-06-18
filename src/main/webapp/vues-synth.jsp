@@ -28,13 +28,13 @@
 <body>
 
 	<%-- include du header manager --%>
-	<%@ include file="html/manager/menu.html"%>
+	<%@ include file="html/manager/menu.jsp"%>
 
 	<%-- include du contenu --%>
-	<%@ include file="html/manager/vue-synth.html"%>
+	<%@ include file="html/manager/vue-synth.jsp"%>
 
 	<%-- chargement des js de JQuery et Bootsrap et feather --%>
-	<%@ include file="html/global/load.html"%>
+	<%@ include file="html/global/load.jsp"%>
 
 
 </body>
