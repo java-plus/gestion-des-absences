@@ -349,6 +349,7 @@ public class AbsenceParPersonneDao {
 
 		try {
 			conn.setAutoCommit(false);
+
 			statement = conn.prepareStatement("SELECT * FROM absence WHERE id = ?");
 			statement.setInt(1, idConge);
 
@@ -360,7 +361,6 @@ public class AbsenceParPersonneDao {
 				typeConge = curseur.getString("type_conge");
 
 			}
-
 			return typeConge;
 		} catch (SQLException e) {
 			try {

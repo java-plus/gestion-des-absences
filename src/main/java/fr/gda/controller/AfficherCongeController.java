@@ -34,10 +34,6 @@ public class AfficherCongeController extends HttpServlet {
 
 		String typeConge = null;
 
-		for (AbsenceParPersonne liste : listeAbsences) {
-			typeConge = absenceDao.RecupererTypeConges(liste.getId());
-		}
-
 		Utilisateur utilisateur = utilisateurDao.getUtilisateur(utilisateurId);
 
 		req.setAttribute("afficherConge", listeAbsences);

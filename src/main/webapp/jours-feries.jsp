@@ -41,7 +41,7 @@
 		} else if (monProfil == "employe") {
 		%>
 	<%@ include file="employe/menu.jsp"%>
-	} %>
+	<%} %>
 
 
 
