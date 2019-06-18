@@ -30,15 +30,17 @@
 		--%>
 
 
+
 	<% 
-		if (monProfil == "manager") { 
+		if (((String)session.getAttribute("profil")).equals("manager")) { 
 		%>
-	<%@ include file="manager/menu.html"%>
+
+	<%@ include file="html/manager/menu.jsp"%>
 	<% 
-		} else if (monProfil == "employe") {
+		} else {
 		%>
-	<%@ include file="employe/menu.html"%>
-	} %>
+	<%@ include file="html/employe/menu.jsp"%>
+	<% } %>
 
 
 
@@ -46,10 +48,11 @@
 
 
 	<%-- include du contenu --%>
-	<%@ include file="global/gestion-abs.html"%>
+	<%@ include file="html/global/gestion-abs.jsp"%>
 
 	<%-- chargement des js de JQuery et Bootsrap et feather --%>
-	<%@ include file="global/load.html"%>
+	<%@ include file="html/global/load.jsp"%>
+
 
 </body>
 

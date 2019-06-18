@@ -6,6 +6,7 @@
 
 <head>
 <meta charset="UTF-8">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta http-equiv="X-UA-Compatible" content="ie=edge">
@@ -34,26 +35,26 @@
 
 
 	<% 
-		if (monProfil.equals("manager")) { 
+		if (((String)request.getAttribute("monProfil")).equals("manager")) { 
 		%>
 
-	<%@ include file="html/manager/menu.html"%>
+	<%@ include file="html/manager/menu.jsp"%>
+
 	<% 
 		} else {
 		%>
-	<%@ include file="html/employe/menu.html"%>
-
-	<%} %>
+	<%@ include file="html/employe/menu.jsp"%>
+	<% } %>
 
 
 
 
 	<%-- include du contenu --%>
 
-	<%@ include file="html/global/index.html"%>
+	<%@ include file="html/global/index.jsp"%>
 
 	<%-- chargement des js de JQuery et Bootsrap et feather --%>
-	<%@ include file="html/global/load.html"%>
+	<%@ include file="html/global/load.jsp"%>
 
 
 </body>
