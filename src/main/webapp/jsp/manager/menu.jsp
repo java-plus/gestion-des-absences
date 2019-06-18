@@ -26,7 +26,7 @@
 							des absences</a></li>
 					<li class="nav-item"><a class="nav-link" href="#">Validation
 							demandes</a></li>
-					<li class="nav-item"><a class="nav-link" href="vue-synth">Vues
+					<li class="nav-item"><a class="nav-link" href="vue-synth.jsp">Vues
 							synthétiques</a></li>
 					<li class="nav-item"><a class="nav-link" href="jours-feries.jsp">Jours
 							fériés</a></li>

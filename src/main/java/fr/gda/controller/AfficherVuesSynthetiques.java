@@ -4,7 +4,6 @@
 package fr.gda.controller;
 
 import java.io.IOException;
-import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -12,12 +11,6 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-
-import fr.gda.dao.AbsenceParPersonneDao;
-import fr.gda.dao.UtilisateurDao;
-import fr.gda.model.AbsenceParPersonne;
-import fr.gda.model.Utilisateur;
 
 /**
  * @author Eloi
@@ -29,30 +22,63 @@ public class AfficherVuesSynthetiques extends HttpServlet {
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		HttpSession session = req.getSession(false);
 
-		AbsenceParPersonneDao absenceDao = new AbsenceParPersonneDao();
+		String url = req.getRequestURL().toString();
 
-		UtilisateurDao utilisateurDao = new UtilisateurDao();
+		String uri = req.getRequestURI();
 
-		Object userId = session.getAttribute("utilisateurId");
-		int utilisateurId = (int) userId;
+		String scheme = req.getScheme();
 
-		List<AbsenceParPersonne> listeAbsences = absenceDao.afficherAbsencesPersonne(utilisateurId);
+		String contextPath = req.getContextPath();
+		String servletPath = req.getServletPath();
+		String pathInfo = req.getPathInfo();
 
-		String typeConge = null;
+		req.setAttribute("url", url);
+		req.setAttribute("Uri", uri);
+		req.setAttribute("pathInfo", pathInfo);
+		req.setAttribute("Scheme", scheme);
+		req.setAttribute("contextPath", contextPath);
+		req.setAttribute("servletPath", servletPath);
 
-		for (AbsenceParPersonne liste : listeAbsences) {
-			typeConge = absenceDao.RecupererTypeConges(liste.getId());
-		}
+		// histo = demande d'affichage de la page avec Histo par departement et par jour
+		// collab = demande d'affichage de la page de vue par par depart. par jour et par collab.
 
-		Utilisateur utilisateur = utilisateurDao.getUtilisateur(utilisateurId);
+		// if (collab) {
+		//
+		// } else if (histo) {
+		//
+		// } else {
+		//
+		// }
 
-		req.setAttribute("afficherConge", listeAbsences);
-		req.setAttribute("afficherTypeConge", typeConge);
-		req.setAttribute("utilisateur", utilisateur);
+		//
+		//
+		// HttpSession session = req.getSession(false);
+		//
+		// AbsenceParPersonneDao absenceDao = new AbsenceParPersonneDao();
+		//
+		// UtilisateurDao utilisateurDao = new UtilisateurDao();
+		//
+		// Object userId = session.getAttribute("utilisateurId");
+		// int utilisateurId = (int) userId;
+		//
+		// List<AbsenceParPersonne> listeAbsences = absenceDao.afficherAbsencesPersonne(utilisateurId);
+		//
+		// String typeConge = null;
+		//
+		// for (AbsenceParPersonne liste : listeAbsences) {
+		// typeConge = absenceDao.RecupererTypeConges(liste.getId());
+		// }
+		//
+		// Utilisateur utilisateur = utilisateurDao.getUtilisateur(utilisateurId);
+		//
+		// req.setAttribute("afficherConge", listeAbsences);
+		// req.setAttribute("afficherTypeConge", typeConge);
+		// req.setAttribute("utilisateur", utilisateur);
+		//
+		//
 
-		RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/visualisationabsence");
+		RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/vues-histo.jsp");
 		dispatcher.forward(req, resp);
 	}
 

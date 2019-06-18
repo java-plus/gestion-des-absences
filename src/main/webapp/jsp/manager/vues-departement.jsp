@@ -2,22 +2,7 @@
 
 <div class="container my-5">
 
-
-	
-
-	<p>url : <%= (String)request.getAttribute("url") %></p>
-	<p>uri : <%= (String)request.getAttribute("uri") %></p>
-	<p>pathInfo : <%= (String)request.getAttribute("pathInfo") %></p>
-	<p>scheme : <%= (String)request.getAttribute("scheme") %></p>
-	<p>contextPath : <%= (String)request.getAttribute("contextPath") %></p>
-	<p>servletPath : <%= (String)request.getAttribute("servletPath") %></p>
-	
-
-
-
-
-
-	<h1>Histogramme par département et par jour</h1>
+	<h1>Vue par département par jour et par collaborateur</h1>
 
 
 	<div>Département input</div>

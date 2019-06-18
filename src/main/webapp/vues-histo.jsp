@@ -21,7 +21,7 @@
 <link rel="stylesheet" href="../css/font.css">
 <link rel="stylesheet" href="../css/global.css">
 
-<title>GDA - Vues synthetiques</title>
+<title>GDA - Vues synthetiques par département par jour et par collaborateur</title>
 
 </head>
 
@@ -29,32 +29,11 @@
 
 	<%-- include du header manager --%>
 	<%@ include file="jsp/manager/menu.jsp"%>
+	
+	
+	<%-- include du contenu --%>
+	<%@ include file="jsp/manager/vue-histo.jsp"%>
 
-	<div class="container my-5">
-
-        <h1>Vues synthétiques</h1>
-
-        <div class="row p-2 bg-primary">
-            <div class="col-sm-9 ">Liste des rapports</div>
-            <div class="col-sm-3">Action</div>
-        </div>
-
-        <div class="row p-2">
-            <div class="col-sm-9">Vue par département par jour et par collaborateur</div>
-            <div class="col-sm-3">
-             	<button class="btn btn-sm btn-none" type="button"><i data-feather="eye">voir</i></button>  
-            </div>
-        </div>
-        <div class="row p-2">
-            <div class="col-sm-9">Histogramme par département et par jour</div>
-            <div class="col-sm-3">
-           <button class="btn btn-sm btn-none" type="button"><i data-feather="eye">voir</i></button>  
-            </div>
-        </div>
-
-
-
-    </div>
 
 	<%-- chargement des js de JQuery et Bootsrap et feather --%>
 	<%@ include file="jsp/global/load.jsp"%>
