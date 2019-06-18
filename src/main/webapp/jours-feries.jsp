@@ -34,14 +34,16 @@
 
 
 	<% 
-		if (monProfil == "manager") { 
+		if (((String)request.getAttribute("monProfil")).equals("manager")) { 
 		%>
-	<%@ include file="manager/menu.html"%>
+
+	<%@ include file="html/manager/menu.jsp"%>
+
 	<% 
-		} else if (monProfil == "employe") {
+		} else {
 		%>
-	<%@ include file="employe/menu.html"%>
-	} %>
+	<%@ include file="html/employe/menu.jsp"%>
+	<% } %> 
 
 
 
