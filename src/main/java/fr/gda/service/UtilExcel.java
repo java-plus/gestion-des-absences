@@ -4,7 +4,6 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.List;
 
@@ -98,12 +97,15 @@ public class UtilExcel {
 		Row rowParametres = sheet.createRow(3);
 		Cell cellDepartement = rowParametres.createCell(2);
 		cellDepartement.setCellValue("Département :" + departement);
-		Cell cellMois = rowParametres.createCell(4);
+		// Cell cellMois = rowParametres.createCell(4);
 
-		cal.set(annee, numeroMois - 1, 1);
-		SimpleDateFormat formater = new SimpleDateFormat("MM");
+		// String dateTexte = annee + "-" + numeroMois + "-" + "01";
+		// Date hier = dateFormat.parse(dateTexte);
+		// sDate date = "2010-03-17"
+		// cal.set(annee, numeroMois - 1, 1);
+		// SimpleDateFormat formater = new SimpleDateFormat("MM");
 
-		cellMois.setCellValue("Mois :" + formater.format(cal));
+		// cellMois.setCellValue("Mois :" + formater.format(cal));
 		// cellMois.setCellValue("Mois :" + formater.format(cal));
 		// cellMois.setCellValue("Mois :" + cal.get(Calendar.MONTH));
 
