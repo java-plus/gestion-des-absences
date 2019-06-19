@@ -31,8 +31,8 @@ public class TraitementDemandes {
 
 		// Pour chaque demande de congé au statut Initiale
 		for (AbsenceParPersonne abs : absenceAuStatutInitiale) {
-			// Nombre de jours = Ecart entre les dates en jours
-			Long nombreJoursDemandes = ChronoUnit.DAYS.between(abs.getDateDebut(), abs.getDateFin());
+			// Nombre de jours = Ecart entre les dates en jours (dates incluses)
+			Long nombreJoursDemandes = ChronoUnit.DAYS.between(abs.getDateDebut(), abs.getDateFin()) + 1;
 			// System.out.println(nombreJoursDemandes);
 
 			// Pour les congés payés, congés sans solde et RTT employés:
