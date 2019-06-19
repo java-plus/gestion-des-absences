@@ -1,7 +1,7 @@
 <%@ page language="java" pageEncoding="UTF-8" isELIgnored="false"%>
 
 
-<form type="POST" action="">
+
 
 	<div class="container my-5">
 
@@ -63,4 +63,3 @@
 
 	</div>
 
-</form>
