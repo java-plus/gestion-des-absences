@@ -24,26 +24,6 @@ import fr.gda.model.Utilisateur;
 public class FerieRttEmpController extends HttpServlet {
 
 	@Override
-	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
-		HttpSession session = req.getSession(false);
-
-		AbsenceParPersonneDao absParPersDao = new AbsenceParPersonneDao();
-
-		String selectedDate = req.getParameter("selectedDate");
-		String selectedType = req.getParameter("selectedType");
-		String selectedMotif = req.getParameter("selectedMotif");
-
-		if (selectedType.equals("jour ferie")) {
-			absParPersDao.addJourFerie(selectedDate, selectedMotif);
-
-		} else {
-			absParPersDao.addRttEmployeur(selectedDate, selectedMotif);
-
-		}
-	}
-
-	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
 		HttpSession session = req.getSession(false);

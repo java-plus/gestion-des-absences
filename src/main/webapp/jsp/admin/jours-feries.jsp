@@ -117,7 +117,7 @@
 		<div class="col-sm-2 mx-auto"><%=typeConge%></div>
 		<div class="col-sm-2 mx-auto"><%=jourMaj%></div>
 		<div class="col-sm-2 mx-auto"><%=liste.getMotif()%></div>
-		<div class="col-sm-2 mx auto">
+		<div class="col-sm-2 mx-auto">
 			<button type="button" class="btn btn-dark btn-modif bg-warning"
 				data-toggle="modal" data-target="#modal" id="modifier">
 				<i data-feather="edit-2">modifier</i>
@@ -138,6 +138,6 @@
 </div>
 
 <div class="container">
-	<button class="btn btn-lg btn-outline-primary" type="button">Ajouter
-		un jour férié ou un RTT employeur</button>
+	<a href="adminJFerieRttEmp"><button class="btn btn-lg btn-outline-primary" type="button">Ajouter
+		un jour férié ou un RTT employeur</button></a>
 </div>
