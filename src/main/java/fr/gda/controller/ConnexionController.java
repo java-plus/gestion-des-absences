@@ -38,6 +38,8 @@ public class ConnexionController extends HttpServlet {
 
 		String monProfil = null;
 
+		String erreurConnexion = null;
+
 		if (connexion) {
 			HttpSession session = req.getSession(true);
 
@@ -67,6 +69,8 @@ public class ConnexionController extends HttpServlet {
 			}
 
 		} else {
+			erreurConnexion = "erreur";
+			req.setAttribute("erreur", erreurConnexion);
 			RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/login.jsp");
 			dispatcher.forward(req, resp);
 
