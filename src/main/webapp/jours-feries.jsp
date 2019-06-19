@@ -37,7 +37,6 @@
 		en fonction du profil de l'utilisateur on charge le menu correspondant
 		--%>
 
-
 	<%
 		if (((String) session.getAttribute("profil")).equals("manager")) {
 	%>
@@ -49,12 +48,6 @@
 	<%
 		}
 	%>
-
-
-
-
-
-
 
 
 	<%-- si t'utilisateur est Admin, alors on affiche la liste d'action : ajouter, modifier, supprimer --%>
