@@ -40,9 +40,11 @@
 					bonjour <span class="user-name"><%=(String)session.getAttribute("prenom")%></span>
 				</div>
 
-				<button class="btn btn-sm btn-none" type="button">
-					<i data-feather="log-out"></i>
-				</button>
+				<form method="GET" action="../connexion">
+					<button class="btn btn-sm btn-none" type="submit">
+						<i data-feather="log-out"></i>
+					</button>
+				</form>
 			</div>
 
 		</nav>

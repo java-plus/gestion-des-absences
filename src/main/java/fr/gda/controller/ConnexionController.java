@@ -78,4 +78,14 @@ public class ConnexionController extends HttpServlet {
 
 	}
 
+	@Override
+	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+
+		HttpSession session = req.getSession(false);
+		session.invalidate();
+
+		RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/login.jsp");
+		dispatcher.forward(req, resp);
+
+	}
 }
