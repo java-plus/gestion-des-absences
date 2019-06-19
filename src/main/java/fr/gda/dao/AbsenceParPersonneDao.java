@@ -30,7 +30,6 @@ public class AbsenceParPersonneDao {
 	public List<AbsenceParPersonne> lireDemandesEnStatutInitiale() {
 
 		List<AbsenceParPersonne> listeDemandesEnStatutInitiale = new ArrayList<>();
-
 		Connection conn = ConnexionManager.getInstance();
 		PreparedStatement statement = null;
 		ResultSet curseur = null;

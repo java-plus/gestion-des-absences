@@ -24,7 +24,7 @@
 							des absences</a></li>
 					<li class="nav-item"><a class="nav-link" href="controller/planning-abs.jsp">Planning
 							des absences</a></li>
-					<li class="nav-item"><a class="nav-link" href="controller/jours-feries.jsp">Jours fériés</a></li>
+					<li class="nav-item"><a class="nav-link" href="controller/jFerieRttEmp">Jours fériés</a></li>
 				</ul>
 
 			</div>

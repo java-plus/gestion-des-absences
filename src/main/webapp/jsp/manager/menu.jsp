@@ -28,7 +28,7 @@
 							demandes</a></li>
 					<li class="nav-item"><a class="nav-link" href="#">Vues
 							synthétiques</a></li>
-					<li class="nav-item"><a class="nav-link" href="jours-feries.jsp">Jours
+					<li class="nav-item"><a class="nav-link" href="jFerieRttEmp">Jours
 							fériés</a></li>
 				</ul>
 

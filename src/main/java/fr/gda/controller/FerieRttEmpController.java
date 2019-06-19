@@ -30,36 +30,40 @@ public class FerieRttEmpController extends HttpServlet {
 
 		AbsenceParPersonneDao absParPersDao = new AbsenceParPersonneDao();
 
-		String SelectedDate = req.getParameter("selectedDate");
-		String SelectedType = req.getParameter("selectedType");
-		String SelectedMotif = req.getParameter("selectedMotif");
+		String selectedDate = req.getParameter("selectedDate");
+		String selectedType = req.getParameter("selectedType");
+		String selectedMotif = req.getParameter("selectedMotif");
 
-		if (SelectedType.equals("jour ferie")) {
-			absParPersDao.addJourFerie(SelectedDate, SelectedMotif);
+		if (selectedType.equals("jour ferie")) {
+			absParPersDao.addJourFerie(selectedDate, selectedMotif);
 
 		} else {
-			absParPersDao.addRttEmployeur(SelectedDate, SelectedMotif);
+			absParPersDao.addRttEmployeur(selectedDate, selectedMotif);
 
 		}
 	}
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+
 		HttpSession session = req.getSession(false);
 
-		AbsenceParPersonneDao absenceDao = new AbsenceParPersonneDao();
-
+		AbsenceParPersonneDao absParPersDao = new AbsenceParPersonneDao();
 		UtilisateurDao utilisateurDao = new UtilisateurDao();
 
 		Object userId = session.getAttribute("utilisateurId");
 		int utilisateurId = (int) userId;
 
-		List<AbsenceParPersonne> listeAbsences = absenceDao.afficherAbsencesPersonne(utilisateurId);
+		List<AbsenceParPersonne> listeAbsences = absParPersDao.afficherAbsencesPersonne(utilisateurId);
 
 		String typeConge = null;
 
 		for (AbsenceParPersonne liste : listeAbsences) {
-			typeConge = absenceDao.RecupererTypeConges(liste.getId());
+			String absId = absParPersDao.RecupererTypeConges(liste.getIdAbsence());
+
+			if (absId.equals("5") || absId.equals("6")) {
+				typeConge = absParPersDao.RecupererTypeConges(liste.getId());
+			}
 		}
 
 		Utilisateur utilisateur = utilisateurDao.getUtilisateur(utilisateurId);
@@ -70,6 +74,5 @@ public class FerieRttEmpController extends HttpServlet {
 
 		RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/jours-feries.jsp");
 		dispatcher.forward(req, resp);
-
 	}
 }
