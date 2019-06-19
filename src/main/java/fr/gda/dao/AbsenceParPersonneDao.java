@@ -447,4 +447,47 @@ public class AbsenceParPersonneDao {
 
 	}
 
+	/**
+	 * méthode qui récupère le type de congés en String
+	 * 
+	 * @param idUtilisateur
+	 * @return
+	 */
+	public void SupprimerConges(int idConge) {
+
+		Connection conn = ConnexionManager.getInstance();
+		PreparedStatement statement = null;
+		ResultSet curseur = null;
+		String typeConge = null;
+
+		try {
+			conn.setAutoCommit(false);
+
+			statement = conn.prepareStatement("DELETE FROM absence_personne WHERE id = ?");
+			statement.setInt(1, idConge);
+
+			statement.executeUpdate();
+
+			conn.commit();
+
+		} catch (SQLException e) {
+			try {
+				conn.rollback();
+			} catch (SQLException e1) {
+				throw new TechnicalException("Le rollback n'a pas fonctionné", e);
+			}
+			throw new TechnicalException("L'ajout ne s'est pas fait", e);
+		} finally {
+			try {
+				if (statement != null) {
+					statement.close();
+				}
+			} catch (SQLException e) {
+
+				throw new TechnicalException("La fermeture ne s'est pas faite", e);
+			}
+		}
+
+	}
+
 }

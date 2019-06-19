@@ -58,4 +58,25 @@
 
 </html>
 
+<script type="text/javascript">
+
+$(document).ready(function(){
+	
+// 	$('#modal').on('shown.bs.modal', function() {
+// 		$('#supprimer').trigger('focus');
+// 	})
+
+	$(".btn-supp").click(function() {
+		
+		monBouton = "afficherConges?suppr=" + this.id + " "; 
+		console.log(monBouton); 
+		$('.btnSubmit').attr('action', monBouton );
+	});
+	
+});
+<!--
+
+//-->
+</script>
+
 <body>

@@ -32,6 +32,8 @@ public abstract class Utilisateur {
 	private int rttPris;
 	/** idHierarchie : int */
 	private int idHierarchie;
+	/** idDepartement : int */
+	private int idDepartement;
 
 	/**
 	 * Constructeur
@@ -48,9 +50,10 @@ public abstract class Utilisateur {
 	 * @param congePris
 	 * @param rttPris
 	 * @param idHierarchie
+	 * @param idDepartement
 	 */
 	public Utilisateur(int id, String nom, String prenom, String profil, String mail, String mdp, boolean isAdmin,
-			int congeRestant, int rttRestant, int congePris, int rttPris, int idHierarchie) {
+			int congeRestant, int rttRestant, int congePris, int rttPris, int idHierarchie, int idDepartement) {
 		super();
 		this.id = id;
 		this.nom = nom;
@@ -64,13 +67,22 @@ public abstract class Utilisateur {
 		this.congePris = congePris;
 		this.rttPris = rttPris;
 		this.idHierarchie = idHierarchie;
+		this.idDepartement = idDepartement;
 	}
 
 	/**
+	 * méthode qui vérifie si un utilisateur est aussi admin pour acceder à
+	 * l'URL
+	 * 
 	 * @param url
 	 * @return
 	 */
-	abstract boolean isAuthorized(String url);
+	public boolean isAuthorized(String url) {
+		if (this.isAdmin()) {
+			return true;
+		}
+		return false;
+	}
 
 	/**
 	 * Getter
@@ -191,7 +203,7 @@ public abstract class Utilisateur {
 	 * 
 	 * @return the isAdmin
 	 */
-	public Boolean getIsAdmin() {
+	public boolean isAdmin() {
 		return isAdmin;
 	}
 
@@ -201,7 +213,7 @@ public abstract class Utilisateur {
 	 * @param isAdmin
 	 *            the isAdmin to set
 	 */
-	public void setIsAdmin(Boolean isAdmin) {
+	public void setAdmin(boolean isAdmin) {
 		this.isAdmin = isAdmin;
 	}
 
@@ -299,4 +311,24 @@ public abstract class Utilisateur {
 	public void setIdHierarchie(int idHierarchie) {
 		this.idHierarchie = idHierarchie;
 	}
+
+	/**
+	 * Getter
+	 * 
+	 * @return the idDepartement
+	 */
+	public int getIdDepartement() {
+		return idDepartement;
+	}
+
+	/**
+	 * Setter
+	 * 
+	 * @param idDepartement
+	 *            the idDepartement to set
+	 */
+	public void setIdDepartement(int idDepartement) {
+		this.idDepartement = idDepartement;
+	}
+
 }
