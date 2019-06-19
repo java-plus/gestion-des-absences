@@ -47,6 +47,8 @@ public class AfficherCongeController extends HttpServlet {
 	@Override
 	protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
+		HttpSession session = req.getSession(false);
+
 		AbsenceParPersonneDao absenceDao = new AbsenceParPersonneDao();
 
 		String idCongeString = req.getParameter("suppr");
