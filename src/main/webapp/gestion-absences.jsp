@@ -54,29 +54,43 @@
 	<%@ include file="jsp/global/load.jsp"%>
 
 
-</body>
-
-</html>
 
 <script type="text/javascript">
 
-$(document).ready(function(){
+//	$('#supprimer').trigger('focus');	// 	$(".btn-supp").click(function() {
+//	})			
+//		monBouton = "afficherConges?suppr=" + this.id; 
+//		console.log(monBouton); 
+//		$('.formModal').attr('action', monBouton );
+//	});
+	$(".btn-supp").click(function() {		$(".btn-supp").click(function() {
+				
+	monBouton = "afficherConges?suppr=" + this.id + " "; 			monBouton = "afficherConges?suppr=" + this.id; 
+	console.log(monBouton); 			console.log(monBouton); 
+	$('.btnSubmit').attr('action', monBouton );			$('.btn-success').attr('id', monBouton );
+});
 	
-// 	$('#modal').on('shown.bs.modal', function() {
-// 		$('#supprimer').trigger('focus');
-// 	})
-
-	$(".btn-supp").click(function() {
-		
-		monBouton = "afficherConges?suppr=" + this.id + " "; 
-		console.log(monBouton); 
-		$('.btnSubmit').attr('action', monBouton );
+$(".btn-success").click(function() {
+	
+		$.ajax({
+	    url: this.id,
+	    type: 'DELETE',
+	    success: function(result) {
+	        console.log(result);
+	        $( ".row" ).remove();
+	    }
 	});
 	
-});
-<!--
+	/* 
+	console.log(this.id); 
+	$(location).attr('href', this.id); */
+	
+});		});
+		
 
-//-->
+
 </script>
 
-<body>
+</body>
+
+</html>

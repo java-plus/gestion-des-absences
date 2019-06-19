@@ -135,8 +135,6 @@
 						</div>
 						<form method="DELETE" action="afficherConges" class="formModal" id="formModal">
 							<div class="modal-footer">
-								<a href="afficherConges"><button type="button"
-										class="btn btn-secondary">Annuler</button></a>
 								<button type="submit" class="btn btn-success"
 									data-dismiss="modal" name="suppressionConges">Confirmer</button>
 							</div>
@@ -148,11 +146,3 @@
 			
 			<!-- 			fin modal -->
 
-<!-- javascript pour la modal -->
-
-
-<script>
-
-
-
-</script>
