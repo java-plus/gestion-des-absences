@@ -19,7 +19,7 @@ import fr.gda.model.Utilisateur;
 /**
  * 
  * Class qui récupère tous les congés (validés) pour chaque utilisateur.
- * ATTENTION : il n'existe pas pour le moment de notion de "departement".
+ * 
  * 
  * @author Eloi
  *

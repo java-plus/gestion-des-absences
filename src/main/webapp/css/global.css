@@ -12,6 +12,16 @@ body {
 	flex:1;
 }
 
+.row-user:nth-child(odd) {
+	background-color: #393c52
+	;
+}
+
+
+ 
+
+
+
 /* 
 .bg-primary {
     background-color: red;

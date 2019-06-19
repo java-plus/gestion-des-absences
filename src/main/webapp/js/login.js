@@ -1,9 +1,9 @@
 $(document).ready(function () {
 
 
-    document.getElementById('#btn-login-submit').addEventListener('click', function (event) {
+    document.getElementById('.btn!').addEventListener('click', function (event) {
         event.preventDefault();
-        $('#modal-Login').modal('show');
+        $('#modal-Login')
 
 
         // $.ajax({
