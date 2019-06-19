@@ -9,7 +9,7 @@ package fr.gda.model;
 public class Manager extends Utilisateur {
 
 	/**
-	 * Constructor
+	 * Constructeur
 	 * 
 	 * @param id
 	 * @param nom
@@ -23,23 +23,13 @@ public class Manager extends Utilisateur {
 	 * @param congePris
 	 * @param rttPris
 	 * @param idHierarchie
+	 * @param idDepartement
 	 */
 	public Manager(int id, String nom, String prenom, String profil, String mail, String mdp, boolean isAdmin,
-			int congeRestant, int rttRestant, int congePris, int rttPris, int idHierarchie) {
-		super(id, nom, prenom, profil, mail, mdp, isAdmin, congeRestant, rttRestant, congePris, rttPris, idHierarchie);
-	}
+			int congeRestant, int rttRestant, int congePris, int rttPris, int idHierarchie, int idDepartement) {
+		super(id, nom, prenom, profil, mail, mdp, isAdmin, congeRestant, rttRestant, congePris, rttPris, idHierarchie,
+				idDepartement);
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see fr.gda.model.Utilisateur#isAuthorized(java.lang.String)
-	 */
-	@Override
-	public boolean isAuthorized(String url) {
-		if (this.getIsAdmin()) {
-			return true;
-		}
-		return false;
 	}
 
 }

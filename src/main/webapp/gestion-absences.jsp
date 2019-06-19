@@ -35,11 +35,11 @@
 		if (((String)session.getAttribute("profil")).equals("manager")) { 
 		%>
 
-	<%@ include file="html/manager/menu.jsp"%>
+	<%@ include file="jsp/manager/menu.jsp"%>
 	<% 
 		} else {
 		%>
-	<%@ include file="html/employe/menu.jsp"%>
+	<%@ include file="jsp/employe/menu.jsp"%>
 	<% } %>
 
 
@@ -48,14 +48,35 @@
 
 
 	<%-- include du contenu --%>
-	<%@ include file="html/global/gestion-abs.jsp"%>
+	<%@ include file="jsp/global/gestion-abs.jsp"%>
 
 	<%-- chargement des js de JQuery et Bootsrap et feather --%>
-	<%@ include file="html/global/load.jsp"%>
+	<%@ include file="jsp/global/load.jsp"%>
 
 
 </body>
 
 </html>
+
+<script type="text/javascript">
+
+$(document).ready(function(){
+	
+// 	$('#modal').on('shown.bs.modal', function() {
+// 		$('#supprimer').trigger('focus');
+// 	})
+
+	$(".btn-supp").click(function() {
+		
+		monBouton = "afficherConges?suppr=" + this.id + " "; 
+		console.log(monBouton); 
+		$('.btnSubmit').attr('action', monBouton );
+	});
+	
+});
+<!--
+
+//-->
+</script>
 
 <body>

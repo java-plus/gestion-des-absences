@@ -1,5 +1,12 @@
+<%@	page
+	import="java.util.List, fr.gda.controller.*, fr.gda.filter.*, fr.gda.model.*, fr.gda.dao.*"%>
 <%@ page language="java" pageEncoding="UTF-8" isELIgnored="false"%>
+
+
+
 <div class="container my-5">
+
+	<!-- Titres du tableau -->
 
 	<h1>Gestion des absences</h1>
 
@@ -7,77 +14,94 @@
 		<div class="col-sm-3 ">
 			Date de début
 			<div>
-				<i data-feather="chevron-up"></i><i data-feather="chevron-down"></i>
+				<!-- 				<i data-feather="chevron-up"></i><i data-feather="chevron-down"></i> -->
 			</div>
 		</div>
 		<div class="col-sm-3">
 			Date de fin
 			<div>
-				<i data-feather="chevron-up"></i><i data-feather="chevron-down"></i>
+				<!-- 				<i data-feather="chevron-up"></i><i data-feather="chevron-down"></i> -->
 			</div>
 		</div>
 		<div class="col-sm-3">
-			type
+			Type
 			<div>
-				<i data-feather="chevron-up"></i><i data-feather="chevron-down"></i>
+				<!-- 				<i data-feather="chevron-up"></i><i data-feather="chevron-down"></i> -->
 			</div>
 		</div>
 		<div class="col-sm-2">
-			statut
+			Statut
 			<div>
-				<i data-feather="chevron-up"></i><i data-feather="chevron-down"></i>
+				<!-- 				<i data-feather="chevron-up"></i><i data-feather="chevron-down"></i> -->
 			</div>
 		</div>
 		<div class="col-sm-1">
-			actions
+			Actions
 			<div>
-				<i data-feather="chevron-up"></i><i data-feather="archevronrow-down"></i>
+				<!-- 				<i data-feather="chevron-up"></i><i data-feather="archevronrow-down"></i> -->
 			</div>
 		</div>
 	</div>
-	
+
+	<!-- contenu du tableau -->
+
+	<!-- 	boucle qui retourne les résultats pour le tableau -->
+
+	<%
+		List<AbsenceParPersonne> listeAbsences = (List<AbsenceParPersonne>) request.getAttribute("afficherConge");
+		String typeConge = (String) request.getAttribute("afficherTypeConge");
+		Utilisateur utilisateur = (Utilisateur) request.getAttribute("utilisateur");
+		AbsenceParPersonneDao absenceDao = new AbsenceParPersonneDao();
+		if (listeAbsences != null) {
+			for (AbsenceParPersonne liste : listeAbsences) {
+				typeConge = absenceDao.RecupererTypeConges(liste.getIdAbsence());
+				if (typeConge.equals("férié") || typeConge.equals("RTT employeur")) {
+					continue;
+				}
+	%>
+
+	<!-- 	Remplissage des cases du tableau avec les infos de la boucle -->
 
 	<div class="row p-2">
-		<div class="col-sm-3">valeur debut</div>
-		<div class="col-sm-3">valeur de fin</div>
-		<div class="col-sm-3">valeur de type</div>
-		<div class="col-sm-2">valeur de statut</div>
+		<div class="col-sm-3"><%=liste.getDateDebut()%></div>
+		<div class="col-sm-3"><%=liste.getDateFin()%></div>
+		<div class="col-sm-3"><%=typeConge%></div>
+		<div class="col-sm-2"><%=liste.getStatut()%></div>
 		<div class="col-sm-1">
-			<i data-feather="trash">supprimer</i>
-		</div>
-	</div>
-	<div class="row p-2">
-		<div class="col-sm-3">valeur debut</div>
-		<div class="col-sm-3">valeur de fin</div>
-		<div class="col-sm-3">valeur de type</div>
-		<div class="col-sm-2">valeur de statut</div>
-		<div class="col-sm-1">
-			<i data-feather="eye">voir</i>
+
+			<!-- 		Affichage des boutons modifier / supprimer en fonction du statut -->
+
+			<%
+				if (liste.getStatut().equals("INITIALE")) {
+			%>
+			<a href="#"> <i data-feather="edit-2">modifier</i></a>
+			<button type="button" class="btn btn-dark btn-supp"
+				data-toggle="modal" data-target="#modal" id="<%=liste.getId()%>">
+				<i data-feather="trash">supprimer</i>
+			</button>
+			<%
+				
+						} else if (liste.getStatut().equals("EN_ATTENTE") || liste.getStatut().equals("VALIDEE")) {
+			%>
+			<a href="afficherConges?idsup=<%=liste.getId()%>"><i
+				data-feather="trash">supprimer</i></a>
+			<%
+				
+						}
+			%>
+
+
 		</div>
 	</div>
 
-	<div class="row p-2">
-		<div class="col-sm-3">valeur debut</div>
-		<div class="col-sm-3">valeur de fin</div>
-		<div class="col-sm-3">valeur de type</div>
-		<div class="col-sm-2">valeur de statut</div>
-		<div class="col-sm-1">
-			<i data-feather="edit-2">modifier</i>
-		</div>
-	</div>
-
-	<div class="row p-2">
-		<div class="col-sm-3">valeur debut</div>
-		<div class="col-sm-3">valeur de fin</div>
-		<div class="col-sm-3">valeur de type</div>
-		<div class="col-sm-2">valeur de statut</div>
-		<div class="col-sm-1">
-			<i data-feather="trash">supprimer</i>
-		</div>
-	</div>
-
+	<%
+		}
+		}
+	%>
 
 </div>
+
+<!-- Affichage des congés restants -->
 
 <div class="container">
 	Demander une absence
@@ -86,10 +110,49 @@
 
 <div class="container my-5">
 	<div>Soldes des compteurs :</div>
-	<div>Congés payés</div>
-	<div>RTT</div>
+	<div>
+		Congés payés :
+		<%=utilisateur.getCongeRestant()%></div>
+	<div>
+		RTT :
+		<%=utilisateur.getRttRestant()%></div>
 </div>
 
+			<!-- 		Modal -->
+
+			<div class="modal" tabindex="-1" role="dialog" id="modal">
+				<div class="modal-dialog" role="document">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h5 class="modal-title text-dark">Confirmation suppression</h5>
+							<button type="button" class="close" data-dismiss="modal"
+								aria-label="Close">
+								<span aria-hidden="true">&times;</span>
+							</button>
+						</div>
+						<div class="modal-body text-muted">
+							<p>Confirmez-vous la suppression de ces congés?</p>
+						</div>
+						<form method="DELETE" action="afficherConges" class="formModal" id="formModal">
+							<div class="modal-footer">
+								<a href="afficherConges"><button type="button"
+										class="btn btn-secondary">Annuler</button></a>
+								<button type="submit" class="btn btn-success"
+									data-dismiss="modal" name="suppressionConges">Confirmer</button>
+							</div>
+						</form>
+
+					</div>
+				</div>
+			</div>
+			
+			<!-- 			fin modal -->
+
+<!-- javascript pour la modal -->
+
+
+<script>
 
 
 
+</script>
