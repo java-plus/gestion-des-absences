@@ -59,12 +59,7 @@ public class AfficherCongeController extends HttpServlet {
 
 		absenceDao.SupprimerConges(idConge);
 
-		req.setAttribute("delete", "ok");
-
 		resp.getWriter().append(" ok ok ok");
-		// RequestDispatcher dispatcher =
-		// this.getServletContext().getRequestDispatcher("/gestion-absences.jsp");
-		// dispatcher.forward(req, resp);
 
 	}
 

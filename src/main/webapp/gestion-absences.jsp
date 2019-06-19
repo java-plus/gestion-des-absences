@@ -5,19 +5,24 @@
 <html lang="fr">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+<meta charset="UTF-8">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
 
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
-        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+	integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+	crossorigin="anonymous">
 
-    <link href="https://fonts.googleapis.com/css?family=Poppins:400,700|Roboto:400,700&display=swap" rel="stylesheet">
+<link
+	href="https://fonts.googleapis.com/css?family=Poppins:400,700|Roboto:400,700&display=swap"
+	rel="stylesheet">
 
-    <link rel="stylesheet" href="../css/font.css">
-    <link rel="stylesheet" href="../css/global.css">
+<link rel="stylesheet" href="../css/font.css">
+<link rel="stylesheet" href="../css/global.css">
 
-    <title>GDA - Gestion des absences</title>
+<title>GDA - Gestion des absences</title>
 
 </head>
 
@@ -31,16 +36,18 @@
 
 
 
-	<% 
-		if (((String)session.getAttribute("profil")).equals("manager")) { 
-		%>
+	<%
+		if (((String) session.getAttribute("profil")).equals("manager")) {
+	%>
 
 	<%@ include file="jsp/manager/menu.jsp"%>
-	<% 
+	<%
 		} else {
-		%>
+	%>
 	<%@ include file="jsp/employe/menu.jsp"%>
-	<% } %>
+	<%
+		}
+	%>
 
 
 
@@ -56,38 +63,30 @@
 
 
 <script type="text/javascript">
+$(document).ready(function(){
+	
 
-//	$('#supprimer').trigger('focus');	// 	$(".btn-supp").click(function() {
-//	})			
-//		monBouton = "afficherConges?suppr=" + this.id; 
-//		console.log(monBouton); 
-//		$('.formModal').attr('action', monBouton );
-//	});
-	$(".btn-supp").click(function() {		$(".btn-supp").click(function() {
-				
-	monBouton = "afficherConges?suppr=" + this.id + " "; 			monBouton = "afficherConges?suppr=" + this.id; 
-	console.log(monBouton); 			console.log(monBouton); 
-	$('.btnSubmit').attr('action', monBouton );			$('.btn-success').attr('id', monBouton );
-});
-	
-$(".btn-success").click(function() {
-	
-		$.ajax({
-	    url: this.id,
-	    type: 'DELETE',
-	    success: function(result) {
-	        console.log(result);
-	        $( ".row" ).remove();
-	    }
+ 	$(".btn-supp").click(function() {
+					
+		monBouton = "afficherConges?suppr=" + this.id; 
+		$('.btn-success').attr('id', monBouton );
 	});
-	
-	/* 
-	console.log(this.id); 
-	$(location).attr('href', this.id); */
-	
-});		});
+ 	
+	$(".btn-success").click(function() {
+		
+ 		$.ajax({
+		    url: this.id,
+		    type: 'DELETE',
+		    success: function(result) {
+		        console.log(result);
+		        $( ".row" ).remove();
+		    }
+		});
 		
 
+});		
+	});
+		
 
 </script>
 

@@ -62,7 +62,7 @@
 
 	<!-- 	Remplissage des cases du tableau avec les infos de la boucle -->
 
-	<div class="row p-2">
+	<div class="row p-2 ligneSuppr">
 		<div class="col-sm-3"><%=liste.getDateDebut()%></div>
 		<div class="col-sm-3"><%=liste.getDateFin()%></div>
 		<div class="col-sm-3"><%=typeConge%></div>
