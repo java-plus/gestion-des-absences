@@ -572,10 +572,10 @@ public class UtilisateurDao {
 				if (profil.equals("employé")) {
 
 					utilisateurParDepartement.add(new Employe(id, nom, prenom, profil, email, mdp, isAdminBool,
-							congeRestant, rttRestant, congePris, rttPris, idHierarchie));
+							congeRestant, rttRestant, congePris, rttPris, idHierarchie, idDepartement));
 				} else {
 					utilisateurParDepartement.add(new Manager(id, nom, prenom, profil, email, mdp, isAdminBool,
-							congeRestant, rttRestant, congePris, rttPris, idHierarchie));
+							congeRestant, rttRestant, congePris, rttPris, idHierarchie, idDepartement));
 				}
 
 			}
