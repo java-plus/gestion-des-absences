@@ -335,6 +335,71 @@ public class AbsenceParPersonneDao {
 	}
 
 	/**
+	 * méthode qui retourne la liste des absences de toutes les personnes
+	 * 
+	 * @param mois
+	 * @param annee
+	 * @param departement
+	 * @return
+	 */
+	public List<AbsenceParPersonne> afficherAbsencesParDepartementMoisAnnee(Integer mois, Integer annee,
+			Integer departement) {
+
+		List<AbsenceParPersonne> listeAbsencesDepartementMoisAnnee = new ArrayList<>();
+
+		Connection conn = ConnexionManager.getInstance();
+		PreparedStatement statement = null;
+		ResultSet curseur = null;
+
+		try {
+			conn.setAutoCommit(false);
+			statement = conn.prepareStatement(
+					"SELECT AP.id, id_util, id_absence, date_debut, date_fin, statut, motif FROM absence_personne AP INNER JOIN utilisateur UT ON AP.id_util = UT.id WHERE (YEAR(date_debut) = ? OR YEAR(date_fin) = ?) AND (MONTH(date_debut) = ? OR MONTH(date_fin) = ?) AND id_departement = ?");
+			statement.setInt(1, annee);
+			statement.setInt(2, annee);
+			statement.setInt(3, mois);
+			statement.setInt(4, mois);
+			statement.setInt(5, departement);
+
+			curseur = statement.executeQuery();
+
+			conn.commit();
+
+			while (curseur.next()) {
+				Integer id = curseur.getInt("AP.id");
+				Integer idUtilisateur = curseur.getInt("id_util");
+				Integer idAbsence = curseur.getInt("id_absence");
+				LocalDate dateDebut = curseur.getDate("date_debut").toLocalDate();
+				LocalDate dateFin = curseur.getDate("date_fin").toLocalDate();
+				String statut = curseur.getString("statut");
+				String motif = curseur.getString("motif");
+
+				listeAbsencesDepartementMoisAnnee
+						.add(new AbsenceParPersonne(id, idUtilisateur, idAbsence, dateDebut, dateFin, statut, motif));
+			}
+
+			return listeAbsencesDepartementMoisAnnee;
+		} catch (SQLException e) {
+			try {
+				conn.rollback();
+			} catch (SQLException e1) {
+				throw new TechnicalException("Le rollback n'a pas fonctionné", e);
+			}
+			throw new TechnicalException("La sélection ne s'est pas faite", e);
+		} finally {
+			try {
+				if (statement != null) {
+					statement.close();
+				}
+			} catch (SQLException e) {
+
+				throw new TechnicalException("La fermeture ne s'est pas faite", e);
+			}
+		}
+
+	}
+
+	/**
 	 * méthode qui récupère le type de congés en String
 	 * 
 	 * @param idUtilisateur
