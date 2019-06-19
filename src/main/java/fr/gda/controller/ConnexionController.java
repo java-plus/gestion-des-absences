@@ -38,6 +38,8 @@ public class ConnexionController extends HttpServlet {
 
 		String monProfil = null;
 
+		String erreurConnexion = null;
+
 		if (connexion) {
 			HttpSession session = req.getSession(true);
 
@@ -49,7 +51,7 @@ public class ConnexionController extends HttpServlet {
 				session.setAttribute("utilisateurId", employe.getId());
 				session.setAttribute("prenom", employe.getPrenom());
 				session.setAttribute("profil", employe.getProfil());
-				session.setAttribute("isAdmin", employe.getIsAdmin());
+				session.setAttribute("isAdmin", employe.isAdmin());
 
 				RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/index.jsp");
 				dispatcher.forward(req, resp);
@@ -63,10 +65,12 @@ public class ConnexionController extends HttpServlet {
 				session.setAttribute("utilisateurId", manager.getId());
 				session.setAttribute("prenom", manager.getPrenom());
 				session.setAttribute("profil", manager.getProfil());
-				session.setAttribute("isAdmin", manager.getIsAdmin());
+				session.setAttribute("isAdmin", manager.isAdmin());
 			}
 
 		} else {
+			erreurConnexion = "erreur";
+			req.setAttribute("erreur", erreurConnexion);
 			RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/login.jsp");
 			dispatcher.forward(req, resp);
 

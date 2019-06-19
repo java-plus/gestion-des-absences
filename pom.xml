@@ -28,7 +28,7 @@
 			<version>3.1.0</version>
 			<scope>provided</scope>
 		</dependency>
-		<!-- MySQL-->
+		<!-- MySQL -->
 		<dependency>
 			<groupId>mysql</groupId>
 			<artifactId>mysql-connector-java</artifactId>
@@ -45,6 +45,25 @@
 			<artifactId>logback-classic</artifactId>
 			<version>1.2.2</version>
 		</dependency>
+
+		<dependency>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+			<version>8.0.13</version>
+		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/javax.mail/mail -->
+		<dependency>
+			<groupId>javax.mail</groupId>
+			<artifactId>mail</artifactId>
+			<version>1.4</version>
+		</dependency>
+		<dependency>
+			<groupId>com.mailjet</groupId>
+			<artifactId>mailjet-client</artifactId>
+			<version>4.1.1</version>
+		</dependency>
+
 	</dependencies>
 
 	<build>
