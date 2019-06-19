@@ -44,8 +44,7 @@ public class AbsenceParPersonneDao {
 
 		try {
 			conn.setAutoCommit(false);
-			statement = conn
-					.prepareStatement("SELECT * FROM absence_personne WHERE statut = 'INITIALE' ORDER BY date_debut");
+			statement = conn.prepareStatement("SELECT * FROM absence_personne WHERE statut = 'INITIALE' ORDER BY date_debut");
 
 			curseur = statement.executeQuery();
 
@@ -60,8 +59,7 @@ public class AbsenceParPersonneDao {
 				String statut = curseur.getString("statut");
 				String motif = curseur.getString("motif");
 
-				listeDemandesEnStatutInitiale
-						.add(new AbsenceParPersonne(id, idUtil, idAbsence, dateDebut, dateFin, statut, motif));
+				listeDemandesEnStatutInitiale.add(new AbsenceParPersonne(id, idUtil, idAbsence, dateDebut, dateFin, statut, motif));
 			}
 
 			return listeDemandesEnStatutInitiale;
@@ -99,8 +97,7 @@ public class AbsenceParPersonneDao {
 
 		try {
 			conn.setAutoCommit(false);
-			statement = conn.prepareStatement(
-					"select AP.id, AP.date_debut, AP.date_fin, UT.prenom, UT.nom, HU.mail, type_conge from absence_personne AP inner join utilisateur UT on UT.id = AP.id_util inner join absence A on A.id = AP.id_absence inner join utilisateur HU on HU.id = UT.id_hierarchie WHERE AP.id = ?");
+			statement = conn.prepareStatement("select AP.id, AP.date_debut, AP.date_fin, UT.prenom, UT.nom, HU.mail, type_conge from absence_personne AP inner join utilisateur UT on UT.id = AP.id_util inner join absence A on A.id = AP.id_absence inner join utilisateur HU on HU.id = UT.id_hierarchie WHERE AP.id = ?");
 			statement.setInt(1, idAbsence);
 			curseur = statement.executeQuery();
 
@@ -115,8 +112,7 @@ public class AbsenceParPersonneDao {
 				String huMail = curseur.getString("HU.mail");
 				String typeConge = curseur.getString("type_conge");
 
-				TraitementMailManager absencePourMail = new TraitementMailManager(apId, dateDebut, dateFin, utPrenom,
-						utNom, huMail, typeConge);
+				TraitementMailManager absencePourMail = new TraitementMailManager(apId, dateDebut, dateFin, utPrenom, utNom, huMail, typeConge);
 				return absencePourMail;
 			} else
 				return null;
@@ -200,8 +196,7 @@ public class AbsenceParPersonneDao {
 
 		try {
 			conn.setAutoCommit(false);
-			statement = conn.prepareStatement(
-					"INSERT INTO absence_personne (id_util, id_absence, date_debut, date_fin, statut, motif) VALUES (?, ?, ?, ?, ?, ?)");
+			statement = conn.prepareStatement("INSERT INTO absence_personne (id_util, id_absence, date_debut, date_fin, statut, motif) VALUES (?, ?, ?, ?, ?, ?)");
 
 			for (Utilisateur user : users) {
 				statement.setInt(1, user.getId());
@@ -244,8 +239,7 @@ public class AbsenceParPersonneDao {
 
 		try {
 			conn.setAutoCommit(false);
-			statement = conn.prepareStatement(
-					"INSERT INTO absence_personne (id_util, id_absence, date_debut, date_fin, statut, motif) VALUES (?, ?, ?, ?, ?, ?)");
+			statement = conn.prepareStatement("INSERT INTO absence_personne (id_util, id_absence, date_debut, date_fin, statut, motif) VALUES (?, ?, ?, ?, ?, ?)");
 
 			for (Utilisateur user : users) {
 				statement.setInt(1, user.getId());
@@ -309,8 +303,7 @@ public class AbsenceParPersonneDao {
 				String statut = curseur.getString("statut");
 				String motif = curseur.getString("motif");
 
-				listeAbsences
-						.add(new AbsenceParPersonne(id, idUtilisateur, idAbsence, dateDebut, dateFin, statut, motif));
+				listeAbsences.add(new AbsenceParPersonne(id, idUtilisateur, idAbsence, dateDebut, dateFin, statut, motif));
 			}
 
 			return listeAbsences;
@@ -340,10 +333,9 @@ public class AbsenceParPersonneDao {
 	 * @param mois
 	 * @param annee
 	 * @param departement
-	 * @return
+	 * @return List<AbsenceParPersonne>
 	 */
-	public List<AbsenceParPersonne> afficherAbsencesParDepartementMoisAnnee(Integer mois, Integer annee,
-			Integer departement) {
+	public List<AbsenceParPersonne> afficherAbsencesParDepartementMoisAnnee(Integer mois, Integer annee, Integer departement) {
 
 		List<AbsenceParPersonne> listeAbsencesDepartementMoisAnnee = new ArrayList<>();
 
@@ -353,8 +345,7 @@ public class AbsenceParPersonneDao {
 
 		try {
 			conn.setAutoCommit(false);
-			statement = conn.prepareStatement(
-					"SELECT AP.id, id_util, id_absence, date_debut, date_fin, statut, motif FROM absence_personne AP INNER JOIN utilisateur UT ON AP.id_util = UT.id WHERE (YEAR(date_debut) = ? OR YEAR(date_fin) = ?) AND (MONTH(date_debut) = ? OR MONTH(date_fin) = ?) AND id_departement = ?");
+			statement = conn.prepareStatement("SELECT AP.id, id_util, id_absence, date_debut, date_fin, statut, motif FROM absence_personne AP INNER JOIN utilisateur UT ON AP.id_util = UT.id WHERE (YEAR(date_debut) = ? OR YEAR(date_fin) = ?) AND (MONTH(date_debut) = ? OR MONTH(date_fin) = ?) AND id_departement = ?");
 			statement.setInt(1, annee);
 			statement.setInt(2, annee);
 			statement.setInt(3, mois);
@@ -374,8 +365,7 @@ public class AbsenceParPersonneDao {
 				String statut = curseur.getString("statut");
 				String motif = curseur.getString("motif");
 
-				listeAbsencesDepartementMoisAnnee
-						.add(new AbsenceParPersonne(id, idUtilisateur, idAbsence, dateDebut, dateFin, statut, motif));
+				listeAbsencesDepartementMoisAnnee.add(new AbsenceParPersonne(id, idUtilisateur, idAbsence, dateDebut, dateFin, statut, motif));
 			}
 
 			return listeAbsencesDepartementMoisAnnee;

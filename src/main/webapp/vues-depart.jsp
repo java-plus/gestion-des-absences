@@ -29,16 +29,30 @@
 
 	<%-- include du header manager --%>
 	<%@ include file="jsp/manager/menu.jsp"%>
-
+	<%-- ------------------------- --%>
 
 	<%-- include du contenu --%>
 	<%@ include file="jsp/manager/vues-departement.jsp"%>
-
+	<%-- ------------------------- --%>
 
 	<%-- chargement des js de JQuery et Bootsrap et feather --%>
 	<%@ include file="jsp/global/load.jsp"%>
+	<%-- ------------------------- --%>
 
+	<script>
+	$(document).ready(function (){
+		
+		console.log('coucou');
+		
+		
+	})
+	
+	
+	
+	</script>
 
 </body>
+
+
 
 </html>

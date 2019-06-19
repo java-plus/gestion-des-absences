@@ -36,8 +36,7 @@ public class UtilExcel {
 		// Année
 		// Récupérer les RTT, les congés et les fériés
 		AbsenceParPersonneDao absenceParPersonneDao = new AbsenceParPersonneDao();
-		List<AbsenceParPersonne> absenceDepartementMoisAnnee = absenceParPersonneDao
-				.afficherAbsencesParDepartementMoisAnnee(numeroMois, annee, idDepartement);
+		List<AbsenceParPersonne> absenceDepartementMoisAnnee = absenceParPersonneDao.afficherAbsencesParDepartementMoisAnnee(numeroMois, annee, idDepartement);
 
 		// Création du workbook
 		XSSFWorkbook workbook = new XSSFWorkbook();
@@ -64,21 +63,17 @@ public class UtilExcel {
 		for (int i = 0; i < utilisateurParDepartement.size(); i++) {
 			Row rowUtilisateur = sheet.createRow(6 + i);
 			Cell cellUtilisateur = rowUtilisateur.createCell(0);
-			cellUtilisateur.setCellValue(
-					utilisateurParDepartement.get(i).getPrenom() + " " + utilisateurParDepartement.get(i).getNom());
+			cellUtilisateur.setCellValue(utilisateurParDepartement.get(i).getPrenom() + " " + utilisateurParDepartement.get(i).getNom());
 			// Pour chaque colonne, si un congé est posé, le mettre
 			for (int k = 1; k < maxDay; k++) {
 				for (int m = 0; m < absenceDepartementMoisAnnee.size(); m++) {
 					// Si c'est le même utilisateur
 					if (absenceDepartementMoisAnnee.get(m).getIdUtil() == utilisateurParDepartement.get(i).getId()) {
 						// Si c'est sous les mêmes dates de mois
-						if (absenceDepartementMoisAnnee.get(m).getDateDebut().getDayOfMonth() <= k
-								& absenceDepartementMoisAnnee.get(m).getDateFin().getDayOfMonth() >= k) {
+						if (absenceDepartementMoisAnnee.get(m).getDateDebut().getDayOfMonth() <= k & absenceDepartementMoisAnnee.get(m).getDateFin().getDayOfMonth() >= k) {
 							rowUtilisateur.createCell(k);
 							Cell cellJour = rowUtilisateur.createCell(k);
-							cellJour.setCellValue(absenceParPersonneDao
-									.RecupererTypeConges(absenceDepartementMoisAnnee.get(m).getIdAbsence())
-									.toUpperCase().substring(0, 1));
+							cellJour.setCellValue(absenceParPersonneDao.RecupererTypeConges(absenceDepartementMoisAnnee.get(m).getIdAbsence()).toUpperCase().substring(0, 1));
 						}
 
 					}
@@ -145,21 +140,17 @@ public class UtilExcel {
 		 * "Datatype", "Type", "Size(in bytes)" }, { "int", "Primitive", 2 }, {
 		 * "float", "Primitive", 4 }, { "double", "Primitive", 8 }, { "char",
 		 * "Primitive", 1 }, { "String", "Non-Primitive", "No fixed size" } };
-		 * 
 		 * int rowNum = 0; System.out.println("Creating excel");
-		 * 
 		 * for (Object[] datatype : datatypes) { Row row =
 		 * sheet.createRow(rowNum++); int colNum = 0; for (Object field :
 		 * datatype) { Cell cell = row.createCell(colNum++); if (field
 		 * instanceof String) { cell.setCellValue((String) field); } else if
 		 * (field instanceof Integer) { cell.setCellValue((Integer) field); } }
 		 * }
-		 * 
 		 * try { FileOutputStream outputStream = new FileOutputStream(new
 		 * File(FILE_NAME)); workbook.write(outputStream); workbook.close(); }
 		 * catch (FileNotFoundException e) { e.printStackTrace(); } catch
 		 * (IOException e) { e.printStackTrace(); }
-		 * 
 		 * System.out.println("Done");
 		 */
 	}

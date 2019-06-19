@@ -1,5 +1,12 @@
 <%@ page language="java" pageEncoding="UTF-8" isELIgnored="false"%>
 
+<!--  -->
+
+	<%
+		List<Departement> listeDepartements = (List<Departement>) request.getAttribute("listeDepartements");
+	%>
+
+
 <form type="GET" action="afficherVueDepart">
 
 	<div class="row mt-5 mb-3">
@@ -7,17 +14,28 @@
 		<div class="input-group mb-3 col-sm-4">
 
 			<div class="input-group-prepend">
-				<label class="input-group-text" for="inputGroupSelect01">Département</label>
+				<label class="input-group-text" for="inputDepartement">Département</label>
 			</div>
 
-			<%--A Faire : utiliser méthode Java pour récuperer les années entrées en base afin de proposer un choix d'année cohérent --%>
-			<select class="custom-select" id="inputGroupSelect01">
-
-				<option selected value="2019">DEV / DVI / Java 1</option>
+			
+			<select class="custom-select" id="inputDepartement">
+			
+			
+				<%
+					for (Departement dept : listeDepartements) {
+				%>
+				
+					<option selected value="<%= dept.getId() %>"><%=dept.getNom() %></option>
+				
+				<%
+					}
+				%>
 
 			</select>
 
 		</div>
+
+
 
 		<div class="input-group mb-3 col-sm-2">
 
