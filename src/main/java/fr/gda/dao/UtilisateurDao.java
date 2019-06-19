@@ -111,9 +111,10 @@ public class UtilisateurDao {
 					int congePris = curseur.getInt("conge_pris");
 					int rttPris = curseur.getInt("rtt_restant");
 					int idHierarchie = curseur.getInt("id_hierarchie");
+					int idDepartement = curseur.getInt("id_departement");
 
 					employe = new Employe(id, nom, prenom, profil, email, mdp, isAdminBool, congeRestant, rttRestant,
-							congePris, rttPris, idHierarchie);
+							congePris, rttPris, idHierarchie, idDepartement);
 
 				}
 
@@ -181,9 +182,10 @@ public class UtilisateurDao {
 					int congePris = curseur.getInt("conge_pris");
 					int rttPris = curseur.getInt("rtt_restant");
 					int idHierarchie = curseur.getInt("id_hierarchie");
+					int idDepartement = curseur.getInt("id_departement");
 
 					manager = new Manager(id, nom, prenom, profil, email, mdp, isAdminBool, congeRestant, rttRestant,
-							congePris, rttPris, idHierarchie);
+							congePris, rttPris, idHierarchie, idDepartement);
 
 				}
 
@@ -249,15 +251,16 @@ public class UtilisateurDao {
 				int congePris = curseur.getInt("conge_pris");
 				int rttPris = curseur.getInt("rtt_restant");
 				int idHierarchie = curseur.getInt("id_hierarchie");
+				int idDepartement = curseur.getInt("id_departement");
 
 				if (profil.equals("employé")) {
 					utilisateur = new Employe(id, nom, prenom, profil, email, mdp, isAdminBool, congeRestant,
-							rttRestant, congePris, rttPris, idHierarchie);
+							rttRestant, congePris, rttPris, idHierarchie, idDepartement);
 
 					user.add(utilisateur);
 				} else {
 					utilisateur = new Manager(id, nom, prenom, profil, email, mdp, isAdminBool, congeRestant,
-							rttRestant, congePris, rttPris, idHierarchie);
+							rttRestant, congePris, rttPris, idHierarchie, idDepartement);
 
 					user.add(utilisateur);
 
@@ -371,14 +374,15 @@ public class UtilisateurDao {
 				int congePris = curseur.getInt("conge_pris");
 				int rttPris = curseur.getInt("rtt_restant");
 				int idHierarchie = curseur.getInt("id_hierarchie");
+				int idDepartement = curseur.getInt("id_departement");
 
 				if (profil.equals("employé")) {
 
 					utilisateur = new Employe(id, nom, prenom, profil, email, mdp, isAdminBool, congeRestant,
-							rttRestant, congePris, rttPris, idHierarchie);
+							rttRestant, congePris, rttPris, idHierarchie, idDepartement);
 				} else {
 					utilisateur = new Manager(id, nom, prenom, profil, email, mdp, isAdminBool, congeRestant,
-							rttRestant, congePris, rttPris, idHierarchie);
+							rttRestant, congePris, rttPris, idHierarchie, idDepartement);
 				}
 
 			}

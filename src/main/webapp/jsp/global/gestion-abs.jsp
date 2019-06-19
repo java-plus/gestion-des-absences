@@ -75,55 +75,29 @@
 				if (liste.getStatut().equals("INITIALE")) {
 			%>
 			<a href="#"> <i data-feather="edit-2">modifier</i></a>
-			<button type="button" class="btn btn-dark btn-supp" data-toggle="modal"
-				data-target="#modal" id="<%=liste.getId()%>">
+			<button type="button" class="btn btn-dark btn-supp"
+				data-toggle="modal" data-target="#modal" id="<%=liste.getId()%>">
 				<i data-feather="trash">supprimer</i>
 			</button>
 			<%
-				;
+				
 						} else if (liste.getStatut().equals("EN_ATTENTE") || liste.getStatut().equals("VALIDEE")) {
 			%>
 			<a href="afficherConges?idsup=<%=liste.getId()%>"><i
 				data-feather="trash">supprimer</i></a>
 			<%
-				;
+				
 						}
 			%>
 
 
-
-<%
-	}
-	}
-%>
-
-			<!-- 		Modal -->
-
-			<div class="modal" tabindex="-1" role="dialog" id="modal">
-				<div class="modal-dialog" role="document">
-					<div class="modal-content">
-						<div class="modal-header">
-							<h5 class="modal-title text-dark">Confirmation suppression</h5>
-							<button type="button" class="close" data-dismiss="modal"
-								aria-label="Close">
-								<span aria-hidden="true">&times;</span>
-							</button>
-						</div>
-						<div class="modal-body text-muted">
-							<p>Confirmez-vous la suppression de ces congés?</p>
-						</div>
-						<form method="POST" action="afficherConges">
-							<div class="modal-footer">
-								<a href="afficherConges"><button type="button"
-										class="btn btn-secondary">Annuler</button></a> 
-										<button type="button"class="btn btn-success" data-dismiss="modal" name="suppressionConges">Confirmer</button>
-						</form>
-					</div>
-				</div>
-			</div>
 		</div>
 	</div>
-</div>
+
+	<%
+		}
+		}
+	%>
 
 </div>
 
@@ -144,17 +118,41 @@
 		<%=utilisateur.getRttRestant()%></div>
 </div>
 
+			<!-- 		Modal -->
+
+			<div class="modal" tabindex="-1" role="dialog" id="modal">
+				<div class="modal-dialog" role="document">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h5 class="modal-title text-dark">Confirmation suppression</h5>
+							<button type="button" class="close" data-dismiss="modal"
+								aria-label="Close">
+								<span aria-hidden="true">&times;</span>
+							</button>
+						</div>
+						<div class="modal-body text-muted">
+							<p>Confirmez-vous la suppression de ces congés?</p>
+						</div>
+						<form method="DELETE" action="afficherConges" class="formModal" id="formModal">
+							<div class="modal-footer">
+								<a href="afficherConges"><button type="button"
+										class="btn btn-secondary">Annuler</button></a>
+								<button type="submit" class="btn btn-success"
+									data-dismiss="modal" name="suppressionConges">Confirmer</button>
+							</div>
+						</form>
+
+					</div>
+				</div>
+			</div>
+			
+			<!-- 			fin modal -->
 
 <!-- javascript pour la modal -->
 
-<script type="text/javascript">
-	$('#modal').on('shown.bs.modal', function() {
-		$('#supprimer').trigger('focus');
-	})
-	
-	$( ".btn-supp" ).click(function() {
-		monBouton ="a href=' + 12 +   '>bountkjfnkfnr</a> "
-  		$('.modal-body').append(monBouton);
-	});
-	
+
+<script>
+
+
+
 </script>
