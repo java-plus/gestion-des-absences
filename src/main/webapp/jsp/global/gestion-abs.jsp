@@ -62,7 +62,7 @@
 
 	<!-- 	Remplissage des cases du tableau avec les infos de la boucle -->
 
-	<div class="row p-2 ligneSuppr">
+	<div class="row p-2 ligneSuppr<%=liste.getId()%>">
 		<div class="col-sm-3"><%=liste.getDateDebut()%></div>
 		<div class="col-sm-3"><%=liste.getDateFin()%></div>
 		<div class="col-sm-3"><%=typeConge%></div>
@@ -74,20 +74,25 @@
 			<%
 				if (liste.getStatut().equals("INITIALE")) {
 			%>
-			<a href="#"> <i data-feather="edit-2">modifier</i></a>
+
+			<button type="button" class="btn btn-danger btn-modif"
+				data-toggle="modal" href="updateConges?update=<%=liste.getId()%>" id="<%=liste.getId()%>">
+				<i data-feather="edit-2">supprimer</i>
+				</button>
+
 			<button type="button" class="btn btn-dark btn-supp"
 				data-toggle="modal" data-target="#modal" id="<%=liste.getId()%>">
 				<i data-feather="trash">supprimer</i>
 			</button>
 			<%
-				
-						} else if (liste.getStatut().equals("EN_ATTENTE") || liste.getStatut().equals("VALIDEE")) {
+				} else if (liste.getStatut().equals("EN_ATTENTE") || liste.getStatut().equals("VALIDEE")) {
 			%>
-			<a href="afficherConges?idsup=<%=liste.getId()%>"><i
-				data-feather="trash">supprimer</i></a>
+			<button type="button" class="btn btn-warning btn-supp"
+				data-toggle="modal" data-target="#modal" id="<%=liste.getId()%>">
+				<i data-feather="trash">supprimer</i>
+			</button>
 			<%
-				
-						}
+				}
 			%>
 
 
@@ -118,31 +123,32 @@
 		<%=utilisateur.getRttRestant()%></div>
 </div>
 
-			<!-- 		Modal -->
+<!-- 		Modal -->
 
-			<div class="modal" tabindex="-1" role="dialog" id="modal">
-				<div class="modal-dialog" role="document">
-					<div class="modal-content">
-						<div class="modal-header">
-							<h5 class="modal-title text-dark">Confirmation suppression</h5>
-							<button type="button" class="close" data-dismiss="modal"
-								aria-label="Close">
-								<span aria-hidden="true">&times;</span>
-							</button>
-						</div>
-						<div class="modal-body text-muted">
-							<p>Confirmez-vous la suppression de ces congés?</p>
-						</div>
-						<form method="DELETE" action="afficherConges" class="formModal" id="formModal">
-							<div class="modal-footer">
-								<button type="submit" class="btn btn-success"
-									data-dismiss="modal" name="suppressionConges">Confirmer</button>
-							</div>
-						</form>
-
-					</div>
-				</div>
+<div class="modal" tabindex="-1" role="dialog" id="modal">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title text-dark">Confirmation suppression</h5>
+				<button type="button" class="close" data-dismiss="modal"
+					aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
 			</div>
-			
-			<!-- 			fin modal -->
+			<div class="modal-body text-muted">
+				<p>Confirmez-vous la suppression de ces congés?</p>
+			</div>
+			<form method="DELETE" action="afficherConges" class="formModal"
+				id="formModal">
+				<div class="modal-footer">
+					<button type="submit" class="btn btn-success" data-dismiss="modal"
+						name="suppressionConges">Confirmer</button>
+				</div>
+			</form>
+
+		</div>
+	</div>
+</div>
+
+<!-- 			fin modal -->
 

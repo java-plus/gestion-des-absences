@@ -65,11 +65,13 @@
 <script type="text/javascript">
 $(document).ready(function(){
 	
-
+var id; 
+	
  	$(".btn-supp").click(function() {
 					
-		monBouton = "afficherConges?suppr=" + this.id; 
-		$('.btn-success').attr('id', monBouton );
+		url = "afficherConges?suppr=" + this.id; 
+		id = this.id; 
+		$('.btn-success').attr('id', url );
 	});
  	
 	$(".btn-success").click(function() {
@@ -79,9 +81,24 @@ $(document).ready(function(){
 		    type: 'DELETE',
 		    success: function(result) {
 		        console.log(result);
-		        $( ".row" ).remove();
+		        $( ".ligneSuppr" + id ).remove();
 		    }
 		});
+ 		
+ 	 	$(".btn-modif").click(function() {
+			
+ 			url = "updateConges?update=" + this.id; 
+ 	 		$.ajax({
+ 			    url: url,
+ 			    type: 'POST',
+ 			    success: function(result) {
+ 			        console.log(result);
+ 			    }
+ 			});
+ 			
+ 		});
+ 	 	
+ 		
 		
 
 });		
