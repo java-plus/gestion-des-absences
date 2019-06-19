@@ -23,7 +23,7 @@
 
 	<h1>Jours fériés et RTT employeurs</h1>
 	<%
-		int annee = LocalDate.now().getYear();		
+		int annee = LocalDate.now().getYear();
 		if (request.getParameter("selectedAn") != null) {
 			annee = Integer.parseInt(request.getParameter("selectedAn"));
 		}
@@ -64,26 +64,26 @@
 
 		<div class="col-sm-3 d-flex align-items-center mx-auto">
 			<div>Date</div>
-			<div class="btn-group btn-group-sm" role="group" aria-label="...">				
+			<div class="btn-group btn-group-sm" role="group" aria-label="...">
 			</div>
 
 		</div>
 
 		<div class="col-sm-2 d-flex align-items-center mx-auto">
 			<div>Type</div>
-			<div class="btn-group btn-group-sm" role="group" aria-label="...">				
+			<div class="btn-group btn-group-sm" role="group" aria-label="...">
 			</div>
 		</div>
-		
+
 		<div class="col-sm-2 d-flex align-items-center mx-auto">
 			<div>Jour</div>
-			<div class="btn-group btn-group-sm" role="group" aria-label="...">				
+			<div class="btn-group btn-group-sm" role="group" aria-label="...">
 			</div>
 		</div>
 
 		<div class="col-sm-2 d-flex align-items-center mx-auto">
 			<div>Commentaires</div>
-			<div class="btn-group btn-group-sm" role="group" aria-label="...">				
+			<div class="btn-group btn-group-sm" role="group" aria-label="...">
 			</div>
 		</div>
 
@@ -104,12 +104,12 @@
 
 		if (listeAbsences != null) {
 			for (AbsenceParPersonne liste : listeAbsences) {
-				typeConge = absenceDao.RecupererTypeConges(liste.getIdAbsence());				
-				String jour = DateUtils.toLocalDate(liste.getDateDebut()).getDayOfWeek().getDisplayName(TextStyle.FULL, Locale.FRANCE);
-				String jourMaj = jour.substring(0,1).toUpperCase() + jour.substring(1);
+				typeConge = absenceDao.RecupererTypeConges(liste.getIdAbsence());
+				String jour = liste.getDateDebut().getDayOfWeek().getDisplayName(TextStyle.FULL, Locale.FRANCE);
+				String jourMaj = jour.substring(0, 1).toUpperCase() + jour.substring(1);
 				if ((typeConge.equals("férié") || typeConge.equals("RTT employeur"))
 						&& an.equals(liste.getDateDebut().toString().substring(0, 4))
-						&& liste.getStatut().equals("VALIDEE")) {					
+						&& liste.getStatut().equals("VALIDEE")) {
 	%>
 
 	<div class="row p-2 my-1">
@@ -117,15 +117,19 @@
 		<div class="col-sm-2 mx-auto"><%=typeConge%></div>
 		<div class="col-sm-2 mx-auto"><%=jourMaj%></div>
 		<div class="col-sm-2 mx-auto"><%=liste.getMotif()%></div>
-		<div class="col-sm-2 mx-auto">
-			<button type="button" class="btn btn-none bg-warning">
+		<div class="col-sm-2 mx auto">
+			<button type="button" class="btn btn-dark btn-modif bg-warning"
+				data-toggle="modal" data-target="#modal" id="modifier">
 				<i data-feather="edit-2">modifier</i>
 			</button>
-			<button type="button" class="btn btn-none bg-danger">
+			<button type="button" class="btn btn-dark btn-supp bg-danger"
+				data-toggle="modal" data-target="#modal" id="modifier">
 				<i data-feather="trash">supprimer</i>
 			</button>
 		</div>
 	</div>
+
+
 	<%
 		}
 			}

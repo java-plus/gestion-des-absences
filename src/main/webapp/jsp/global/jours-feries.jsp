@@ -98,8 +98,8 @@
 
 		if (listeAbsences != null) {
 			for (AbsenceParPersonne liste : listeAbsences) {
-				typeConge = absenceDao.RecupererTypeConges(liste.getIdAbsence());				
-				String jour = DateUtils.toLocalDate(liste.getDateDebut()).getDayOfWeek().getDisplayName(TextStyle.FULL, Locale.FRANCE);
+				typeConge = absenceDao.RecupererTypeConges(liste.getIdAbsence());	
+				String jour = liste.getDateDebut().getDayOfWeek().getDisplayName(TextStyle.FULL, Locale.FRANCE);
 				String jourMaj = jour.substring(0,1).toUpperCase() + jour.substring(1);
 				if ((typeConge.equals("férié") || typeConge.equals("RTT employeur"))
 						&& an.equals(liste.getDateDebut().toString().substring(0, 4))
