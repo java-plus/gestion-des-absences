@@ -75,11 +75,9 @@
 
 
 
-<<<<<<< HEAD
-		<%-- chargement des js de JQuery et Bootsrap et feather --%>
-=======
+
 	<%-- chargement des js de JQuery et Bootsrap et feather --%>
->>>>>>> master
+
 	<%@ include file="jsp/global/load.jsp"%>
 
 

@@ -44,7 +44,21 @@
 
 
 
-
+	<%  String delete = (String)session.getAttribute("delete");
+	
+		if (delete != null) {
+			
+			%>
+			
+			
+			<div><%= delete %></div>
+			
+			
+			<% 
+			
+		}
+	
+	%>
 
 
 	<%-- include du contenu --%>
@@ -62,21 +76,42 @@
 
 $(document).ready(function(){
 	
-// 	$('#modal').on('shown.bs.modal', function() {
-// 		$('#supprimer').trigger('focus');
-// 	})
+
+// 	$(".btn-supp").click(function() {
+		
+// 		monBouton = "afficherConges?suppr=" + this.id; 
+// 		console.log(monBouton); 
+// 		$('.formModal').attr('action', monBouton );
+// 	});
 
 	$(".btn-supp").click(function() {
 		
-		monBouton = "afficherConges?suppr=" + this.id + " "; 
+		monBouton = "afficherConges?suppr=" + this.id; 
 		console.log(monBouton); 
-		$('.btnSubmit').attr('action', monBouton );
+		$('.btn-success').attr('id', monBouton );
+	});
+
+	
+	$(".btn-success").click(function() {
+		
+
+		$.ajax({
+		    url: this.id,
+		    type: 'DELETE',
+		    success: function(result) {
+		        console.log(result);
+		        $( ".row" ).remove();
+		    }
+		});
+		
+		/* 
+		console.log(this.id); 
+		$(location).attr('href', this.id); */
+		
 	});
 	
 });
-<!--
 
-//-->
 </script>
 
 <body>
