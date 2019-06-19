@@ -603,4 +603,51 @@ public class UtilisateurDao {
 
 	}
 
+	/**
+	 * méthode qui récupère le département en String
+	 * 
+	 * @param idDepartement
+	 * @return Chaine departement
+	 */
+	public String recupererDepartement(int idDepartement) {
+
+		Connection conn = ConnexionManager.getInstance();
+		PreparedStatement statement = null;
+		ResultSet curseur = null;
+		String department = null;
+
+		try {
+			conn.setAutoCommit(false);
+
+			statement = conn.prepareStatement("SELECT * FROM departement WHERE id = ?");
+			statement.setInt(1, idDepartement);
+
+			curseur = statement.executeQuery();
+
+			conn.commit();
+
+			if (curseur.next()) {
+				department = curseur.getString("nom");
+
+			}
+			return department;
+		} catch (SQLException e) {
+			try {
+				conn.rollback();
+			} catch (SQLException e1) {
+				throw new TechnicalException("Le rollback n'a pas fonctionné", e);
+			}
+			throw new TechnicalException("La sélection ne s'est pas faite", e);
+		} finally {
+			try {
+				if (statement != null) {
+					statement.close();
+				}
+			} catch (SQLException e) {
+
+				throw new TechnicalException("La fermeture ne s'est pas faite", e);
+			}
+		}
+	}
+
 }
