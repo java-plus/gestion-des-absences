@@ -24,7 +24,6 @@ public class AfficherVuesSynthController extends HttpServlet {
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
 		String choix = req.getParameter("vue");
-		req.setAttribute("choix", choix);
 
 		// histo = demande d'affichage de la page avec Histo par departement et par jour
 		// collab = demande d'affichage de la page de vue par par depart. par jour et par collab.
