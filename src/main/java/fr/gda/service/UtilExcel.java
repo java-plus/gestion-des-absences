@@ -85,15 +85,6 @@ public class UtilExcel {
 		}
 		colNum = 0;
 		rowNum = 5;
-		// sheet.
-		// for (int i = 0; i < utili)
-		/*
-		 * for (int i = 0; i < absenceDepartementMoisAnnee.size(); i++) {
-		 * Integer jour =
-		 * absenceDepartementMoisAnnee.get(i).getDateDebut().getDayOfMonth();
-		 * row = sheet.createRow(rowNum++); colNum = 0; Cell cell =
-		 * row.createCell(colNum); cell.setCellValue(jour); }
-		 */
 
 		try {
 			FileOutputStream outputStream = new FileOutputStream(new File(FILE_NAME));
