@@ -85,22 +85,6 @@ var id;
 		    }
 		});
  		
- 	 	$(".btn-modif").click(function() {
-			
- 			url = "updateConges?update=" + this.id; 
- 	 		$.ajax({
- 			    url: url,
- 			    type: 'POST',
- 			    success: function(result) {
- 			        console.log(result);
- 			    }
- 			});
- 			
- 		});
- 	 	
- 		
-		
-
 });		
 	});
 

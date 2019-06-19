@@ -497,7 +497,7 @@ public class AbsenceParPersonneDao {
 	 * @return
 	 */
 	public void modifierConges(int idConge) {
-
+		// TODO Modifier la méthode
 		Connection conn = ConnexionManager.getInstance();
 		PreparedStatement statement = null;
 		ResultSet curseur = null;
@@ -505,8 +505,8 @@ public class AbsenceParPersonneDao {
 
 		try {
 			conn.setAutoCommit(false);
-			// A modifier
-			statement = conn.prepareStatement("DELETE FROM absence_personne WHERE id = ?");
+
+			statement = conn.prepareStatement("UPDATE FROM absence_personne WHERE id = ?");
 			statement.setInt(1, idConge);
 
 			statement.executeUpdate();
