@@ -58,7 +58,7 @@ public class AbsenceParPersonne {
 			this.typeAbsence = "RTT employeur";
 			break;
 		case "6":
-			this.typeAbsence = "férié";
+			this.typeAbsence = "ferié";
 			break;
 		}
 		this.dateDebut = dateDebut;

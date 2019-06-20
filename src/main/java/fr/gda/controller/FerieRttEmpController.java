@@ -39,9 +39,9 @@ public class FerieRttEmpController extends HttpServlet {
 		String typeConge = null;
 
 		for (AbsenceParPersonne liste : listeAbsences) {
-			String absId = absParPersDao.RecupererTypeConges(liste.getIdAbsence());
+			String absId = liste.getTypeAbsence();
 
-			if (absId.equals("5") || absId.equals("6")) {
+			if (absId.equals("RTT employeur") || absId.equals("ferié")) {
 				typeConge = absParPersDao.RecupererTypeConges(liste.getId());
 			}
 		}
