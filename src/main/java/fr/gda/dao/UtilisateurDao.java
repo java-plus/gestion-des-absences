@@ -159,7 +159,7 @@ public class UtilisateurDao {
 	 * 
 	 * @return Entier représentant le nombre de jours de congés d'un type
 	 */
-	public Integer recupererNombreJoursParTypeConge(Integer idUtilisateur, Integer typeConge) {
+	public Integer recupererNombreJoursParTypeConge(Integer idUtilisateur, String typeConge) {
 
 		Integer nombreJoursCongeRestant = 0;
 		Connection conn = ConnexionManager.getInstance();
@@ -169,18 +169,18 @@ public class UtilisateurDao {
 		try {
 
 			conn.setAutoCommit(false);
-			if (typeConge == 1) {
+			if (typeConge.equals("congé payé")) {
 				statement = conn.prepareStatement("SELECT conge_restant FROM utilisateur Where id = ?");
-			} else if (typeConge == 2) {
+			} else if (typeConge.equals("RTT")) {
 				statement = conn.prepareStatement("SELECT RTT_restant FROM utilisateur Where id = ?");
 			}
 			statement.setInt(1, idUtilisateur);
 			curseur = statement.executeQuery();
 
 			if (curseur.next()) {
-				if (typeConge == 1) {
+				if (typeConge.equals("congé payé")) {
 					nombreJoursCongeRestant = curseur.getInt("conge_restant");
-				} else if (typeConge == 2) {
+				} else if (typeConge.equals("RTT")) {
 					nombreJoursCongeRestant = curseur.getInt("RTT_restant");
 				}
 
@@ -220,16 +220,16 @@ public class UtilisateurDao {
 	 *            : Nombre de jours à retirer
 	 * 
 	 */
-	public void retirerJoursParTypeConge(Integer idUtilisateur, Integer typeAbsence, Long nombreJours) {
+	public void retirerJoursParTypeConge(Integer idUtilisateur, String typeAbsence, Long nombreJours) {
 
 		Connection conn = ConnexionManager.getInstance();
 		PreparedStatement statement = null;
 
 		try {
 			conn.setAutoCommit(false);
-			if (typeAbsence == 1) {
+			if (typeAbsence.equals("congé payé")) {
 				statement = conn.prepareStatement("UPDATE utilisateur SET conge_restant = ? WHERE id = ?");
-			} else if (typeAbsence == 2) {
+			} else if (typeAbsence.equals("RTT")) {
 				statement = conn.prepareStatement("UPDATE utilisateur SET rtt_restant = ? WHERE id = ?");
 			}
 
