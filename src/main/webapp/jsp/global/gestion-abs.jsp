@@ -44,13 +44,12 @@
 
 	<%
 		List<AbsenceParPersonne> listeAbsences = (List<AbsenceParPersonne>) request.getAttribute("afficherConge");
-		String typeConge = (String) request.getAttribute("afficherTypeConge");
+		
 		Utilisateur utilisateur = (Utilisateur) request.getAttribute("utilisateur");
-		AbsenceParPersonneDao absenceDao = new AbsenceParPersonneDao();
+	
 		if (listeAbsences != null) {
 			for (AbsenceParPersonne liste : listeAbsences) {
-				typeConge = absenceDao.RecupererTypeConges(liste.getIdAbsence());
-				if (typeConge.equals("férié") || typeConge.equals("RTT employeur")) {
+				if (liste.getTypeAbsence().equals("férié") || liste.getTypeAbsence().equals("RTT employeur")) {
 					continue;
 				}
 	%>
@@ -60,7 +59,7 @@
 	<div class="row p-2 ligneSuppr<%=liste.getId()%>">
 		<div class="col-sm-3"><%=liste.getDateDebut()%></div>
 		<div class="col-sm-3"><%=liste.getDateFin()%></div>
-		<div class="col-sm-3"><%=typeConge%></div>
+		<div class="col-sm-3"><%=liste.getTypeAbsence()%></div>
 		<div class="col-sm-2"><%=liste.getStatut()%></div>
 		<div class="col-sm-1 ">
 
@@ -138,8 +137,7 @@
 			<form method="DELETE" action="afficherConges" class="formModal"
 				id="formModal">
 				<div class="modal-footer">
-					<button type="submit" class="btn btn-success" data-dismiss="modal"
-						name="suppressionConges">Confirmer</button>
+					<button type="submit" class="btn btn-success" data-dismiss="modal">Confirmer</button>
 				</div>
 			</form>
 

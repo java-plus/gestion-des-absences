@@ -20,7 +20,7 @@ public class AjoutCongeController extends HttpServlet {
 
 		String ajoutConge = req.getParameter("ajout");
 		if (ajoutConge.equals("add")) {
-			RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/login.jsp");
+			RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/ajout-absence.jsp");
 			dispatcher.forward(req, resp);
 		}
 
@@ -29,6 +29,15 @@ public class AjoutCongeController extends HttpServlet {
 
 		absenceDao.modifierConges(idConge);
 
+	}
+
+	@Override
+	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		String ajoutConge = req.getParameter("ajout");
+		if (ajoutConge.equals("ok")) {
+			RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/gestion-absences.jsp");
+			dispatcher.forward(req, resp);
+		}
 	}
 
 }
