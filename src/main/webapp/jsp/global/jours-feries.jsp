@@ -17,13 +17,13 @@
 	<script>
 		function selectAnnee() {
 			document.location.href = "http://localhost:8080/gda/controller/jFerieRttEmp?selectedAn="
-					+ document.forms[0].anSelect.value;
+					+ document.forms["joursFeries"].anSelect.value;
 		}
 	</script>
 
 	<h1>Jours feriés et RTT employeurs</h1>
 	<%
-		int annee = LocalDate.now().getYear();		
+		int annee = LocalDate.now().getYear();
 		if (request.getParameter("selectedAn") != null) {
 			annee = Integer.parseInt(request.getParameter("selectedAn"));
 		}
@@ -34,9 +34,8 @@
 		annees.add(LocalDate.now().getYear());
 		annees.add(LocalDate.now().getYear() - 1);
 	%>
-
 	<div class="row p-2">
-		<form class=" form-inline">
+		<form class=" form-inline" name="joursFeries">
 			<div class="form-group">
 				<label for="inputYear">Année :</label> <select id="inputState"
 					class="form-control" name="anSelect" onchange="selectAnnee()">
@@ -64,26 +63,26 @@
 
 		<div class="col-sm-3 d-flex align-items-center mx-auto">
 			<div>Date</div>
-			<div class="btn-group btn-group-sm" role="group" aria-label="...">				
+			<div class="btn-group btn-group-sm" role="group" aria-label="...">
 			</div>
 
 		</div>
 
 		<div class="col-sm-2 d-flex align-items-center mx-auto">
 			<div>Type</div>
-			<div class="btn-group btn-group-sm" role="group" aria-label="...">				
+			<div class="btn-group btn-group-sm" role="group" aria-label="...">
 			</div>
 		</div>
-		
+
 		<div class="col-sm-2 d-flex align-items-center mx-auto">
 			<div>Jour</div>
-			<div class="btn-group btn-group-sm" role="group" aria-label="...">				
+			<div class="btn-group btn-group-sm" role="group" aria-label="...">
 			</div>
 		</div>
 
 		<div class="col-sm-2 d-flex align-items-center mx-auto">
 			<div>Commentaires</div>
-			<div class="btn-group btn-group-sm" role="group" aria-label="...">				
+			<div class="btn-group btn-group-sm" role="group" aria-label="...">
 			</div>
 		</div>
 
@@ -98,12 +97,12 @@
 
 		if (listeAbsences != null) {
 			for (AbsenceParPersonne liste : listeAbsences) {
-				typeConge = absenceDao.RecupererTypeConges(liste.getIdAbsence());	
+				typeConge = liste.getTypeAbsence();
 				String jour = liste.getDateDebut().getDayOfWeek().getDisplayName(TextStyle.FULL, Locale.FRANCE);
-				String jourMaj = jour.substring(0,1).toUpperCase() + jour.substring(1);
-				if (  (typeConge.equals("ferié") || typeConge.equals("RTT employeur"))
-					&& an.equals(liste.getDateDebut().toString().substring(0, 4))
-					&& (liste.getStatut().equals("VALIDEE") || liste.getStatut().equals("INITIALE"))) {					
+				String jourMaj = jour.substring(0, 1).toUpperCase() + jour.substring(1);
+				if ((typeConge.equals("ferié") || typeConge.equals("RTT employeur"))
+						&& an.equals(liste.getDateDebut().toString().substring(0, 4))
+						&& (liste.getStatut().equals("VALIDEE") || liste.getStatut().equals("INITIALE"))) {
 	%>
 
 	<div class="row p-2 my-1">
@@ -120,6 +119,6 @@
 </div>
 
 <div class="container">
-<!-- 	<button class="btn btn-lg btn-outline-primary" type="button">Ajouter -->
-<!-- 		un jour férié ou un RTT employeur</button> -->
+	<!-- 	<button class="btn btn-lg btn-outline-primary" type="button">Ajouter -->
+	<!-- 		un jour férié ou un RTT employeur</button> -->
 </div>

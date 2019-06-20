@@ -16,12 +16,13 @@
 
 	<script>
 		function selectAnnee() {
+			console.log(document.forms[1]);
 			document.location.href = "http://localhost:8080/gda/controller/jFerieRttEmp?selectedAn="
-					+ document.forms[0].anSelect.value;
+				+ document.forms["joursFeries"].anSelect.value;
 		}
 	</script>
 
-	<h1>Jours feriés et RTT employeurs</h1>
+	<h1>Jours feriés et RTT employeurs zefzefzef</h1>
 	<%
 		int annee = LocalDate.now().getYear();
 		if (request.getParameter("selectedAn") != null) {
@@ -36,7 +37,7 @@
 	%>
 
 	<div class="row p-2">
-		<form class=" form-inline">
+		<form class=" form-inline" name="joursFeries">
 			<div class="form-group">
 				<label for="inputYear">Année :</label> <select id="inputState"
 					class="form-control" name="anSelect" onchange="selectAnnee()">
@@ -45,11 +46,11 @@
 						for (int anneeListe : annees) {
 							if (anneeListe == annee) {
 					%>
-					<option selected><%=anneeListe%></option>
+					<option selected value="<%=anneeListe%>"><%=anneeListe%></option>
 					<%
 						} else {
 					%>
-					<option><%=anneeListe%></option>
+					<option value="<%=anneeListe%>"><%=anneeListe%></option>
 					<%
 						}
 						}
@@ -104,7 +105,7 @@
 
 		if (listeAbsences != null) {
 			for (AbsenceParPersonne liste : listeAbsences) {
-				typeConge = absenceDao.RecupererTypeConges(liste.getIdAbsence());
+				typeConge = liste.getTypeAbsence();
 				String jour = liste.getDateDebut().getDayOfWeek().getDisplayName(TextStyle.FULL, Locale.FRANCE);
 				String jourMaj = jour.substring(0, 1).toUpperCase() + jour.substring(1);
 				if ((typeConge.equals("ferié") || typeConge.equals("RTT employeur"))
