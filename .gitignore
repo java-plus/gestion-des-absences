@@ -4,3 +4,4 @@
 .project
 .classpath
 database.properties
+*.xlsx
