@@ -103,7 +103,7 @@
 				String jourMaj = jour.substring(0,1).toUpperCase() + jour.substring(1);
 				if ((typeConge.equals("férié") || typeConge.equals("RTT employeur"))
 						&& an.equals(liste.getDateDebut().toString().substring(0, 4))
-						&& liste.getStatut().equals("VALIDEE")) {					
+						&& (liste.getStatut().equals("VALIDEE")) || liste.getStatut().equals("INITIALE")) {					
 	%>
 
 	<div class="row p-2 my-1">

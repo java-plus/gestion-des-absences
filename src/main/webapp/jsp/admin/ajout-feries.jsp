@@ -14,8 +14,8 @@
 <%@ page language="java" pageEncoding="UTF-8" isELIgnored="false"%>
 
 <div class="container my-5 mx-auto">
-	<h1 class="d-flex justify-content-center my-5">Nouveau jour ferié / RTT
-		employeur</h1>
+	<h1 class="d-flex justify-content-center my-5">Nouveau jour ferié
+		/ RTT employeur</h1>
 
 	<form class=" col-sm-5 mx-auto">
 		<div class="form-group row">
@@ -50,12 +50,12 @@
 		</div>
 
 		<div class="form-group d-flex justify-content-center my-5">
-			<button
-				class="btn btn-lg btn-outline-light border-dark mx-2 bg-danger"
-				type="button">Annuler</button>
-			<button
-				class="btn btn-lg btn-outline-light border-dark mx-2 bg-success"
-				type="button">Valider</button>
+			<a href="jFerieRttEmp"><button
+					class="btn btn-lg btn-outline-light border-dark mx-2 bg-danger"
+					type="button">Annuler</button></a>
+				<button
+					class="btn btn-lg btn-outline-light border-dark mx-2 bg-success"
+					type="button">Valider</button>
 		</div>
 	</form>
 </div>

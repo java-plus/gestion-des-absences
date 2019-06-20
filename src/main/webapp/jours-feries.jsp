@@ -67,6 +67,32 @@
 	<%-- chargement des js de JQuery et Bootsrap et feather --%>
 	<%@ include file="jsp/global/load.jsp"%>
 
+	<script type="text/javascript">
+		$(document).ready(function() {
+
+			var id;
+
+			$(".btn-supp").click(function() {
+
+				url = "adminJFerieRttEmp?suppr=" + this.id;
+				id = this.id;
+				$('.btn-success').attr('id', url);
+			});
+
+			$(".btn-success").click(function() {
+				$.ajax({
+					url : this.id,
+					type : 'DELETE',
+					success : function(result) {
+						console.log(result);
+						$(".ligneSuppr" + id).remove();
+					}
+				});
+
+			});
+		});
+	</script>
+
 </body>
 
 </html>

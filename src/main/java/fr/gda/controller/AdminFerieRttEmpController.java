@@ -45,4 +45,17 @@ public class AdminFerieRttEmpController extends HttpServlet {
 		dispatcher.forward(req, resp);
 	}
 
+	@Override
+	protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		AbsenceParPersonneDao absenceDao = new AbsenceParPersonneDao();
+
+		String idCongeString = req.getParameter("suppr");
+		Integer idConge = Integer.parseInt(idCongeString);
+
+		absenceDao.SupprimerConges(idConge);
+
+		resp.getWriter().append("<p>Le congé a bien été supprimé !</p>");
+
+	}
+
 }
