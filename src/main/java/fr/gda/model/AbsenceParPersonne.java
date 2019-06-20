@@ -15,7 +15,7 @@ public class AbsenceParPersonne {
 	/** idUtil : int */
 	private int idUtil;
 	/** idAbsence : int */
-	private int idAbsence;
+	private String typeAbsence;
 	/** dateDebut : Date */
 	private LocalDate dateDebut;
 	/** dateFin : Date */
@@ -36,12 +36,31 @@ public class AbsenceParPersonne {
 	 * @param statut
 	 * @param motif
 	 */
-	public AbsenceParPersonne(int id, int idUtil, int idAbsence, LocalDate dateDebut, LocalDate dateFin, String statut,
-			String motif) {
+	public AbsenceParPersonne(int id, int idUtil, String typeAbsence, LocalDate dateDebut, LocalDate dateFin,
+			String statut, String motif) {
 		super();
 		this.id = id;
 		this.idUtil = idUtil;
-		this.idAbsence = idAbsence;
+		switch (typeAbsence) {
+		case "1":
+			this.typeAbsence = "RTT";
+			break;
+		case "2":
+			this.typeAbsence = "congé payé";
+			break;
+		case "3":
+			this.typeAbsence = "congé sans solde";
+			break;
+		case "4":
+			this.typeAbsence = "mission";
+			break;
+		case "5":
+			this.typeAbsence = "RTT employeur";
+			break;
+		case "6":
+			this.typeAbsence = "férié";
+			break;
+		}
 		this.dateDebut = dateDebut;
 		this.dateFin = dateFin;
 		this.statut = statut;
@@ -89,20 +108,20 @@ public class AbsenceParPersonne {
 	/**
 	 * Getter
 	 * 
-	 * @return the idAbsence
+	 * @return the typeAbsence
 	 */
-	public int getIdAbsence() {
-		return idAbsence;
+	public String getTypeAbsence() {
+		return typeAbsence;
 	}
 
 	/**
 	 * Setter
 	 * 
-	 * @param idAbsence
-	 *            the idAbsence to set
+	 * @param typeAbsence
+	 *            the typeAbsence to set
 	 */
-	public void setIdAbsence(int idAbsence) {
-		this.idAbsence = idAbsence;
+	public void setTypeAbsence(String typeAbsence) {
+		this.typeAbsence = typeAbsence;
 	}
 
 	/**
