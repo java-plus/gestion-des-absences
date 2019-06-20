@@ -133,7 +133,7 @@ public class UtilExcel {
 
 		}
 
-		// Autosize de première colonne
+		// Autosize de première colonne (noms)
 		sheet.autoSizeColumn(0);
 
 		// Affichage de la légende
