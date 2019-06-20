@@ -79,7 +79,7 @@
 			</button>
 		</div>
 			<%
-				} else if (liste.getStatut().equals("EN_ATTENTE") || liste.getStatut().equals("VALIDEE")) {
+				} else if (liste.getStatut().equals("EN_ATTENTE_VALIDATION") || liste.getStatut().equals("VALIDEE")) {
 			%>
 			<button type="button" class="btn btn-dark btn-supp"
 				data-toggle="modal" data-target="#modal" id="<%=liste.getId()%>">

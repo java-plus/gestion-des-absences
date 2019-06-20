@@ -533,4 +533,108 @@ public class AbsenceParPersonneDao {
 
 	}
 
+	/**
+	 * Méthode qui ajoute un congé dans la base à un utilisateur identifié
+	 * 
+	 * @param idUser
+	 * @param idAbsence
+	 * @param dateDebut
+	 * @param dateFin
+	 * @param motif
+	 */
+	public void addConge(int idUser, String idAbsence, String dateDebut, String dateFin, String motif) {
+
+		Connection conn = ConnexionManager.getInstance();
+		PreparedStatement statement = null;
+
+		List<AbsenceParPersonne> liste = new ArrayList<>();
+
+		try {
+			conn.setAutoCommit(false);
+			statement = conn.prepareStatement(
+					"INSERT INTO absence_personne (id_util, id_absence, date_debut, date_fin, statut, motif) VALUES (?, ?, ?, ?, ?, ?)");
+
+			statement.setInt(1, idUser);
+			statement.setInt(2, idUser);
+			statement.setString(3, dateDebut);
+			statement.setString(4, dateFin);
+			statement.setString(5, "INITIALE");
+			statement.setString(6, motif);
+
+			statement.executeUpdate();
+
+			conn.commit();
+		} catch (SQLException e) {
+			try {
+				conn.rollback();
+			} catch (SQLException e1) {
+				throw new TechnicalException("Le rollback n'a pas fonctionné", e);
+			}
+			throw new TechnicalException("L'ajout ne s'est pas fait", e);
+		} finally {
+			try {
+				if (statement != null) {
+					statement.close();
+				}
+			} catch (SQLException e) {
+
+				throw new TechnicalException("La fermeture ne s'est pas faite", e);
+			}
+		}
+	}
+
+	/**
+	 * Méthode qui valide que les dates de congés ne se chevauchent pas pour un
+	 * utilisateur donné
+	 * 
+	 * @param idUser
+	 * @param idAbsence
+	 * @param dateDebut
+	 * @param dateFin
+	 * @param motif
+	 * @return
+	 */
+	public boolean validationDateConge(int idUser, String dateDebut, String dateFin) {
+
+		Connection conn = ConnexionManager.getInstance();
+		PreparedStatement statement = null;
+		ResultSet curseur = null;
+		List<AbsenceParPersonne> liste = new ArrayList<>();
+
+		try {
+			conn.setAutoCommit(false);
+			statement = conn.prepareStatement(
+					"SELECT date_debut, date_fin FROM absence_personne WHERE (? < date_fin) and (? >date_debut) AND id_util = ?;");
+			statement.setString(1, dateDebut);
+			statement.setString(2, dateFin);
+			statement.setInt(3, idUser);
+
+			curseur = statement.executeQuery();
+
+			if (!curseur.next()) {
+
+				return true;
+			}
+			conn.commit();
+			return false;
+
+		} catch (SQLException e) {
+			try {
+				conn.rollback();
+			} catch (SQLException e1) {
+				throw new TechnicalException("Le rollback n'a pas fonctionné", e);
+			}
+			throw new TechnicalException("L'ajout ne s'est pas fait", e);
+		} finally {
+			try {
+				if (statement != null) {
+					statement.close();
+				}
+			} catch (SQLException e) {
+
+				throw new TechnicalException("La fermeture ne s'est pas faite", e);
+			}
+		}
+	}
+
 }
