@@ -27,7 +27,7 @@ public class ConnexionController extends HttpServlet {
 
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
+		// récupération des identifiants
 		String email = req.getParameter("email");
 		String password = req.getParameter("password");
 		password = DigestUtils.sha512Hex(password);
@@ -40,9 +40,11 @@ public class ConnexionController extends HttpServlet {
 
 		String erreurConnexion = null;
 
+		// test connexion
 		if (connexion) {
 			HttpSession session = req.getSession(true);
 
+			// Traitement pour un employé
 			if (utilisateurDao.validerProfil(email).equals("employé")) {
 				Employe employe = utilisateurDao.getEmploye(email);
 				monProfil = "employe";
@@ -56,19 +58,24 @@ public class ConnexionController extends HttpServlet {
 				RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/index.jsp");
 				dispatcher.forward(req, resp);
 
-			} else if (utilisateurDao.validerProfil(email).equals("manager")) {
+			} // Traitement pour un manager
+			else if (utilisateurDao.validerProfil(email).equals("manager")) {
 				Manager manager = utilisateurDao.getManager(email);
 				monProfil = "manager";
 				req.setAttribute("monProfil", monProfil);
-				RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/index.jsp");
-				dispatcher.forward(req, resp);
+
 				session.setAttribute("utilisateurId", manager.getId());
 				session.setAttribute("prenom", manager.getPrenom());
 				session.setAttribute("profil", manager.getProfil());
 				session.setAttribute("isAdmin", manager.isAdmin());
+
+				RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/index.jsp");
+				dispatcher.forward(req, resp);
+
 			}
 
-		} else {
+		} // Traitement si la connexion ne peut pas s'établir
+		else {
 			erreurConnexion = "erreur";
 			req.setAttribute("erreur", erreurConnexion);
 			RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/login.jsp");
@@ -78,4 +85,14 @@ public class ConnexionController extends HttpServlet {
 
 	}
 
+	@Override
+	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+
+		HttpSession session = req.getSession(false);
+		session.invalidate();
+
+		RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/login.jsp");
+		dispatcher.forward(req, resp);
+
+	}
 }

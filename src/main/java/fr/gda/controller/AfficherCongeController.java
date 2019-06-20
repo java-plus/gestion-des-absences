@@ -45,12 +45,10 @@ public class AfficherCongeController extends HttpServlet {
 	}
 
 	@Override
-	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
-	}
-
-	@Override
 	protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+
+		HttpSession session = req.getSession(false);
+
 		AbsenceParPersonneDao absenceDao = new AbsenceParPersonneDao();
 
 		String idCongeString = req.getParameter("suppr");
@@ -58,11 +56,7 @@ public class AfficherCongeController extends HttpServlet {
 
 		absenceDao.SupprimerConges(idConge);
 
-		req.setAttribute("delete", "ok");
-
-		resp.getWriter().append(" ok ok ok");
-		// RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/gestion-absences.jsp");
-		// dispatcher.forward(req, resp);
+		resp.getWriter().append("<p>Le congé a bien été supprimé !</p>");
 
 	}
 

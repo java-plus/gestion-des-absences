@@ -330,7 +330,7 @@ public class UtilisateurDao {
 	}
 
 	/**
-	 * méthode qui crée un employé
+	 * méthode qui crée une liste d'utilisateur
 	 * 
 	 * @param email
 	 * @return
