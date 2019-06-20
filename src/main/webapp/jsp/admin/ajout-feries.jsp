@@ -17,13 +17,13 @@
 	<h1 class="d-flex justify-content-center my-5">Nouveau jour ferié
 		/ RTT employeur</h1>
 
-	<form class=" col-sm-5 mx-auto">
+	<form method="post" class=" col-sm-5 mx-auto" action="adminJFerieRttEmp">
 		<div class="form-group row">
 			<div class="col-sm-5">
 				<label for="date">Date</label>
 			</div>
 			<div class="col-sm-7">
-				<input type="date" class="form-control" id="date">
+				<input type="date" class="form-control" name="selectedDate" id="date">
 			</div>
 		</div>
 
@@ -32,10 +32,10 @@
 				<label for="typeJour">Type de jour</label>
 			</div>
 			<div class="col-sm-7">
-				<select name="typeJour" class="form-control" id="typeJour">
+				<select class="form-control" name="selectedType" id="typeJour">
 					<option selected>(Type de jour)</option>
-					<option>Ferié</option>
-					<option>RTT employeur</option>
+					<option value="ferié">Ferié</option>
+					<option value="RTT employeur">RTT employeur</option>
 				</select>
 			</div>
 		</div>
@@ -45,7 +45,7 @@
 				<label for="commentaire">Commentaires</label>
 			</div>
 			<div class="col-sm-7">
-				<input type="text" class="form-control" id="commentaire">
+				<input type="text" class="form-control" name="selectedMotif" id="commentaire">
 			</div>
 		</div>
 
@@ -55,7 +55,7 @@
 					type="button">Annuler</button></a>
 				<button
 					class="btn btn-lg btn-outline-light border-dark mx-2 bg-success"
-					type="button">Valider</button>
+					type="submit">Valider</button>
 		</div>
 	</form>
 </div>

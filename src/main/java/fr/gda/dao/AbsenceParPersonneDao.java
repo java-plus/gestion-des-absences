@@ -248,7 +248,7 @@ public class AbsenceParPersonneDao {
 
 			for (Utilisateur user : users) {
 				statement.setInt(1, user.getId());
-				statement.setInt(2, 6);
+				statement.setInt(2, 5);
 				statement.setString(3, date);
 				statement.setString(4, date);
 				statement.setString(5, "INITIALE");

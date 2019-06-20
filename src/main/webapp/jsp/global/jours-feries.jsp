@@ -21,7 +21,7 @@
 		}
 	</script>
 
-	<h1>Jours fériés et RTT employeurs</h1>
+	<h1>Jours feriés et RTT employeurs</h1>
 	<%
 		int annee = LocalDate.now().getYear();		
 		if (request.getParameter("selectedAn") != null) {
@@ -101,9 +101,9 @@
 				typeConge = absenceDao.RecupererTypeConges(liste.getIdAbsence());	
 				String jour = liste.getDateDebut().getDayOfWeek().getDisplayName(TextStyle.FULL, Locale.FRANCE);
 				String jourMaj = jour.substring(0,1).toUpperCase() + jour.substring(1);
-				if ((typeConge.equals("férié") || typeConge.equals("RTT employeur"))
-						&& an.equals(liste.getDateDebut().toString().substring(0, 4))
-						&& (liste.getStatut().equals("VALIDEE")) || liste.getStatut().equals("INITIALE")) {					
+				if (  (typeConge.equals("ferié") || typeConge.equals("RTT employeur"))
+					&& an.equals(liste.getDateDebut().toString().substring(0, 4))
+					&& (liste.getStatut().equals("VALIDEE") || liste.getStatut().equals("INITIALE"))) {					
 	%>
 
 	<div class="row p-2 my-1">
