@@ -4,10 +4,13 @@ import="java.util.List, java.util.ArrayList, fr.gda.model.*, fr.gda.dao.*"%>
 
 <%
 		List<Utilisateur> utilisateurParDepartement = (List<Utilisateur>) request.getAttribute("utilisateurParDepartement");
-		List<AbsenceParPersonne> absenceDepartementMoisAnnee = (List<AbsenceParPersonne>) request.getAttribute("absenceDepartementMoisAnnee");
-		int maxDay = (int) request.getAttribute("maxDay");
+	//	List<AbsenceParPersonne> absenceDepartementMoisAnnee = (List<AbsenceParPersonne>) request.getAttribute("absenceDepartementMoisAnnee");
+		//int maxDay = (int) request.getAttribute("maxDay");
 		
-	
+		String[] ListNoms = (String[]) request.getAttribute("ListNoms");
+		String[][] ListjourMois = (String[][]) request.getAttribute("ListjourMois");
+		
+		
 	%>
 
 
@@ -23,11 +26,11 @@ import="java.util.List, java.util.ArrayList, fr.gda.model.*, fr.gda.dao.*"%>
 
 	<div class="row py-3 bg-primary">
 		<div class="col-sm-2">nom<a class="text-light"href=""><i data-feather="chevron-down"></i></a></div>
-		<div class="col-sm-10 d-flex flex-row ">
+		<div class="col-sm-10 d-flex flex-row p-0">
 			<%
-			for (int i = 1; i < maxDay; i++) {
+			for (int i = 1; i <= ListjourMois[0].length; i++) {
 			%>
-			<div class="cal-vue-dept"><%=i%></div>
+			<div class="cal-vue-dept text-center"><%=i%></div>
 			<%
 				}
 			%>
@@ -39,56 +42,70 @@ import="java.util.List, java.util.ArrayList, fr.gda.model.*, fr.gda.dao.*"%>
 
 	
 	<%
-	for (int i = 0; i < utilisateurParDepartement.size(); i++) {
+	for (int i = 0; i < ListNoms.length; i++) {
 	%>
 	
-		<div class="row row-user py-2">
+		<div class="row row-user">
 		
-			<div class="col-sm-2"><%=utilisateurParDepartement.get(i).getNom()%></div>
+			<div class="col-sm-2 nom"><%=ListNoms[i]%></div>
 			
-			<div class="col-sm-10 d-flex flex-row ">
+			<div class="col-sm-10 d-flex flex-row p-0">
 			
-		
 		
 			<%
 			
-				// Pour chaque jour, si un congé est posé, l'afficher
-				for (int k = 1; k < maxDay; k++) {
+			for (int k = 0; k <ListjourMois[0].length; k++) {
+				
+				
+				String valeur = ListjourMois[i][k];
+				String congeEtat ="";
+				String maClasse = "cal-vue-dept text-center py-2 ";
+				
+				String classeAttente = "attente";
+				String classeValidee = "validee";
+				String classeRefusee = "refusee";
+				String classeWeekEnd = "weekend";
+				String classeNormal = "base";
+				
+				
+				if (valeur.contains("-")) {
+					String[] parts = valeur.split("-");
+					valeur = parts[0];
+					congeEtat = parts[1];
 					
 					
 					
-					for (int m = 0; m < absenceDepartementMoisAnnee.size(); m++) {
-						
-						
-						// Si c'est le même utilisateur
-						if (absenceDepartementMoisAnnee.get(m).getIdUtil() == utilisateurParDepartement.get(i).getId()) {
-							
-							// Si c'est sous les mêmes dates de mois
-							if (absenceDepartementMoisAnnee.get(m).getDateDebut().getDayOfMonth() <= k & absenceDepartementMoisAnnee.get(m).getDateFin().getDayOfMonth() >= k) {
-								
-								String lettre = absenceParPersonneDao.RecupererTypeConges(absenceDepartementMoisAnnee.get(m).getIdAbsence()).toUpperCase().substring(0, 1);
-								%>
-								<div class="cal-vue-dept"><%= lettre %></div>
-								<%
-								
-							
-							} else {
-								%>
-								<div class="cal-vue-dept">.</div>
-								<%
-							}
-
-						}
-						
-						
+					
+					if (congeEtat.equals("REJETEE")) {
+						maClasse += classeRefusee;
+					} else if (congeEtat.equals("VALIDEE")) {
+						maClasse += classeValidee;
+					} else if (congeEtat.equals("EN_ATTENTE_VALIDATION")) {
+						maClasse += classeAttente;
 					}
 					
 					
-					
+				} else {
+					if (valeur.equals("N")) {
+						maClasse += classeNormal;
+						valeur = "";
+					} else if (valeur.equals("W")) {
+						maClasse += classeWeekEnd;
+						valeur = "";
+					}
 				}
-
-			
+				
+				
+				%>
+				<div class="<%= maClasse %>"><%= valeur %></div>
+				<%
+				
+				
+				
+				
+			}
 			%>
+		
 			
 			
 		</div>
@@ -111,7 +128,7 @@ import="java.util.List, java.util.ArrayList, fr.gda.model.*, fr.gda.dao.*"%>
 
 	<button class="btn btn-outline-primary">retour</button>
 
-	<div>légende ... .. . . .</div>
+	<div class=" my-2"><h6>légende :</h6><p>C : congés, F : férié, M : mission, R : RTT, S : Sans solde</p></div>
 
 </div>
 
