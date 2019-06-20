@@ -48,7 +48,7 @@ public class UtilMessagerie {
 	static final String SUBJECT = "Une demande de congé a été déposée";
 
 	/** Méthode d'envoi de mail au manager */
-	public static void EnvoyerMailManager(Integer demande, Integer demandeur, Integer typeAbsence,
+	public static void EnvoyerMailManager(Integer demande, Integer demandeur, String typeAbsence,
 			Long nombreJoursDemandes) throws Exception {
 		// Récupération des infos de mail du manager, nom de demandeur, type
 		// d'absence et nombre de jours de la demande, en fonction de la demande

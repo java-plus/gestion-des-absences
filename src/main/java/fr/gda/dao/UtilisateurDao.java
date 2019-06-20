@@ -159,7 +159,7 @@ public class UtilisateurDao {
 	 * 
 	 * @return Entier représentant le nombre de jours de congés d'un type
 	 */
-	public Integer recupererNombreJoursParTypeConge(Integer idUtilisateur, Integer typeConge) {
+	public Integer recupererNombreJoursParTypeConge(Integer idUtilisateur, String typeConge) {
 
 		Integer nombreJoursCongeRestant = 0;
 		Connection conn = ConnexionManager.getInstance();
@@ -169,18 +169,18 @@ public class UtilisateurDao {
 		try {
 
 			conn.setAutoCommit(false);
-			if (typeConge == 1) {
+			if (typeConge.equals("congé payé")) {
 				statement = conn.prepareStatement("SELECT conge_restant FROM utilisateur Where id = ?");
-			} else if (typeConge == 2) {
+			} else if (typeConge.equals("RTT")) {
 				statement = conn.prepareStatement("SELECT RTT_restant FROM utilisateur Where id = ?");
 			}
 			statement.setInt(1, idUtilisateur);
 			curseur = statement.executeQuery();
 
 			if (curseur.next()) {
-				if (typeConge == 1) {
+				if (typeConge.equals("congé payé")) {
 					nombreJoursCongeRestant = curseur.getInt("conge_restant");
-				} else if (typeConge == 2) {
+				} else if (typeConge.equals("RTT")) {
 					nombreJoursCongeRestant = curseur.getInt("RTT_restant");
 				}
 
@@ -220,16 +220,16 @@ public class UtilisateurDao {
 	 *            : Nombre de jours à retirer
 	 * 
 	 */
-	public void retirerJoursParTypeConge(Integer idUtilisateur, Integer typeAbsence, Long nombreJours) {
+	public void retirerJoursParTypeConge(Integer idUtilisateur, String typeAbsence, Long nombreJours) {
 
 		Connection conn = ConnexionManager.getInstance();
 		PreparedStatement statement = null;
 
 		try {
 			conn.setAutoCommit(false);
-			if (typeAbsence == 1) {
+			if (typeAbsence.equals("congé payé")) {
 				statement = conn.prepareStatement("UPDATE utilisateur SET conge_restant = ? WHERE id = ?");
-			} else if (typeAbsence == 2) {
+			} else if (typeAbsence.equals("RTT")) {
 				statement = conn.prepareStatement("UPDATE utilisateur SET rtt_restant = ? WHERE id = ?");
 			}
 
@@ -331,7 +331,7 @@ public class UtilisateurDao {
 	}
 
 	/**
-	 * méthode qui crée un employé
+	 * méthode qui crée une liste d'utilisateur
 	 * 
 	 * @param email
 	 * @return
@@ -528,6 +528,126 @@ public class UtilisateurDao {
 			}
 		}
 
+	}
+
+	/**
+	 * méthode qui récupère la liste des utilisateurs suivant le département
+	 * 
+	 * @param idDepartement
+	 * @return
+	 */
+	public List<Utilisateur> getUtilisateursParDepartement(Integer idDepartement) {
+		Connection conn = ConnexionManager.getInstance();
+		PreparedStatement statement = null;
+		ResultSet curseur = null;
+		List<Utilisateur> utilisateurParDepartement = new ArrayList<>();
+
+		try {
+			conn.setAutoCommit(false);
+			statement = conn.prepareStatement("SELECT * FROM utilisateur WHERE id_departement = ?");
+			statement.setInt(1, idDepartement);
+			curseur = statement.executeQuery();
+
+			while (curseur.next()) {
+
+				int id = curseur.getInt("id");
+				String nom = curseur.getString("nom");
+				String prenom = curseur.getString("prenom");
+				String profil = curseur.getString("profil");
+				String email = curseur.getString("mail");
+				String mdp = curseur.getString("mdp");
+				int isAdmin = curseur.getInt("is_admin");
+				boolean isAdminBool;
+				if (isAdmin == 0) {
+					isAdminBool = false;
+				} else {
+					isAdminBool = true;
+				}
+				int congeRestant = curseur.getInt("conge_restant");
+				int rttRestant = curseur.getInt("rtt_restant");
+				int congePris = curseur.getInt("conge_pris");
+				int rttPris = curseur.getInt("rtt_restant");
+				int idHierarchie = curseur.getInt("id_hierarchie");
+
+				if (profil.equals("employé")) {
+
+					utilisateurParDepartement.add(new Employe(id, nom, prenom, profil, email, mdp, isAdminBool,
+							congeRestant, rttRestant, congePris, rttPris, idHierarchie, idDepartement));
+				} else {
+					utilisateurParDepartement.add(new Manager(id, nom, prenom, profil, email, mdp, isAdminBool,
+							congeRestant, rttRestant, congePris, rttPris, idHierarchie, idDepartement));
+				}
+
+			}
+
+			conn.commit();
+
+			return utilisateurParDepartement;
+		} catch (SQLException e) {
+			try {
+				conn.rollback();
+			} catch (SQLException e1) {
+				throw new TechnicalException("Le rollback n'a pas fonctionné", e);
+			}
+			throw new TechnicalException("La sélection ne s'est pas faite", e);
+		} finally {
+			try {
+				if (statement != null) {
+					statement.close();
+				}
+			} catch (SQLException e) {
+
+				throw new TechnicalException("La fermeture ne s'est pas faite", e);
+			}
+		}
+
+	}
+
+	/**
+	 * méthode qui récupère le département en String
+	 * 
+	 * @param idDepartement
+	 * @return Chaine departement
+	 */
+	public String recupererDepartement(int idDepartement) {
+
+		Connection conn = ConnexionManager.getInstance();
+		PreparedStatement statement = null;
+		ResultSet curseur = null;
+		String department = null;
+
+		try {
+			conn.setAutoCommit(false);
+
+			statement = conn.prepareStatement("SELECT * FROM departement WHERE id = ?");
+			statement.setInt(1, idDepartement);
+
+			curseur = statement.executeQuery();
+
+			conn.commit();
+
+			if (curseur.next()) {
+				department = curseur.getString("nom");
+
+			}
+			return department;
+		} catch (SQLException e) {
+			try {
+				conn.rollback();
+			} catch (SQLException e1) {
+				throw new TechnicalException("Le rollback n'a pas fonctionné", e);
+			}
+			throw new TechnicalException("La sélection ne s'est pas faite", e);
+		} finally {
+			try {
+				if (statement != null) {
+					statement.close();
+				}
+			} catch (SQLException e) {
+
+				throw new TechnicalException("La fermeture ne s'est pas faite", e);
+			}
+		}
 	}
 
 }

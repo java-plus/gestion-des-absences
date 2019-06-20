@@ -53,7 +53,7 @@ public class AbsenceParPersonneDao {
 			while (curseur.next()) {
 				Integer id = curseur.getInt("id");
 				Integer idUtil = curseur.getInt("id_util");
-				Integer idAbsence = curseur.getInt("id_absence");
+				String idAbsence = curseur.getString("id_absence");
 				LocalDate dateDebut = curseur.getDate("date_debut").toLocalDate();
 				LocalDate dateFin = curseur.getDate("date_fin").toLocalDate();
 				String statut = curseur.getString("statut");
@@ -302,7 +302,7 @@ public class AbsenceParPersonneDao {
 
 			while (curseur.next()) {
 				Integer id = curseur.getInt("id");
-				Integer idAbsence = curseur.getInt("id_absence");
+				String idAbsence = curseur.getString("id_absence");
 				LocalDate dateDebut = curseur.getDate("date_debut").toLocalDate();
 				LocalDate dateFin = curseur.getDate("date_fin").toLocalDate();
 				String statut = curseur.getString("statut");
@@ -320,6 +320,71 @@ public class AbsenceParPersonneDao {
 				throw new TechnicalException("Le rollback n'a pas fonctionné", e);
 			}
 			throw new TechnicalException("L'ajout ne s'est pas fait", e);
+		} finally {
+			try {
+				if (statement != null) {
+					statement.close();
+				}
+			} catch (SQLException e) {
+
+				throw new TechnicalException("La fermeture ne s'est pas faite", e);
+			}
+		}
+
+	}
+
+	/**
+	 * méthode qui retourne la liste des absences de toutes les personnes
+	 * 
+	 * @param mois
+	 * @param annee
+	 * @param departement
+	 * @return
+	 */
+	public List<AbsenceParPersonne> afficherAbsencesParDepartementMoisAnnee(Integer mois, Integer annee,
+			Integer departement) {
+
+		List<AbsenceParPersonne> listeAbsencesDepartementMoisAnnee = new ArrayList<>();
+
+		Connection conn = ConnexionManager.getInstance();
+		PreparedStatement statement = null;
+		ResultSet curseur = null;
+
+		try {
+			conn.setAutoCommit(false);
+			statement = conn.prepareStatement(
+					"SELECT AP.id, id_util, id_absence, date_debut, date_fin, statut, motif FROM absence_personne AP INNER JOIN utilisateur UT ON AP.id_util = UT.id WHERE (YEAR(date_debut) = ? OR YEAR(date_fin) = ?) AND (MONTH(date_debut) = ? OR MONTH(date_fin) = ?) AND id_departement = ?");
+			statement.setInt(1, annee);
+			statement.setInt(2, annee);
+			statement.setInt(3, mois);
+			statement.setInt(4, mois);
+			statement.setInt(5, departement);
+
+			curseur = statement.executeQuery();
+
+			conn.commit();
+
+			while (curseur.next()) {
+				Integer id = curseur.getInt("AP.id");
+				Integer idUtilisateur = curseur.getInt("id_util");
+				String idAbsence = curseur.getString("id_absence");
+				LocalDate dateDebut = curseur.getDate("date_debut").toLocalDate();
+				LocalDate dateFin = curseur.getDate("date_fin").toLocalDate();
+				String statut = curseur.getString("statut");
+				String motif = curseur.getString("motif");
+
+				listeAbsencesDepartementMoisAnnee
+						.add(new AbsenceParPersonne(id, idUtilisateur, idAbsence, dateDebut, dateFin, statut, motif));
+			}
+
+			return listeAbsencesDepartementMoisAnnee;
+		} catch (SQLException e) {
+			try {
+				conn.rollback();
+			} catch (SQLException e1) {
+				throw new TechnicalException("Le rollback n'a pas fonctionné", e);
+			}
+			throw new TechnicalException("La sélection ne s'est pas faite", e);
 		} finally {
 			try {
 				if (statement != null) {
@@ -382,7 +447,7 @@ public class AbsenceParPersonneDao {
 	}
 
 	/**
-	 * méthode qui récupère le type de congés en String
+	 * méthode supprime un congé grace à son id
 	 * 
 	 * @param idUtilisateur
 	 * @return
@@ -411,6 +476,107 @@ public class AbsenceParPersonneDao {
 				throw new TechnicalException("Le rollback n'a pas fonctionné", e);
 			}
 			throw new TechnicalException("L'ajout ne s'est pas fait", e);
+		} finally {
+			try {
+				if (statement != null) {
+					statement.close();
+				}
+			} catch (SQLException e) {
+
+				throw new TechnicalException("La fermeture ne s'est pas faite", e);
+			}
+		}
+
+	}
+
+	/**
+	 * méthode qui modifie un congé grace à son id
+	 * 
+	 * @param idUtilisateur
+	 * @return
+	 */
+	public void modifierConges(int idConge) {
+		// TODO Modifier la méthode
+		Connection conn = ConnexionManager.getInstance();
+		PreparedStatement statement = null;
+		ResultSet curseur = null;
+		String typeConge = null;
+
+		try {
+			conn.setAutoCommit(false);
+
+			statement = conn.prepareStatement("UPDATE FROM absence_personne WHERE id = ?");
+			statement.setInt(1, idConge);
+
+			statement.executeUpdate();
+
+			conn.commit();
+
+		} catch (SQLException e) {
+			try {
+				conn.rollback();
+			} catch (SQLException e1) {
+				throw new TechnicalException("Le rollback n'a pas fonctionné", e);
+			}
+			throw new TechnicalException("L'ajout ne s'est pas fait", e);
+		} finally {
+			try {
+				if (statement != null) {
+					statement.close();
+				}
+			} catch (SQLException e) {
+
+				throw new TechnicalException("La fermeture ne s'est pas faite", e);
+			}
+		}
+
+	}
+
+	/**
+	 * méthode qui retourne la liste des absences pour un manager
+	 * 
+	 * @param idManager
+	 * @return Liste d'absences par personne
+	 */
+	public List<AbsenceParPersonne> afficherAbsencesParManager(int idManager) {
+
+		List<AbsenceParPersonne> listeAbsencesManager = new ArrayList<>();
+
+		Connection conn = ConnexionManager.getInstance();
+		PreparedStatement statement = null;
+		ResultSet curseur = null;
+
+		try {
+			conn.setAutoCommit(false);
+			statement = conn.prepareStatement(
+					"SELECT AP.* FROM absence_personne AP INNER JOIN utilisateur UT ON AP.id_util = UT.id WHERE id_hierarchie = ? AND statut = 'EN_ATTENTE_VALIDATION' ORDER BY date_debut");
+			statement.setInt(1, idManager);
+
+			curseur = statement.executeQuery();
+
+			conn.commit();
+
+			while (curseur.next()) {
+				Integer id = curseur.getInt("id");
+				Integer idUtil = curseur.getInt("id_util");
+				String idAbsence = curseur.getString("id_absence");
+				LocalDate dateDebut = curseur.getDate("date_debut").toLocalDate();
+				LocalDate dateFin = curseur.getDate("date_fin").toLocalDate();
+				String statut = curseur.getString("statut");
+				String motif = curseur.getString("motif");
+
+				listeAbsencesManager
+						.add(new AbsenceParPersonne(id, idUtil, idAbsence, dateDebut, dateFin, statut, motif));
+			}
+
+			return listeAbsencesManager;
+		} catch (SQLException e) {
+			try {
+				conn.rollback();
+			} catch (SQLException e1) {
+				throw new TechnicalException("Le rollback n'a pas fonctionné", e);
+			}
+			throw new TechnicalException("La sélection ne s'est pas fait", e);
 		} finally {
 			try {
 				if (statement != null) {

@@ -32,12 +32,10 @@ public class AfficherCongeController extends HttpServlet {
 
 		List<AbsenceParPersonne> listeAbsences = absenceDao.afficherAbsencesPersonne(utilisateurId);
 
-		String typeConge = null;
-
 		Utilisateur utilisateur = utilisateurDao.getUtilisateur(utilisateurId);
 
 		req.setAttribute("afficherConge", listeAbsences);
-		req.setAttribute("afficherTypeConge", typeConge);
+
 		req.setAttribute("utilisateur", utilisateur);
 
 		RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/gestion-absences.jsp");
@@ -45,12 +43,10 @@ public class AfficherCongeController extends HttpServlet {
 	}
 
 	@Override
-	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
-	}
-
-	@Override
 	protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+
+		HttpSession session = req.getSession(false);
+
 		AbsenceParPersonneDao absenceDao = new AbsenceParPersonneDao();
 
 		String idCongeString = req.getParameter("suppr");
@@ -58,8 +54,7 @@ public class AfficherCongeController extends HttpServlet {
 
 		absenceDao.SupprimerConges(idConge);
 
-		RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/gestion-absences.jsp");
-		dispatcher.forward(req, resp);
+		resp.getWriter().append("<p>Le congé a bien été supprimé !</p>");
 
 	}
 
