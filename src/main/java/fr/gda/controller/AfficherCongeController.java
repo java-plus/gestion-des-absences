@@ -32,12 +32,10 @@ public class AfficherCongeController extends HttpServlet {
 
 		List<AbsenceParPersonne> listeAbsences = absenceDao.afficherAbsencesPersonne(utilisateurId);
 
-		String typeConge = null;
-
 		Utilisateur utilisateur = utilisateurDao.getUtilisateur(utilisateurId);
 
 		req.setAttribute("afficherConge", listeAbsences);
-		req.setAttribute("afficherTypeConge", typeConge);
+
 		req.setAttribute("utilisateur", utilisateur);
 
 		RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/gestion-absences.jsp");

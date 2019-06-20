@@ -33,8 +33,11 @@ public class AjoutCongeController extends HttpServlet {
 
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		super.doPost(req, resp);
+		String ajoutConge = req.getParameter("ajout");
+		if (ajoutConge.equals("ok")) {
+			RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/gestion-absences.jsp");
+			dispatcher.forward(req, resp);
+		}
 	}
 
 }

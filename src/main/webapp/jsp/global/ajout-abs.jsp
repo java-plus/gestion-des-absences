@@ -5,11 +5,11 @@
 
 <div class="container my-5">
 
-	<h1 class="text-center">Gestion des absences</h1>
+	<h1 class="text-center">Demande d'absence</h1>
 
 	<div class="col-sm-5 mx-auto mt-5">
 
-		<form method="POST" action="updateConges">
+		<form method="POST" action="updateConges?ajout=ok">
 
 			<div class="form-group row">
 				<div class="col-sm-5 col-form-label">
@@ -19,6 +19,7 @@
 					<input type="date" class="form-control" id="dateDebut"
 						aria-describedby="dateDebut" placeholder="Date de début" required>
 				</div>
+				<div id="texteDateDebut" class="text-info mx-auto"></div>
 			</div>
 
 			<div class="form-group row">
@@ -29,6 +30,7 @@
 					<input type="date" class="form-control" id="dateFin"
 						aria-describedby="dateFin" placeholder="Date de fin" required>
 				</div>
+				<div id="texteDateFin" class="text-info mx-auto"></div>
 			</div>
 
 			<div class="form-group row">
@@ -52,12 +54,13 @@
 				<div class="col-sm-7 ">
 					<textarea class="form-control" id="motif" rows="5"></textarea>
 				</div>
+				<div id="texteMotif" class="text-info mx-auto"></div>
 			</div>
 
 			<div class="form-group row d-flex justify-content-center">
 				<a href="afficherConges"
 					<button type="button" class="btn btn-danger mr-5 mt-3">Annuler</button></a>
-				<button type="submit" class="btn btn-success mr-5 mt-3">Valider</button>
+				<button type="submit" id="btnValider" class="btn btn-success mr-5 mt-3">Valider</button>
 			</div>
 
 		</form>

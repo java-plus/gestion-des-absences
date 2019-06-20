@@ -62,17 +62,42 @@
 
 
 
-<script type="text/javascript">
-
-$(document).ready(function(){
-	if($(.type).val()== css){
-		$(.motif).attr(required);
-	}
-
-});
-
-
-</script>
+	<script type="text/javascript">
+		$(document).ready(function() {
+			let texteMotif= ''; 
+			let texteDateDebut= ''; 
+			let texteDateFin= ''; 
+			let dateDuJour1 = new Date();
+			dateDuJour1.setDate(dateDuJour1.getDate()+1);
+			console.log(dateDuJour1);
+			
+			$('#btnValider').click(function(event) {
+			
+				if (($('#type option:selected').val() == 'css') && ($('#motif').val() == '') ) {
+					 event.preventDefault(); 
+					 texteMotif +='<p>Le motif est obligatoire pour les congés sans solde</p>';
+					 $('#texteMotif').html().text(texteMotif);
+				} 
+				console.log($('#dateDebut').val());
+				var dateDebutSaisie = new Date($('#dateDebut').val());
+				if(dateDebutSaisie < dateDuJour1 ){
+					 event.preventDefault(); 
+					 texteDateDebut +='<p>La date de début de congé ne peut être inférieur à demain </p>';
+					$('#texteDateDebut').html(texteDateDebut);
+				}
+				
+				console.log($('#dateDebut').val());
+				var dateDebutSaisie = new Date($('#dateDebut').val() );
+				var dateFinSaisie = new Date($('#dateFin').val() )
+				if(dateDebutSaisie > dateFinSaisie ){
+					 event.preventDefault(); 
+					 texteDateFin +='<p>La date de fin de congé ne peut être inférieur à la date de début </p>';
+					$('#texteDateFin').html(texteDateFin);
+				}
+			
+			});
+		});
+	</script>
 
 </body>
 
