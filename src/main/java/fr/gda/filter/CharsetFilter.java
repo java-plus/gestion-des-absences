@@ -16,9 +16,7 @@ public class CharsetFilter implements Filter {
 	public void init(FilterConfig config) throws ServletException {
 	}
 
-	public void doFilter(ServletRequest request,
-
-			ServletResponse response, FilterChain next)
+	public void doFilter(ServletRequest request, ServletResponse response, FilterChain next)
 
 			throws IOException, ServletException {
 		// Respect the client-specified character encoding

@@ -38,7 +38,6 @@ import="java.util.List, java.util.ArrayList, fr.gda.model.*, fr.gda.dao.*"%>
 	<!-- DEBUT de la boucle pour écrire une ligne par utilisateur -->
 
 	
-
 	<%
 	for (int i = 0; i < utilisateurParDepartement.size(); i++) {
 	%>
@@ -60,26 +59,28 @@ import="java.util.List, java.util.ArrayList, fr.gda.model.*, fr.gda.dao.*"%>
 					
 					for (int m = 0; m < absenceDepartementMoisAnnee.size(); m++) {
 						
+						
 						// Si c'est le même utilisateur
 						if (absenceDepartementMoisAnnee.get(m).getIdUtil() == utilisateurParDepartement.get(i).getId()) {
-							%>
-							<div class="cal-vue-dept"><%= k %></div>
-							<%
+							
 							// Si c'est sous les mêmes dates de mois
 							if (absenceDepartementMoisAnnee.get(m).getDateDebut().getDayOfMonth() <= k & absenceDepartementMoisAnnee.get(m).getDateFin().getDayOfMonth() >= k) {
 								
+								String lettre = absenceParPersonneDao.RecupererTypeConges(absenceDepartementMoisAnnee.get(m).getIdAbsence()).toUpperCase().substring(0, 1);
 								%>
-								<div class="cal-vue-dept">AAAA<%= k %></div>
+								<div class="cal-vue-dept"><%= lettre %></div>
 								<%
-								//cellJour.setCellValue(absenceParPersonneDao.RecupererTypeConges(absenceDepartementMoisAnnee.get(m).getIdAbsence()).toUpperCase().substring(0, 1));
+								
 							
 							} else {
 								%>
-								<div class="cal-vue-dept">...</div>
+								<div class="cal-vue-dept">.</div>
 								<%
 							}
 
 						}
+						
+						
 					}
 					
 					

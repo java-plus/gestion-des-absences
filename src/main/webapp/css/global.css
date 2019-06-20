@@ -18,7 +18,10 @@ body {
 }
 
 
- 
+ .cal-vue-conge:nth-child(odd) {
+	background-color: #393c52
+	;
+}
 
 
 

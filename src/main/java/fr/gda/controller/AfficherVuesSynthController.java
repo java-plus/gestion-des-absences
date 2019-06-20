@@ -35,7 +35,7 @@ public class AfficherVuesSynthController extends HttpServlet {
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
 		// ---------------- A recuperer du filtre de la page ----------------- //
-		Integer numeroMois = 6;
+		Integer numeroMois = 8;
 		Integer annee = 2019;
 		Integer idDepartement = 1;
 
