@@ -534,7 +534,8 @@ public class AbsenceParPersonneDao {
 	}
 
 	/**
-	 * Méthode qui ajoute un congé dans la base à un utilisateur identifié
+	 * <<<<<<< HEAD Méthode qui ajoute un congé dans la base à un utilisateur
+	 * identifié
 	 * 
 	 * @param idUser
 	 * @param idAbsence
@@ -581,6 +582,64 @@ public class AbsenceParPersonneDao {
 				throw new TechnicalException("La fermeture ne s'est pas faite", e);
 			}
 		}
+	}
+
+	/**
+	 * méthode qui retourne la liste des absences pour un manager
+	 * 
+	 * @param idManager
+	 * @return Liste d'absences par personne
+	 */
+	public List<AbsenceParPersonne> afficherAbsencesParManager(int idManager) {
+
+		List<AbsenceParPersonne> listeAbsencesManager = new ArrayList<>();
+
+		Connection conn = ConnexionManager.getInstance();
+		PreparedStatement statement = null;
+		ResultSet curseur = null;
+
+		try {
+			conn.setAutoCommit(false);
+			statement = conn.prepareStatement(
+					"SELECT AP.* FROM absence_personne AP INNER JOIN utilisateur UT ON AP.id_util = UT.id WHERE id_hierarchie = ? AND statut = 'EN_ATTENTE_VALIDATION' ORDER BY date_debut");
+			statement.setInt(1, idManager);
+
+			curseur = statement.executeQuery();
+
+			conn.commit();
+
+			while (curseur.next()) {
+				Integer id = curseur.getInt("id");
+				Integer idUtil = curseur.getInt("id_util");
+				String idAbsence = curseur.getString("id_absence");
+				LocalDate dateDebut = curseur.getDate("date_debut").toLocalDate();
+				LocalDate dateFin = curseur.getDate("date_fin").toLocalDate();
+				String statut = curseur.getString("statut");
+				String motif = curseur.getString("motif");
+
+				listeAbsencesManager
+						.add(new AbsenceParPersonne(id, idUtil, idAbsence, dateDebut, dateFin, statut, motif));
+			}
+
+			return listeAbsencesManager;
+		} catch (SQLException e) {
+			try {
+				conn.rollback();
+			} catch (SQLException e1) {
+				throw new TechnicalException("Le rollback n'a pas fonctionné", e);
+			}
+			throw new TechnicalException("La sélection ne s'est pas fait", e);
+		} finally {
+			try {
+				if (statement != null) {
+					statement.close();
+				}
+			} catch (SQLException e) {
+
+				throw new TechnicalException("La fermeture ne s'est pas faite", e);
+			}
+		}
+
 	}
 
 	/**

@@ -36,23 +36,24 @@ public class TraitementDemandes {
 			// System.out.println(nombreJoursDemandes);
 
 			// Pour les congés payés, congés sans solde et RTT employés:
-			if (abs.getIdAbsence() == 1 || abs.getIdAbsence() == 2 || abs.getIdAbsence() == 3) {
+			if (abs.getTypeAbsence().equals("RTT") || abs.getTypeAbsence().equals("congé payé")
+					|| abs.getTypeAbsence().equals("congé sans solde")) {
 
-				if ((abs.getIdAbsence() == 1) || (abs.getIdAbsence() == 2)) {
+				if ((abs.getTypeAbsence().equals("RTT") || (abs.getTypeAbsence().equals("congé payé")))) {
 					Integer nombreJoursRestants = utilisateurDao.recupererNombreJoursParTypeConge(abs.getIdUtil(),
-							abs.getIdAbsence());
+							abs.getTypeAbsence());
 					if (nombreJoursDemandes <= nombreJoursRestants) {
 						// * S'il reste assez de jours pour le type d'absence
 						// demandé, la demande passe au statut
 						// EN_ATTENTE_VALIDATION et le
 						abs.setStatut("EN_ATTENTE_VALIDATION");
 						absenceParPersonneDao.modifierStatut(abs.getId(), "EN_ATTENTE_VALIDATION");
-						utilisateurDao.retirerJoursParTypeConge(abs.getIdUtil(), abs.getIdAbsence(),
+						utilisateurDao.retirerJoursParTypeConge(abs.getIdUtil(), abs.getTypeAbsence(),
 								nombreJoursRestants - nombreJoursDemandes);
 						// absenceParPersonneDao.lireDemandesPourMailManager(abs.getId(),
 						// nombreJoursDemandes);
 						try {
-							UtilMessagerie.EnvoyerMailManager(abs.getId(), abs.getIdUtil(), abs.getIdAbsence(),
+							UtilMessagerie.EnvoyerMailManager(abs.getId(), abs.getIdUtil(), abs.getTypeAbsence(),
 									nombreJoursDemandes);
 						} catch (Exception e) {
 
@@ -77,7 +78,7 @@ public class TraitementDemandes {
 					// Utils.EnvoyerMailManager(abs.getIdUtil(),
 					// abs.getIdAbsence(), nombreJoursDemandes);
 					try {
-						UtilMessagerie.EnvoyerMailManager(abs.getId(), abs.getIdUtil(), abs.getIdAbsence(),
+						UtilMessagerie.EnvoyerMailManager(abs.getId(), abs.getIdUtil(), abs.getTypeAbsence(),
 								nombreJoursDemandes);
 					} catch (Exception e) {
 
@@ -86,7 +87,7 @@ public class TraitementDemandes {
 
 				}
 
-			} else if (abs.getIdAbsence() == 5) {
+			} else if (abs.getTypeAbsence().equals("RTT_employeur")) {
 				// * Pour les demandes de type RTT employeur alors la demande
 				// passe au statut VALIDEE et l'ensemble des employés se voient
 				// retirer
@@ -94,7 +95,7 @@ public class TraitementDemandes {
 				// de RTT.
 				abs.setStatut("VALIDEE");
 				absenceParPersonneDao.modifierStatut(abs.getId(), "VALIDEE");
-				utilisateurDao.retirerJoursParTypeConge(abs.getIdUtil(), 1, 1l);
+				utilisateurDao.retirerJoursParTypeConge(abs.getIdUtil(), "RTT", 1l);
 
 			}
 

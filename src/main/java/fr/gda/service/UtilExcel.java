@@ -120,9 +120,8 @@ public class UtilExcel {
 									cellJour.setCellStyle(couleurGrise);
 								}
 								// Insertion de cellule
-								cellJour.setCellValue(absenceParPersonneDao
-										.RecupererTypeConges(absenceDepartementMoisAnnee.get(m).getIdAbsence())
-										.toUpperCase().substring(0, 1));
+								cellJour.setCellValue(absenceDepartementMoisAnnee.get(m).getTypeAbsence().toUpperCase()
+										.substring(0, 1));
 
 							}
 
