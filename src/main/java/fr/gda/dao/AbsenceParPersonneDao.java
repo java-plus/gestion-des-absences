@@ -496,18 +496,20 @@ public class AbsenceParPersonneDao {
 	 * @param idUtilisateur
 	 * @return
 	 */
-	public void modifierConges(int idConge) {
-		// TODO Modifier la méthode
+	public void modifierConges(Integer idConge, String typeAbsence, String dateDebut, String dateFin, String motif) {
 		Connection conn = ConnexionManager.getInstance();
 		PreparedStatement statement = null;
-		ResultSet curseur = null;
-		String typeConge = null;
 
 		try {
 			conn.setAutoCommit(false);
 
-			statement = conn.prepareStatement("UPDATE FROM absence_personne WHERE id = ?");
-			statement.setInt(1, idConge);
+			statement = conn.prepareStatement(
+					"UPDATE  absence_personne SET id_absence= ?, date_debut=?, date_fin= ?, motif=? WHERE id_absence= ? ");
+			statement.setString(1, typeAbsence);
+			statement.setString(2, dateDebut);
+			statement.setString(3, dateFin);
+			statement.setString(4, motif);
+			statement.setInt(5, idConge);
 
 			statement.executeUpdate();
 

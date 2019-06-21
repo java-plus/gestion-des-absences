@@ -16,7 +16,7 @@ import fr.gda.dao.UtilisateurDao;
 import fr.gda.model.AbsenceParPersonne;
 import fr.gda.model.Utilisateur;
 
-@WebServlet(urlPatterns = "/controller/updateConges/*")
+@WebServlet(urlPatterns = "/controller/ajoutConges/*")
 public class AjoutCongeController extends HttpServlet {
 
 	@Override
@@ -25,15 +25,11 @@ public class AjoutCongeController extends HttpServlet {
 
 		HttpSession session = req.getSession(false);
 		String ajoutConge = req.getParameter("ajout");
+
 		if (ajoutConge.equals("add")) {
-			RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/ajout-absence.jsp");
+			RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/ajout-absences.jsp");
 			dispatcher.forward(req, resp);
 		}
-
-		String idCongeString = req.getParameter("update");
-		Integer idConge = Integer.parseInt(idCongeString);
-
-		absenceDao.modifierConges(idConge);
 
 	}
 
@@ -86,7 +82,7 @@ public class AjoutCongeController extends HttpServlet {
 				erreurConnexion = "erreur";
 				req.setAttribute("erreur", erreurConnexion);
 
-				RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/ajout-absence.jsp");
+				RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/ajout-absences.jsp");
 				dispatcher.forward(req, resp);
 			}
 			;

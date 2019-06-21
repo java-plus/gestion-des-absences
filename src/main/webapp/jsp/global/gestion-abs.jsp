@@ -69,7 +69,7 @@
 				if (liste.getStatut().equals("INITIALE")) {
 			%>
 		<div class="btn-group" role="group">
-			<a href="updateConges?update=<%=liste.getId()%>" <button type="button" class="btn btn-dark btn-modif" id="btn-modif">
+			<a href="updateConges?update=<%=liste.getId()%>" ><button type="button" class="btn btn-dark btn-modif" id="btn-modif">
 				<i data-feather="edit-2">modifier</i>
 				</button></a>
 
@@ -86,8 +86,17 @@
 				<i data-feather="trash">supprimer</i>
 			</button>
 			<%
+				} else if(liste.getStatut().equals("REJETEE")){
+					%>	
+				<div class="btn-group" role="group">
+			<a href="updateConges?update=<%=liste.getId()%>"> <button type="button" class="btn btn-dark btn-modif" id="btn-modif">
+				<i data-feather="edit-2">modifier</i>
+				</button></a>
+				</div>
+				<%
 				}
-			%>
+				%>
+		
 
 
 		</div>
@@ -104,7 +113,7 @@
 
 <div class="container">
 	Demander une absence
-	<a href="updateConges?ajout=add">
+	<a href="ajoutConges?ajout=add">
 	<button class="btn btn-lg btn-outline-primary" type="button">créer</button>
 	</a>
 </div>
