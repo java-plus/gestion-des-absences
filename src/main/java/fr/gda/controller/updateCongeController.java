@@ -12,7 +12,9 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import fr.gda.dao.AbsenceParPersonneDao;
+import fr.gda.dao.UtilisateurDao;
 import fr.gda.model.AbsenceParPersonne;
+import fr.gda.model.Utilisateur;
 
 @WebServlet(urlPatterns = "/controller/updateConges/*")
 public class updateCongeController extends HttpServlet {
@@ -100,17 +102,37 @@ public class updateCongeController extends HttpServlet {
 		String dateFin = req.getParameter("dateFin");
 		String motif = req.getParameter("motif");
 
+		String erreurConnexion = null;
+
 		if (idConge != null) {
 			for (AbsenceParPersonne liste : listeAbsence) {
 				if (idConge.equals(liste.getId())) {
-					absenceDao.modifierConges(idConge, typeAbsence, dateDebut, dateFin, motif);
+
+					if (absenceDao.validationDateConge(utilisateurId, dateDebut, dateFin)) {
+						absenceDao.modifierConges(idConge, typeAbsence, dateDebut, dateFin, motif);
+						UtilisateurDao utilisateurDao = new UtilisateurDao();
+
+						Utilisateur utilisateur = utilisateurDao.getUtilisateur(utilisateurId);
+
+						req.setAttribute("afficherConge", listeAbsence);
+
+						req.setAttribute("utilisateur", utilisateur);
+
+						RequestDispatcher dispatcher = this.getServletContext()
+								.getRequestDispatcher("/gestion-absences.jsp");
+						dispatcher.forward(req, resp);
+
+					} else {
+						erreurConnexion = "erreur";
+						req.setAttribute("erreur", erreurConnexion);
+
+						RequestDispatcher dispatcher = this.getServletContext()
+								.getRequestDispatcher("/ajout-absences.jsp");
+						dispatcher.forward(req, resp);
+					}
+
 				}
-
 			}
-
-			RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/gestion-absences.jsp");
-			dispatcher.forward(req, resp);
 		}
 	}
-
 }

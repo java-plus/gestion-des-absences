@@ -504,12 +504,13 @@ public class AbsenceParPersonneDao {
 			conn.setAutoCommit(false);
 
 			statement = conn.prepareStatement(
-					"UPDATE  absence_personne SET id_absence= ?, date_debut=?, date_fin= ?, motif=? WHERE id_absence= ? ");
+					"UPDATE  absence_personne SET id_absence= ?, date_debut=?, date_fin= ?, motif=?, statut= ? WHERE id= ? ");
 			statement.setString(1, typeAbsence);
 			statement.setString(2, dateDebut);
 			statement.setString(3, dateFin);
 			statement.setString(4, motif);
-			statement.setInt(5, idConge);
+			statement.setString(5, "INITALE");
+			statement.setInt(6, idConge);
 
 			statement.executeUpdate();
 
