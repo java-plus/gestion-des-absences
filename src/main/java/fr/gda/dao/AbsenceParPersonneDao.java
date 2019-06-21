@@ -54,7 +54,7 @@ public class AbsenceParPersonneDao {
 			while (curseur.next()) {
 				Integer id = curseur.getInt("id");
 				Integer idUtil = curseur.getInt("id_util");
-				String idAbsence = curseur.getString("id_absence");
+				Integer idAbsence = curseur.getInt("id_absence");
 				LocalDate dateDebut = curseur.getDate("date_debut").toLocalDate();
 				LocalDate dateFin = curseur.getDate("date_fin").toLocalDate();
 				String statut = curseur.getString("statut");
@@ -303,7 +303,7 @@ public class AbsenceParPersonneDao {
 
 			while (curseur.next()) {
 				Integer id = curseur.getInt("id");
-				String idAbsence = curseur.getString("id_absence");
+				Integer idAbsence = curseur.getInt("id_absence");
 				LocalDate dateDebut = curseur.getDate("date_debut").toLocalDate();
 				LocalDate dateFin = curseur.getDate("date_fin").toLocalDate();
 				String statut = curseur.getString("statut");
@@ -368,7 +368,7 @@ public class AbsenceParPersonneDao {
 			while (curseur.next()) {
 				Integer id = curseur.getInt("AP.id");
 				Integer idUtilisateur = curseur.getInt("id_util");
-				String idAbsence = curseur.getString("id_absence");
+				Integer idAbsence = curseur.getInt("id_absence");
 				LocalDate dateDebut = curseur.getDate("date_debut").toLocalDate();
 				LocalDate dateFin = curseur.getDate("date_fin").toLocalDate();
 				String statut = curseur.getString("statut");
@@ -560,7 +560,7 @@ public class AbsenceParPersonneDao {
 			while (curseur.next()) {
 				Integer id = curseur.getInt("id");
 				Integer idUtil = curseur.getInt("id_util");
-				String idAbsence = curseur.getString("id_absence");
+				Integer idAbsence = curseur.getInt("id_absence");
 				LocalDate dateDebut = curseur.getDate("date_debut").toLocalDate();
 				LocalDate dateFin = curseur.getDate("date_fin").toLocalDate();
 				String statut = curseur.getString("statut");

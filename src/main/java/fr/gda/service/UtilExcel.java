@@ -120,7 +120,7 @@ public class UtilExcel {
 									cellJour.setCellStyle(couleurGrise);
 								}
 								// Insertion de cellule
-								cellJour.setCellValue(absenceDepartementMoisAnnee.get(m).getTypeAbsence().toUpperCase()
+								cellJour.setCellValue(absenceDepartementMoisAnnee.get(m).getIdAbsence().toUpperCase()
 										.substring(0, 1));
 
 							}
