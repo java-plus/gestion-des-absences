@@ -71,31 +71,47 @@
 			dateDuJour1.setDate(dateDuJour1.getDate()+1);
 			dateDuJour1.setHours(0);
 			dateDuJour1.setMinutes(0);
+			let dateMax = new Date();
+			dateMax.setFullYear(dateMax.getFullYear() + 2);			
 			$('#texteMotif').hide();
 			$('#texteDateDebut').hide();
 			$('#texteDateFin').hide(); 
-			
+			$('#texteDateMaxDebut').hide();
+			$('#texteDateMaxFin').hide();
 			$('#btnValider').click(function(event) {
-			
-				if (($('#type option:selected').val() == 'css') && ($('#motif').val() == '') ) {
-					 event.preventDefault(); 
-					 $('#texteMotif').show(); 
-				} 
-		
 				var dateDebutSaisie = new Date($('#dateDebut').val());
-				if(dateDebutSaisie < dateDuJour1 ){
-					 event.preventDefault(); 
+				var dateFinSaisie = new Date($('#dateFin').val() )
+			
+				var dateDebutSaisie = new Date($('#dateDebut')
+						.val());
+				var dateFinSaisie = new Date($('#dateFin')
+						.val())
+
+				if (($('#type option:selected').val() == '3') && ($('#motif').val() == '')) {
+					event.preventDefault();
+					$('#texteMotif').show();
+				}
+
+				var dateDebutSaisie = new Date($('#dateDebut')
+						.val());
+				if (dateDebutSaisie < dateDuJour1) {
+					event.preventDefault();
 					$('#texteDateDebut').show();
 				}
-				
-				
-				var dateDebutSaisie = new Date($('#dateDebut').val() );
-				var dateFinSaisie = new Date($('#dateFin').val() )
-				if(dateDebutSaisie > dateFinSaisie ){
-					 event.preventDefault(); 
-					 $('#texteDateFin').show();
+				if (dateDebutSaisie > dateMax) {
+					event.preventDefault();
+					$('#texteDateMaxDebut').show();
 				}
-			
+				if (dateFinSaisie > dateMax) {
+					event.preventDefault();
+					$('#texteDateMaxFin').show();
+				}
+
+				if (dateDebutSaisie > dateFinSaisie) {
+					event.preventDefault();
+					$('#texteDateFin').show();
+				}
+
 			});
 		});
 	</script>

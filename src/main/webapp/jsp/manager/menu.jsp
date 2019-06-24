@@ -11,7 +11,7 @@
 				<span class="navbar-toggler-icon"></span>
 			</button>
 
-			<a class="navbar-brand" href="../index.jsp"><img
+			<a class="navbar-brand" href="connexion"><img
 				src="../img/logo.jpg" width="30" height="30" alt="Accueil">
 			</a>
 
@@ -19,7 +19,7 @@
 
 				<ul class="navbar-nav text-uppercase">
 					<li class="nav-item active"><a class="nav-link"
-						href="../login.jsp">Accueil<span class="sr-only">(current)</span></a></li>
+						href="connexion">Accueil<span class="sr-only">(current)</span></a></li>
 					<li class="nav-item"><a class="nav-link" href="afficherConges">Gestion
 							des absences</a></li>
 					<li class="nav-item"><a class="nav-link" href="planning-abs.jsp">Planning

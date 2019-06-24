@@ -321,7 +321,7 @@ public class AbsenceParPersonneDao {
 			} catch (SQLException e1) {
 				throw new TechnicalException("Le rollback n'a pas fonctionné", e);
 			}
-			throw new TechnicalException("L'ajout ne s'est pas fait", e);
+			throw new TechnicalException("La récupération des données ne s'est pas faite", e);
 		} finally {
 			try {
 				if (statement != null) {
@@ -434,7 +434,7 @@ public class AbsenceParPersonneDao {
 			} catch (SQLException e1) {
 				throw new TechnicalException("Le rollback n'a pas fonctionné", e);
 			}
-			throw new TechnicalException("La mise à jour ne s'est pas faite", e);
+			throw new TechnicalException("La récupération de donnée ne s'est pas faite", e);
 		} finally {
 			try {
 				if (statement != null) {
@@ -458,8 +458,6 @@ public class AbsenceParPersonneDao {
 
 		Connection conn = ConnexionManager.getInstance();
 		PreparedStatement statement = null;
-		ResultSet curseur = null;
-		String typeConge = null;
 
 		try {
 			conn.setAutoCommit(false);
@@ -477,7 +475,7 @@ public class AbsenceParPersonneDao {
 			} catch (SQLException e1) {
 				throw new TechnicalException("Le rollback n'a pas fonctionné", e);
 			}
-			throw new TechnicalException("L'ajout ne s'est pas fait", e);
+			throw new TechnicalException("La suppression ne s'est pas faite", e);
 		} finally {
 			try {
 				if (statement != null) {
@@ -523,7 +521,7 @@ public class AbsenceParPersonneDao {
 			} catch (SQLException e1) {
 				throw new TechnicalException("Le rollback n'a pas fonctionné", e);
 			}
-			throw new TechnicalException("L'ajout ne s'est pas fait", e);
+			throw new TechnicalException("La modification ne s'est pas faite", e);
 		} finally {
 			try {
 				if (statement != null) {
@@ -551,15 +549,13 @@ public class AbsenceParPersonneDao {
 		Connection conn = ConnexionManager.getInstance();
 		PreparedStatement statement = null;
 
-		List<AbsenceParPersonne> liste = new ArrayList<>();
-
 		try {
 			conn.setAutoCommit(false);
 			statement = conn.prepareStatement(
 					"INSERT INTO absence_personne (id_util, id_absence, date_debut, date_fin, statut, motif) VALUES (?, ?, ?, ?, ?, ?)");
 
 			statement.setInt(1, idUser);
-			statement.setInt(2, idUser);
+			statement.setString(2, idAbsence);
 			statement.setString(3, dateDebut);
 			statement.setString(4, dateFin);
 			statement.setString(5, "INITIALE");
@@ -661,24 +657,24 @@ public class AbsenceParPersonneDao {
 		Connection conn = ConnexionManager.getInstance();
 		PreparedStatement statement = null;
 		ResultSet curseur = null;
-		List<AbsenceParPersonne> liste = new ArrayList<>();
 
 		try {
 			conn.setAutoCommit(false);
 			statement = conn.prepareStatement(
-					"SELECT date_debut, date_fin FROM absence_personne WHERE (? < date_fin) and (? >date_debut) AND id_util = ?;");
+					"SELECT date_debut, date_fin FROM absence_personne WHERE (? <= date_fin) and (? >=date_debut) AND id_util = ? and statut != ? and id_absence != 5 AND id_absence !=6;");
 			statement.setString(1, dateDebut);
 			statement.setString(2, dateFin);
 			statement.setInt(3, idUser);
+			statement.setString(4, Statut.REJETEE.getStatut());
 
 			curseur = statement.executeQuery();
 
-			if (!curseur.next()) {
+			if (curseur.next()) {
 
-				return true;
+				return false;
 			}
 			conn.commit();
-			return false;
+			return true;
 
 		} catch (SQLException e) {
 			try {
@@ -686,7 +682,7 @@ public class AbsenceParPersonneDao {
 			} catch (SQLException e1) {
 				throw new TechnicalException("Le rollback n'a pas fonctionné", e);
 			}
-			throw new TechnicalException("L'ajout ne s'est pas fait", e);
+			throw new TechnicalException("La vérification ne s'est pas faite", e);
 		} finally {
 			try {
 				if (statement != null) {
@@ -715,25 +711,26 @@ public class AbsenceParPersonneDao {
 		Connection conn = ConnexionManager.getInstance();
 		PreparedStatement statement = null;
 		ResultSet curseur = null;
-		List<AbsenceParPersonne> liste = new ArrayList<>();
 
 		try {
 			conn.setAutoCommit(false);
 			statement = conn.prepareStatement(
-					"SELECT date_debut, date_fin FROM absence_personne WHERE (? < date_fin) and (? >date_debut) AND id_util = ? and id =?;");
+					"SELECT date_debut, date_fin FROM absence_personne WHERE (? <= date_fin) and (? >= date_debut) AND id_util = ? and id !=? and statut != ? and id_absence != 5 AND id_absence !=6;");
+
 			statement.setString(1, dateDebut);
 			statement.setString(2, dateFin);
 			statement.setInt(3, idUser);
 			statement.setInt(4, idConge);
+			statement.setString(5, Statut.REJETEE.getStatut());
 
 			curseur = statement.executeQuery();
 
 			if (curseur.next()) {
 
-				return true;
+				return false;
 			}
 			conn.commit();
-			return false;
+			return true;
 
 		} catch (SQLException e) {
 			try {
@@ -741,7 +738,7 @@ public class AbsenceParPersonneDao {
 			} catch (SQLException e1) {
 				throw new TechnicalException("Le rollback n'a pas fonctionné", e);
 			}
-			throw new TechnicalException("L'ajout ne s'est pas fait", e);
+			throw new TechnicalException("La vérification ne s'est pas faite", e);
 		} finally {
 			try {
 				if (statement != null) {
