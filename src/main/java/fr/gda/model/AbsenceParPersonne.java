@@ -199,4 +199,20 @@ public class AbsenceParPersonne {
 	public void setMotif(String motif) {
 		this.motif = motif;
 	}
+
+	/** Méthode qui retourne le nombre de jours demandés */
+	public Long getNombreJoursDemandesSansWE() {
+		Long nbJours = 0l;
+		Integer i = 0;
+		do {
+			if ((!this.getDateDebut().plusDays(i).getDayOfWeek().equals(this.getDateDebut().getDayOfWeek().SATURDAY))
+					&& (!this.getDateDebut().plusDays(i).getDayOfWeek()
+							.equals(this.getDateDebut().getDayOfWeek().SUNDAY))) {
+				nbJours++;
+			}
+			i++;
+		} while (!this.getDateDebut().plusDays(i).equals(this.getDateFin()));
+		return ++nbJours;
+	}
+
 }

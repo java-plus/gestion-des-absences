@@ -1,6 +1,5 @@
 package fr.gda.service;
 
-import java.time.temporal.ChronoUnit;
 import java.util.List;
 
 import fr.gda.dao.AbsenceParPersonneDao;
@@ -32,7 +31,10 @@ public class TraitementDemandes {
 		// Pour chaque demande de congé au statut Initiale
 		for (AbsenceParPersonne abs : absenceAuStatutInitiale) {
 			// Nombre de jours = Ecart entre les dates en jours (dates incluses)
-			Long nombreJoursDemandes = ChronoUnit.DAYS.between(abs.getDateDebut(), abs.getDateFin()) + 1;
+			Long nombreJoursDemandes = abs.getNombreJoursDemandesSansWE();
+			// --Long nombreJoursDemandes =
+			// ChronoUnit.DAYS.between(abs.getDateDebut(), abs.getDateFin()) +
+			// 1;
 			// System.out.println(nombreJoursDemandes);
 
 			// Pour les congés payés, congés sans solde et RTT employés:

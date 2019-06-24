@@ -16,6 +16,12 @@ import fr.gda.dao.UtilisateurDao;
 import fr.gda.model.AbsenceParPersonne;
 import fr.gda.model.Utilisateur;
 
+/**
+ * Classe servlet de rejet de demande
+ * 
+ * @author Patrice
+ *
+ */
 @WebServlet(urlPatterns = "/controller/rejeterDemande/*")
 public class RejeterDemandeController extends HttpServlet {
 
@@ -28,8 +34,14 @@ public class RejeterDemandeController extends HttpServlet {
 		UtilisateurDao utilisateurDao = new UtilisateurDao();
 
 		Integer idDemande = Integer.parseInt(req.getParameter("demande"));
+		String typeAbsence = req.getParameter("typeAbsence");
 
+		// Passage au statut REJETEE de la demande
 		absenceDao.modifierStatut(idDemande, "REJETEE");
+
+		// Rajout des jours de congé au compteur
+		Integer nombreJours = absenceDao.calculerNombreJoursConges(idDemande);
+		utilisateurDao.ajouterRetirerJoursParTypeConge(idDemande, typeAbsence, nombreJours);
 
 		Object userId = session.getAttribute("utilisateurId");
 		int utilisateurId = (int) userId;

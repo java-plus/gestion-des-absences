@@ -76,7 +76,7 @@
 			<!-- 		Affichage des boutons valider / rejeter -->
 
 		<div class="btn-group" role="group">
-			<a href="validerDemande?demande=<%=liste.getId()%>" <button type="button" class="btn btn-dark btn-modif" id="btn-modif">
+			<a href="validerDemande?demande=<%=liste.getId()%>&typeAbsence=<%=liste.getTypeAbsence()%>" <button type="button" class="btn btn-dark btn-modif" id="btn-modif">
 				<i data-feather="check">valider</i>
 				</button></a>
 

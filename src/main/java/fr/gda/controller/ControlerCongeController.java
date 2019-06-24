@@ -24,7 +24,7 @@ import fr.gda.model.Utilisateur;
  */
 
 @WebServlet(urlPatterns = "/controller/validerConges/*")
-public class ValiderCongeController extends HttpServlet {
+public class ControlerCongeController extends HttpServlet {
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
