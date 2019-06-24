@@ -119,9 +119,12 @@ public class UtilExcel {
 										.equals("EN_ATTENTE_VALIDATION")) {
 									cellJour.setCellStyle(couleurGrise);
 								}
+
+								int absence = absenceDepartementMoisAnnee.get(m).getIdAbsence();
+
 								// Insertion de cellule
-								cellJour.setCellValue(absenceDepartementMoisAnnee.get(m).getIdAbsence().toUpperCase()
-										.substring(0, 1));
+								cellJour.setCellValue(absenceDepartementMoisAnnee.get(m).typeConge(absence)
+										.toUpperCase().substring(0, 1));
 
 							}
 
