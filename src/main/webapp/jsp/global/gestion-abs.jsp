@@ -57,8 +57,8 @@
 	<!-- 	Remplissage des cases du tableau avec les infos de la boucle -->
 
 	<div class="row p-2 ligneSuppr<%=liste.getId()%>">
-		<div class="col-sm-3"><%=liste.getDateDebut()%></div>
-		<div class="col-sm-3"><%=liste.getDateFin()%></div>
+		<div class="col-sm-3"><%=liste.afficherDate(liste.getDateDebut())%></div>
+		<div class="col-sm-3"><%=liste.afficherDate(liste.getDateFin())%></div>
 		<div class="col-sm-3"><%=liste.typeConge(liste.getIdAbsence())%></div>
 		<div class="col-sm-2"><%=liste.getStatut()%></div>
 		<div class="col-sm-1 ">
@@ -98,17 +98,21 @@
 				%>
 
 		</div>
+
 	</div>
 
 	<%
 		}
 		}
 	%>
-
+	<div class="text-info" id="resultat"><p class="text-center">Le congé a bien été supprimé !<p</div>
 </div>
+
+
 
 <!-- Affichage des congés restants -->
 
+	
 <div class="container">
 	Demander une absence
 	<a href="ajoutConges?ajout=add">

@@ -22,7 +22,7 @@
 <link rel="stylesheet" href="../css/font.css">
 <link rel="stylesheet" href="../css/global.css">
 
-<title>GDA - Gestion des absences</title>
+<title>GDA - Validation des absences</title>
 
 </head>
 
@@ -55,7 +55,7 @@
 
 
 	<%-- include du contenu --%>
-	<%@ include file="jsp/global/gestion-abs.jsp"%>
+	<%@ include file="jsp/global/validation-abs.jsp"%>
 
 	<%-- chargement des js de JQuery et Bootsrap et feather --%>
 	<%@ include file="jsp/global/load.jsp"%>
@@ -64,8 +64,6 @@
 
 <script type="text/javascript">
 $(document).ready(function(){
-	
-	$('#resultat').hide(); 
 	
 var id; 
 	
@@ -82,9 +80,8 @@ var id;
 		    url: this.id,
 		    type: 'DELETE',
 		    success: function(result) {
-		   		
+		        console.log(result);
 		        $( ".ligneSuppr" + id ).remove();
-		        $('#resultat').show();
 		    }
 		});
  		
