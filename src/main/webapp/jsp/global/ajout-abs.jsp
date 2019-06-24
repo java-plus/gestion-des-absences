@@ -44,9 +44,9 @@
 				<div class="col-sm-7 ">
 					<select class="custom-select" id="type" name="type" required>
 						<option value="">Type de congé</option>
-						<option value="cp">Congé payé</option>
-						<option value="rtt">RTT</option>
-						<option id="css" value="css">Congé sans solde</option>
+						<option value="2">Congé payé</option>
+						<option value="1">RTT</option>
+						<option id="3" value="css">Congé sans solde</option>
 					</select>
 				</div>
 			</div>

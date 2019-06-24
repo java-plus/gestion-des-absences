@@ -31,6 +31,7 @@ public class updateCongeController extends HttpServlet {
 		String dateFin = null;
 		int typeConge = 0;
 		String motif = null;
+		String afficherConge = null;
 
 		AbsenceParPersonneDao absenceDao = new AbsenceParPersonneDao();
 		Object userId = session.getAttribute("utilisateurId");
@@ -46,6 +47,14 @@ public class updateCongeController extends HttpServlet {
 					dateDebut = liste.getDateDebut().toString();
 					dateFin = liste.getDateFin().toString();
 					typeConge = liste.getIdAbsence();
+					if (typeConge == 1) {
+						afficherConge = "RTT";
+					} else if (typeConge == 2) {
+						afficherConge = "congé payé";
+					} else if (typeConge == 3) {
+						afficherConge = "Congé sans solde";
+					}
+
 					motif = liste.getMotif();
 					if (motif == null) {
 						motif = "/";
@@ -58,7 +67,7 @@ public class updateCongeController extends HttpServlet {
 
 			req.setAttribute("dateDebut", dateDebut);
 			req.setAttribute("dateFin", dateFin);
-			req.setAttribute("type", typeConge);
+			req.setAttribute("type", afficherConge);
 			req.setAttribute("motif", motif);
 
 			RequestDispatcher dispatcher = this.getServletContext()
@@ -83,14 +92,6 @@ public class updateCongeController extends HttpServlet {
 
 		String typeAbsence = req.getParameter("type");
 
-		if (typeAbsence.equals("cp")) {
-			typeAbsence = "2";
-		} else if (typeAbsence.equals("rtt")) {
-			typeAbsence = "1";
-		} else if (typeAbsence.equals("css")) {
-			typeAbsence = "3";
-		}
-
 		String dateDebut = req.getParameter("dateDebut");
 		String dateFin = req.getParameter("dateFin");
 		String motif = req.getParameter("motif");
@@ -106,8 +107,9 @@ public class updateCongeController extends HttpServlet {
 						UtilisateurDao utilisateurDao = new UtilisateurDao();
 
 						Utilisateur utilisateur = utilisateurDao.getUtilisateur(utilisateurId);
+						List<AbsenceParPersonne> listeAbsenceAJour = absenceDao.afficherAbsencesPersonne(utilisateurId);
 
-						req.setAttribute("afficherConge", listeAbsence);
+						req.setAttribute("afficherConge", listeAbsenceAJour);
 
 						req.setAttribute("utilisateur", utilisateur);
 

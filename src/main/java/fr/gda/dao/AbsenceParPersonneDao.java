@@ -720,7 +720,7 @@ public class AbsenceParPersonneDao {
 		try {
 			conn.setAutoCommit(false);
 			statement = conn.prepareStatement(
-					"SELECT date_debut, date_fin FROM absence_personne WHERE (? < date_fin) and (? >date_debut) AND id_util = ? and id !=?;");
+					"SELECT date_debut, date_fin FROM absence_personne WHERE (? < date_fin) and (? >date_debut) AND id_util = ? and id =?;");
 			statement.setString(1, dateDebut);
 			statement.setString(2, dateFin);
 			statement.setInt(3, idUser);
@@ -728,7 +728,7 @@ public class AbsenceParPersonneDao {
 
 			curseur = statement.executeQuery();
 
-			if (!curseur.next()) {
+			if (curseur.next()) {
 
 				return true;
 			}
