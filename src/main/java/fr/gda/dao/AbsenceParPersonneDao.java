@@ -509,7 +509,7 @@ public class AbsenceParPersonneDao {
 			statement.setString(2, dateDebut);
 			statement.setString(3, dateFin);
 			statement.setString(4, motif);
-			statement.setString(5, "INITALE");
+			statement.setString(5, "INITIALE");
 			statement.setInt(6, idConge);
 
 			statement.executeUpdate();
@@ -537,8 +537,7 @@ public class AbsenceParPersonneDao {
 	}
 
 	/**
-	 * <<<<<<< HEAD Méthode qui ajoute un congé dans la base à un utilisateur
-	 * identifié
+	 * Méthode qui ajoute un congé dans la base à un utilisateur identifié
 	 * 
 	 * @param idUser
 	 * @param idAbsence
@@ -670,6 +669,61 @@ public class AbsenceParPersonneDao {
 			statement.setString(1, dateDebut);
 			statement.setString(2, dateFin);
 			statement.setInt(3, idUser);
+
+			curseur = statement.executeQuery();
+
+			if (!curseur.next()) {
+
+				return true;
+			}
+			conn.commit();
+			return false;
+
+		} catch (SQLException e) {
+			try {
+				conn.rollback();
+			} catch (SQLException e1) {
+				throw new TechnicalException("Le rollback n'a pas fonctionné", e);
+			}
+			throw new TechnicalException("L'ajout ne s'est pas fait", e);
+		} finally {
+			try {
+				if (statement != null) {
+					statement.close();
+				}
+			} catch (SQLException e) {
+
+				throw new TechnicalException("La fermeture ne s'est pas faite", e);
+			}
+		}
+	}
+
+	/**
+	 * Méthode qui valide que les dates de congés ne se chevauchent pas pour un
+	 * utilisateur donné
+	 * 
+	 * @param idUser
+	 * @param idAbsence
+	 * @param dateDebut
+	 * @param dateFin
+	 * @param motif
+	 * @return
+	 */
+	public boolean validationDateCongeUpdate(int idUser, Integer idConge, String dateDebut, String dateFin) {
+
+		Connection conn = ConnexionManager.getInstance();
+		PreparedStatement statement = null;
+		ResultSet curseur = null;
+		List<AbsenceParPersonne> liste = new ArrayList<>();
+
+		try {
+			conn.setAutoCommit(false);
+			statement = conn.prepareStatement(
+					"SELECT date_debut, date_fin FROM absence_personne WHERE (? < date_fin) and (? >date_debut) AND id_util = ? and id !=?;");
+			statement.setString(1, dateDebut);
+			statement.setString(2, dateFin);
+			statement.setInt(3, idUser);
+			statement.setInt(4, idConge);
 
 			curseur = statement.executeQuery();
 
