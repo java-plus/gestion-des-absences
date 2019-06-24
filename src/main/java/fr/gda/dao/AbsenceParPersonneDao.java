@@ -491,6 +491,50 @@ public class AbsenceParPersonneDao {
 	}
 
 	/**
+	 * méthode supprime un congé grace à son id
+	 * 
+	 * @param idUtilisateur
+	 * @return
+	 */
+	public void SupprimerCongesAll(int idConge, String date) {
+
+		Connection conn = ConnexionManager.getInstance();
+		PreparedStatement statement = null;
+		ResultSet curseur = null;
+		String typeConge = null;
+
+		try {
+			conn.setAutoCommit(false);
+
+			statement = conn.prepareStatement("DELETE FROM absence_personne WHERE id_absence = ? and date_debut = ?");
+			statement.setInt(1, idConge);
+			statement.setString(2, date);
+
+			statement.executeUpdate();
+
+			conn.commit();
+
+		} catch (SQLException e) {
+			try {
+				conn.rollback();
+			} catch (SQLException e1) {
+				throw new TechnicalException("Le rollback n'a pas fonctionné", e);
+			}
+			throw new TechnicalException("L'ajout ne s'est pas fait", e);
+		} finally {
+			try {
+				if (statement != null) {
+					statement.close();
+				}
+			} catch (SQLException e) {
+
+				throw new TechnicalException("La fermeture ne s'est pas faite", e);
+			}
+		}
+
+	}
+
+	/**
 	 * méthode qui modifie un congé grace à son id
 	 * 
 	 * @param idUtilisateur

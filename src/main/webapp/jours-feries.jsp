@@ -84,7 +84,8 @@
 					url : this.id,
 					type : 'DELETE',
 					success : function(result) {
-						console.log(result);
+						
+						console.log($(".ligneSuppr" + id));
 						$(".ligneSuppr" + id).remove();
 					}
 				});

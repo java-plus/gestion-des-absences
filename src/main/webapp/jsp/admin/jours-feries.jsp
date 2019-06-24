@@ -1,3 +1,4 @@
+<%@page import="javax.xml.bind.ParseConversionEvent"%>
 <%@page import="fr.gda.utils.DateUtils"%>
 <%@page import="java.time.ZoneId"%>
 <%@page import="java.util.Locale"%>
@@ -22,7 +23,7 @@
 		}
 	</script>
 
-	<h1>Jours feriés et RTT employeurs zefzefzef</h1>
+	<h1>Jours feriés et RTT employeurs</h1>
 	<%
 		int annee = LocalDate.now().getYear();
 		if (request.getParameter("selectedAn") != null) {
@@ -99,22 +100,22 @@
 
 	<%
 		List<AbsenceParPersonne> listeAbsences = (List<AbsenceParPersonne>) request.getAttribute("afficherConge");
-		String typeConge = (String) request.getAttribute("afficherTypeConge");
+		//Integer typeConge = request.getAttribute("afficherTypeConge");
 		Utilisateur utilisateur = (Utilisateur) request.getAttribute("utilisateur");
 		AbsenceParPersonneDao absenceDao = new AbsenceParPersonneDao();
 
 		if (listeAbsences != null) {
 			for (AbsenceParPersonne liste : listeAbsences) {
-				typeConge = liste.getTypeAbsence();
+				int typeConge = liste.getIdAbsence();
 				String jour = liste.getDateDebut().getDayOfWeek().getDisplayName(TextStyle.FULL, Locale.FRANCE);
 				String jourMaj = jour.substring(0, 1).toUpperCase() + jour.substring(1);
-				if ((typeConge.equals("ferié") || typeConge.equals("RTT employeur"))
+				if ((typeConge == 6 || typeConge == 5)
 						&& an.equals(liste.getDateDebut().toString().substring(0, 4))
 						&& (liste.getStatut().equals("VALIDEE") || liste.getStatut().equals("INITIALE"))) {
 	%>
-	<div class="row p-2 my-1 ligneSuppr<%=liste.getId()%>">
+	<div class="row p-2 my-1 ligneSuppr<%=liste.getIdAbsence()%>_<%=liste.getDateDebut()%>">
 		<div class="col-sm-3 mx-auto"><%=liste.getDateDebut()%></div>
-		<div class="col-sm-2 mx-auto"><%=typeConge%></div>
+		<div class="col-sm-2 mx-auto"><%=liste.typeConge(typeConge)%></div>
 		<div class="col-sm-2 mx-auto"><%=jourMaj%></div>
 		<div class="col-sm-2 mx-auto"><%=liste.getMotif()%></div>
 		<%
@@ -126,7 +127,7 @@
 				<i data-feather="edit-2">modifier</i>
 			</button>
 			<button type="button" class="btn btn-dark btn-supp bg-danger"
-				data-toggle="modal" data-target="#modal" id="<%=liste.getTypeAbsence()%>">
+				data-toggle="modal" data-target="#modal" id="<%=liste.getIdAbsence()%>_<%=liste.getDateDebut()%>">
 				<i data-feather="trash">supprimer</i>
 			</button>
 		</div>

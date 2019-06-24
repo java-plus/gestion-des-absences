@@ -91,16 +91,16 @@
 
 	<%
 		List<AbsenceParPersonne> listeAbsences = (List<AbsenceParPersonne>) request.getAttribute("afficherConge");
-		String typeConge = (String) request.getAttribute("afficherTypeConge");
+		//Integer typeConge = request.getAttribute("afficherTypeConge");
 		Utilisateur utilisateur = (Utilisateur) request.getAttribute("utilisateur");
 		AbsenceParPersonneDao absenceDao = new AbsenceParPersonneDao();
 
 		if (listeAbsences != null) {
 			for (AbsenceParPersonne liste : listeAbsences) {
-				typeConge = liste.getTypeAbsence();
+				int typeConge = liste.getIdAbsence();
 				String jour = liste.getDateDebut().getDayOfWeek().getDisplayName(TextStyle.FULL, Locale.FRANCE);
 				String jourMaj = jour.substring(0, 1).toUpperCase() + jour.substring(1);
-				if ((typeConge.equals("ferié") || typeConge.equals("RTT employeur"))
+				if ((typeConge == 6 || typeConge == 5)
 						&& an.equals(liste.getDateDebut().toString().substring(0, 4))
 						&& (liste.getStatut().equals("VALIDEE") || liste.getStatut().equals("INITIALE"))) {
 	%>

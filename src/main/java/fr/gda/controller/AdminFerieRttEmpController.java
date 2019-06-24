@@ -77,12 +77,19 @@ public class AdminFerieRttEmpController extends HttpServlet {
 
 	@Override
 	protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+
+		HttpSession session = req.getSession(false);
+
 		AbsenceParPersonneDao absenceDao = new AbsenceParPersonneDao();
 
 		String idCongeString = req.getParameter("suppr");
-		Integer idConge = Integer.parseInt(idCongeString);
 
-		absenceDao.SupprimerConges(idConge);
+		String[] elements = idCongeString.split("_");
+
+		Integer idConge = Integer.parseInt(elements[0]);
+		String dateConge = elements[1];
+
+		absenceDao.SupprimerCongesAll(idConge, dateConge);
 
 		resp.getWriter().append("<p>Le congé a bien été supprimé !</p>");
 
