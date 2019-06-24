@@ -49,7 +49,7 @@
 	
 		if (listeAbsences != null) {
 			for (AbsenceParPersonne liste : listeAbsences) {
-				if (liste.getTypeAbsence().equals("férié") || liste.getTypeAbsence().equals("RTT employeur")) {
+				if (liste.getIdAbsence() == 6 || liste.getIdAbsence() == 5) {
 					continue;
 				}
 	%>
@@ -59,7 +59,7 @@
 	<div class="row p-2 ligneSuppr<%=liste.getId()%>">
 		<div class="col-sm-3"><%=liste.getDateDebut()%></div>
 		<div class="col-sm-3"><%=liste.getDateFin()%></div>
-		<div class="col-sm-3"><%=liste.getTypeAbsence()%></div>
+		<div class="col-sm-3"><%=liste.typeConge(liste.getIdAbsence())%></div>
 		<div class="col-sm-2"><%=liste.getStatut()%></div>
 		<div class="col-sm-1 ">
 
@@ -96,8 +96,6 @@
 				<%
 				}
 				%>
-		
-
 
 		</div>
 	</div>

@@ -12,6 +12,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import fr.gda.connexion.ConnexionManager;
+import fr.gda.enumeration.Statut;
 import fr.gda.exception.TechnicalException;
 import fr.gda.model.AbsenceParPersonne;
 import fr.gda.model.TraitementMailManager;
@@ -54,7 +55,7 @@ public class AbsenceParPersonneDao {
 			while (curseur.next()) {
 				Integer id = curseur.getInt("id");
 				Integer idUtil = curseur.getInt("id_util");
-				String idAbsence = curseur.getString("id_absence");
+				Integer idAbsence = curseur.getInt("id_absence");
 				LocalDate dateDebut = curseur.getDate("date_debut").toLocalDate();
 				LocalDate dateFin = curseur.getDate("date_fin").toLocalDate();
 				String statut = curseur.getString("statut");
@@ -208,7 +209,7 @@ public class AbsenceParPersonneDao {
 				statement.setInt(2, 6);
 				statement.setString(3, date);
 				statement.setString(4, date);
-				statement.setString(5, "VALIDEE");
+				statement.setString(5, Statut.VALIDEE.toString());
 				statement.setString(6, motif);
 
 				statement.executeUpdate();
@@ -252,7 +253,7 @@ public class AbsenceParPersonneDao {
 				statement.setInt(2, 6);
 				statement.setString(3, date);
 				statement.setString(4, date);
-				statement.setString(5, "INITIALE");
+				statement.setString(5, Statut.INITIALE.toString());
 				statement.setString(6, motif);
 
 				statement.executeUpdate();
@@ -303,7 +304,7 @@ public class AbsenceParPersonneDao {
 
 			while (curseur.next()) {
 				Integer id = curseur.getInt("id");
-				String idAbsence = curseur.getString("id_absence");
+				Integer idAbsence = curseur.getInt("id_absence");
 				LocalDate dateDebut = curseur.getDate("date_debut").toLocalDate();
 				LocalDate dateFin = curseur.getDate("date_fin").toLocalDate();
 				String statut = curseur.getString("statut");
@@ -368,7 +369,7 @@ public class AbsenceParPersonneDao {
 			while (curseur.next()) {
 				Integer id = curseur.getInt("AP.id");
 				Integer idUtilisateur = curseur.getInt("id_util");
-				String idAbsence = curseur.getString("id_absence");
+				Integer idAbsence = curseur.getInt("id_absence");
 				LocalDate dateDebut = curseur.getDate("date_debut").toLocalDate();
 				LocalDate dateFin = curseur.getDate("date_fin").toLocalDate();
 				String statut = curseur.getString("statut");
@@ -613,7 +614,7 @@ public class AbsenceParPersonneDao {
 			while (curseur.next()) {
 				Integer id = curseur.getInt("id");
 				Integer idUtil = curseur.getInt("id_util");
-				String idAbsence = curseur.getString("id_absence");
+				Integer idAbsence = curseur.getInt("id_absence");
 				LocalDate dateDebut = curseur.getDate("date_debut").toLocalDate();
 				LocalDate dateFin = curseur.getDate("date_fin").toLocalDate();
 				String statut = curseur.getString("statut");
