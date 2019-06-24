@@ -126,7 +126,7 @@
 				<i data-feather="edit-2">modifier</i>
 			</button>
 			<button type="button" class="btn btn-dark btn-supp bg-danger"
-				data-toggle="modal" data-target="#modal" id="<%=liste.getId()%>">
+				data-toggle="modal" data-target="#modal" id="<%=liste.getTypeAbsence()%>">
 				<i data-feather="trash">supprimer</i>
 			</button>
 		</div>
