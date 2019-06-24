@@ -107,9 +107,12 @@ public class UtilExcel {
 						// Si c'est le même utilisateur
 						if (absenceDepartementMoisAnnee.get(m).getIdUtil() == utilisateurParDepartement.get(i)
 								.getId()) {
-							// Si c'est sous les mêmes dates de mois
-							if (absenceDepartementMoisAnnee.get(m).getDateDebut().getDayOfMonth() <= k
-									& absenceDepartementMoisAnnee.get(m).getDateFin().getDayOfMonth() >= k) {
+							// Si c'est entre les dates de début et de fin
+							LocalDate dateK = LocalDate.of(annee, numeroMois, k);
+							if ((absenceDepartementMoisAnnee.get(m).getDateDebut().isBefore(dateK)
+									&& absenceDepartementMoisAnnee.get(m).getDateFin().isAfter(dateK))
+									|| absenceDepartementMoisAnnee.get(m).getDateDebut().isEqual(dateK)
+									|| absenceDepartementMoisAnnee.get(m).getDateFin().isEqual(dateK)) {
 								// Changement de couleur si besoin
 								if (absenceDepartementMoisAnnee.get(m).getStatut().equals("REJETEE")) {
 									cellJour.setCellStyle(couleurRouge);

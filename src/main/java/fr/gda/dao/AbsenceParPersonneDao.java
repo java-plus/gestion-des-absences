@@ -335,6 +335,62 @@ public class AbsenceParPersonneDao {
 	}
 
 	/**
+	 * méthode qui retourne une absence donnée
+	 * 
+	 * @param idDemande
+	 * @return
+	 */
+	public AbsenceParPersonne afficherAbsenceParId(int idDemande) {
+
+		AbsenceParPersonne absence = null;
+
+		Connection conn = ConnexionManager.getInstance();
+		PreparedStatement statement = null;
+		ResultSet curseur = null;
+
+		try {
+			conn.setAutoCommit(false);
+			statement = conn.prepareStatement("SELECT * FROM absence_personne WHERE id = ?");
+			statement.setInt(1, idDemande);
+
+			curseur = statement.executeQuery();
+
+			conn.commit();
+
+			if (curseur.next()) {
+				Integer id = curseur.getInt("id");
+				Integer idUtilisateur = curseur.getInt("id_util");
+				Integer idAbsence = curseur.getInt("id_absence");
+				LocalDate dateDebut = curseur.getDate("date_debut").toLocalDate();
+				LocalDate dateFin = curseur.getDate("date_fin").toLocalDate();
+				String statut = curseur.getString("statut");
+				String motif = curseur.getString("motif");
+
+				absence = new AbsenceParPersonne(id, idUtilisateur, idAbsence, dateDebut, dateFin, statut, motif);
+			}
+
+			return absence;
+		} catch (SQLException e) {
+			try {
+				conn.rollback();
+			} catch (SQLException e1) {
+				throw new TechnicalException("Le rollback n'a pas fonctionné", e);
+			}
+			throw new TechnicalException("L'ajout ne s'est pas fait", e);
+		} finally {
+			try {
+				if (statement != null) {
+					statement.close();
+				}
+			} catch (SQLException e) {
+
+				throw new TechnicalException("La fermeture ne s'est pas faite", e);
+			}
+		}
+
+	}
+
+	/**
 	 * méthode qui retourne la liste des absences de toutes les personnes
 	 * 
 	 * @param mois
@@ -548,12 +604,13 @@ public class AbsenceParPersonneDao {
 			conn.setAutoCommit(false);
 
 			statement = conn.prepareStatement(
-					"UPDATE  absence_personne SET id_absence= ?, date_debut=?, date_fin= ?, motif=? WHERE id_absence= ? ");
+					"UPDATE  absence_personne SET id_absence= ?, date_debut=?, date_fin= ?, motif=?, statut= ? WHERE id= ? ");
 			statement.setString(1, typeAbsence);
 			statement.setString(2, dateDebut);
 			statement.setString(3, dateFin);
 			statement.setString(4, motif);
-			statement.setInt(5, idConge);
+			statement.setString(5, "INITIALE");
+			statement.setInt(6, idConge);
 
 			statement.executeUpdate();
 
@@ -580,8 +637,7 @@ public class AbsenceParPersonneDao {
 	}
 
 	/**
-	 * <<<<<<< HEAD Méthode qui ajoute un congé dans la base à un utilisateur
-	 * identifié
+	 * Méthode qui ajoute un congé dans la base à un utilisateur identifié
 	 * 
 	 * @param idUser
 	 * @param idAbsence
@@ -717,6 +773,61 @@ public class AbsenceParPersonneDao {
 			curseur = statement.executeQuery();
 
 			if (!curseur.next()) {
+
+				return true;
+			}
+			conn.commit();
+			return false;
+
+		} catch (SQLException e) {
+			try {
+				conn.rollback();
+			} catch (SQLException e1) {
+				throw new TechnicalException("Le rollback n'a pas fonctionné", e);
+			}
+			throw new TechnicalException("L'ajout ne s'est pas fait", e);
+		} finally {
+			try {
+				if (statement != null) {
+					statement.close();
+				}
+			} catch (SQLException e) {
+
+				throw new TechnicalException("La fermeture ne s'est pas faite", e);
+			}
+		}
+	}
+
+	/**
+	 * Méthode qui valide que les dates de congés ne se chevauchent pas pour un
+	 * utilisateur donné
+	 * 
+	 * @param idUser
+	 * @param idAbsence
+	 * @param dateDebut
+	 * @param dateFin
+	 * @param motif
+	 * @return
+	 */
+	public boolean validationDateCongeUpdate(int idUser, Integer idConge, String dateDebut, String dateFin) {
+
+		Connection conn = ConnexionManager.getInstance();
+		PreparedStatement statement = null;
+		ResultSet curseur = null;
+		List<AbsenceParPersonne> liste = new ArrayList<>();
+
+		try {
+			conn.setAutoCommit(false);
+			statement = conn.prepareStatement(
+					"SELECT date_debut, date_fin FROM absence_personne WHERE (? < date_fin) and (? >date_debut) AND id_util = ? and id =?;");
+			statement.setString(1, dateDebut);
+			statement.setString(2, dateFin);
+			statement.setInt(3, idUser);
+			statement.setInt(4, idConge);
+
+			curseur = statement.executeQuery();
+
+			if (curseur.next()) {
 
 				return true;
 			}

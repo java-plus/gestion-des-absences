@@ -1,6 +1,7 @@
 package fr.gda.model;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 import fr.gda.enumeration.TypeAbsence;
 
@@ -78,6 +79,14 @@ public class AbsenceParPersonne {
 		}
 
 		return typeConge;
+	}
+
+	public String afficherDate(LocalDate date) {
+
+		String dateFr = date.format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+
+		return dateFr;
+
 	}
 
 	/**
@@ -212,4 +221,20 @@ public class AbsenceParPersonne {
 	public void setMotif(String motif) {
 		this.motif = motif;
 	}
+
+	/** Méthode qui retourne le nombre de jours demandés */
+	public Long getNombreJoursDemandesSansWE() {
+		Long nbJours = 0l;
+		Integer i = 0;
+		do {
+			if ((!this.getDateDebut().plusDays(i).getDayOfWeek().equals(this.getDateDebut().getDayOfWeek().SATURDAY))
+					&& (!this.getDateDebut().plusDays(i).getDayOfWeek()
+							.equals(this.getDateDebut().getDayOfWeek().SUNDAY))) {
+				nbJours++;
+			}
+			i++;
+		} while (!this.getDateDebut().plusDays(i).equals(this.getDateFin()));
+		return ++nbJours;
+	}
+
 }

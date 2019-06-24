@@ -16,8 +16,15 @@ import fr.gda.dao.UtilisateurDao;
 import fr.gda.model.AbsenceParPersonne;
 import fr.gda.model.Utilisateur;
 
-@WebServlet(urlPatterns = "/controller/afficherConges/*")
-public class AfficherCongeController extends HttpServlet {
+/**
+ * Classe de validation des congés
+ * 
+ * @author Patrice
+ *
+ */
+
+@WebServlet(urlPatterns = "/controller/validerConges/*")
+public class ControlerCongeController extends HttpServlet {
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -30,32 +37,20 @@ public class AfficherCongeController extends HttpServlet {
 		Object userId = session.getAttribute("utilisateurId");
 		int utilisateurId = (int) userId;
 
-		List<AbsenceParPersonne> listeAbsences = absenceDao.afficherAbsencesPersonne(utilisateurId);
+		List<AbsenceParPersonne> listeAbsences = absenceDao.afficherAbsencesParManager(utilisateurId);
 
 		Utilisateur utilisateur = utilisateurDao.getUtilisateur(utilisateurId);
 
+		List<Utilisateur> groupeUitilisateurs = utilisateurDao.getUtilisateurs();
+
 		req.setAttribute("afficherConge", listeAbsences);
+
+		req.setAttribute("groupeUtilisateurs", groupeUitilisateurs);
 
 		req.setAttribute("utilisateur", utilisateur);
 
-		RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/gestion-absences.jsp");
+		RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/validation-absences.jsp");
 		dispatcher.forward(req, resp);
-	}
-
-	@Override
-	protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
-		HttpSession session = req.getSession(false);
-
-		AbsenceParPersonneDao absenceDao = new AbsenceParPersonneDao();
-
-		String idCongeString = req.getParameter("suppr");
-		Integer idConge = Integer.parseInt(idCongeString);
-
-		absenceDao.SupprimerConges(idConge);
-
-		resp.getWriter().append("ok");
-
 	}
 
 }

@@ -24,7 +24,7 @@
 							des absences</a></li>
 					<li class="nav-item"><a class="nav-link" href="planning-abs.jsp">Planning
 							des absences</a></li>
-					<li class="nav-item"><a class="nav-link" href="#">Validation
+					<li class="nav-item"><a class="nav-link" href="validerConges">Validation
 							demandes</a></li>
 					<li class="nav-item"><a class="nav-link" href="#">Vues
 							synthétiques</a></li>

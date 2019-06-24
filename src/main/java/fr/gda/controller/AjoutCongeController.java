@@ -47,19 +47,9 @@ public class AjoutCongeController extends HttpServlet {
 
 			String typeAbsence = req.getParameter("type");
 
-			if (typeAbsence.equals("cp")) {
-				typeAbsence = "2";
-			} else if (typeAbsence.equals("rtt")) {
-				typeAbsence = "1";
-			} else if (typeAbsence.equals("css")) {
-				typeAbsence = "3";
-			}
-
 			String dateDebut = req.getParameter("dateDebut");
 			String dateFin = req.getParameter("dateFin");
 			String motif = req.getParameter("motif");
-
-			List<AbsenceParPersonne> listeAbsences = absenceDao.afficherAbsencesPersonne(utilisateurId);
 
 			String erreurConnexion = null;
 
@@ -70,6 +60,7 @@ public class AjoutCongeController extends HttpServlet {
 				UtilisateurDao utilisateurDao = new UtilisateurDao();
 
 				Utilisateur utilisateur = utilisateurDao.getUtilisateur(utilisateurId);
+				List<AbsenceParPersonne> listeAbsences = absenceDao.afficherAbsencesPersonne(utilisateurId);
 
 				req.setAttribute("afficherConge", listeAbsences);
 
