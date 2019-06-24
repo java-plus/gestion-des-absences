@@ -3,9 +3,7 @@ import="java.util.List, java.util.ArrayList, fr.gda.model.*, fr.gda.dao.*"%>
 
 
 <%
-		//List<Utilisateur> utilisateurParDepartement = (List<Utilisateur>) request.getAttribute("utilisateurParDepartement");
-	//	List<AbsenceParPersonne> absenceDepartementMoisAnnee = (List<AbsenceParPersonne>) request.getAttribute("absenceDepartementMoisAnnee");
-		//int maxDay = (int) request.getAttribute("maxDay");
+	
 		
 		String[] ListNoms = (String[]) request.getAttribute("ListNoms");
 		String[][] ListjourMois = (String[][]) request.getAttribute("ListjourMois");

@@ -22,7 +22,7 @@
 							class="sr-only">(current)</span></a></li>
 					<li class="nav-item"><a class="nav-link" href="controller/afficherConges">Gestion
 							des absences</a></li>
-					<li class="nav-item"><a class="nav-link" href="controller/planning-abs.jsp">Planning
+					<li class="nav-item"><a class="nav-link" href="controller/afficherPlanningAbs">Planning
 							des absences</a></li>
 					<li class="nav-item"><a class="nav-link" href="controller/jours-feries.jsp">Jours fériés</a></li>
 				</ul>

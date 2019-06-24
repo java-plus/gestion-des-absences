@@ -14,8 +14,7 @@
 			</button>
 
 			<a class="navbar-brand" href="../index.jsp"><img
-				src="../img/logo.jpg"
-				width="30" height="30" alt="Accueil">
+				src="../img/logo.jpg" width="30" height="30" alt="Accueil">
 			</a>
 
 			<div class="collapse navbar-collapse" id="navbarNav">
@@ -25,7 +24,7 @@
 							class="sr-only">(current)</span></a></li>
 					<li class="nav-item"><a class="nav-link" href="afficherConges">Gestion
 							des absences</a></li>
-					<li class="nav-item"><a class="nav-link" href="planning-abs.jsp">Planning
+					<li class="nav-item"><a class="nav-link" href="afficherPlanningAbs">Planning
 							des absences</a></li>
 					<li class="nav-item"><a class="nav-link" href="jours-feries.jsp">Jours fériés</a></li>
 				</ul>
