@@ -798,6 +798,47 @@ public class AbsenceParPersonneDao {
 		}
 	}
 
+	public boolean validationDateFerié(String dateDebut) {
+
+		Connection conn = ConnexionManager.getInstance();
+		PreparedStatement statement = null;
+		ResultSet curseur = null;
+		List<AbsenceParPersonne> liste = new ArrayList<>();
+
+		try {
+			conn.setAutoCommit(false);
+			statement = conn.prepareStatement(
+					"SELECT date_debut FROM absence_personne WHERE date_debut = ? AND (id_absence = 5 OR id_absence = 6);");
+			statement.setString(1, dateDebut);
+
+			curseur = statement.executeQuery();
+
+			if (!curseur.next()) {
+
+				return true;
+			}
+			conn.commit();
+			return false;
+
+		} catch (SQLException e) {
+			try {
+				conn.rollback();
+			} catch (SQLException e1) {
+				throw new TechnicalException("Le rollback n'a pas fonctionné", e);
+			}
+			throw new TechnicalException("L'ajout ne s'est pas fait", e);
+		} finally {
+			try {
+				if (statement != null) {
+					statement.close();
+				}
+			} catch (SQLException e) {
+
+				throw new TechnicalException("La fermeture ne s'est pas faite", e);
+			}
+		}
+	}
+
 	/**
 	 * Méthode qui valide que les dates de congés ne se chevauchent pas pour un
 	 * utilisateur donné

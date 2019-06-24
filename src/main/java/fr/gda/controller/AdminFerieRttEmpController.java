@@ -34,39 +34,52 @@ public class AdminFerieRttEmpController extends HttpServlet {
 		String selectedType = req.getParameter("selectedType");
 		String selectedMotif = req.getParameter("selectedMotif");
 
-		if (selectedType.equals("ferié")) {
-			absParPersDao.addJourFerie(selectedDate, selectedMotif);
+		String erreurConnexion = null;
+		boolean test = absParPersDao.validationDateFerié(selectedDate);
 
-		} else {
-			absParPersDao.addRttEmployeur(selectedDate, selectedMotif);
+		if (absParPersDao.validationDateFerié(selectedDate)) {
 
-		}
+			if (selectedType.equals("ferié")) {
+				absParPersDao.addJourFerie(selectedDate, selectedMotif);
 
-		UtilisateurDao utilisateurDao = new UtilisateurDao();
+			} else {
+				absParPersDao.addRttEmployeur(selectedDate, selectedMotif);
 
-		Object userId = session.getAttribute("utilisateurId");
-		int utilisateurId = (int) userId;
-
-		List<AbsenceParPersonne> listeAbsences = absParPersDao.afficherAbsencesPersonne(utilisateurId);
-
-		String typeConge = null;
-
-		for (AbsenceParPersonne liste : listeAbsences) {
-			int absId = liste.getIdAbsence();
-
-			if (absId == 5 || absId == 6) {
-				typeConge = absParPersDao.RecupererTypeConges(liste.getId());
 			}
+
+			UtilisateurDao utilisateurDao = new UtilisateurDao();
+
+			Object userId = session.getAttribute("utilisateurId");
+			int utilisateurId = (int) userId;
+
+			List<AbsenceParPersonne> listeAbsences = absParPersDao.afficherAbsencesPersonne(utilisateurId);
+
+			String typeConge = null;
+
+			for (AbsenceParPersonne liste : listeAbsences) {
+				int absId = liste.getIdAbsence();
+
+				if (absId == 5 || absId == 6) {
+					typeConge = absParPersDao.RecupererTypeConges(liste.getId());
+				}
+			}
+
+			Utilisateur utilisateur = utilisateurDao.getUtilisateur(utilisateurId);
+
+			req.setAttribute("afficherConge", listeAbsences);
+			req.setAttribute("afficherTypeConge", typeConge);
+			req.setAttribute("utilisateur", utilisateur);
+
+			RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/jours-feries.jsp");
+			dispatcher.forward(req, resp);
+		} else {
+			erreurConnexion = "erreur";
+			req.setAttribute("erreur", erreurConnexion);
+
+			RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/ajout-feries.jsp");
+			dispatcher.forward(req, resp);
 		}
 
-		Utilisateur utilisateur = utilisateurDao.getUtilisateur(utilisateurId);
-
-		req.setAttribute("afficherConge", listeAbsences);
-		req.setAttribute("afficherTypeConge", typeConge);
-		req.setAttribute("utilisateur", utilisateur);
-
-		RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/jours-feries.jsp");
-		dispatcher.forward(req, resp);
 	}
 
 	@Override

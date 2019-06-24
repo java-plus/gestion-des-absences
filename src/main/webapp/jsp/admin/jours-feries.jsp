@@ -114,7 +114,7 @@
 						&& (liste.getStatut().equals("VALIDEE") || liste.getStatut().equals("INITIALE"))) {
 	%>
 	<div class="row p-2 my-1 ligneSuppr<%=liste.getIdAbsence()%>_<%=liste.getDateDebut()%>">
-		<div class="col-sm-3 mx-auto"><%=liste.getDateDebut()%></div>
+		<div class="col-sm-3 mx-auto"><%=liste.afficherDate(liste.getDateDebut())%></div>
 		<div class="col-sm-2 mx-auto"><%=liste.typeConge(typeConge)%></div>
 		<div class="col-sm-2 mx-auto"><%=jourMaj%></div>
 		<div class="col-sm-2 mx-auto"><%=liste.getMotif()%></div>

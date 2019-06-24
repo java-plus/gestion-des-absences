@@ -25,6 +25,9 @@
 			<div class="col-sm-7">
 				<input type="date" class="form-control" name="selectedDate" id="date">
 			</div>
+			<div  class="text-info mx-auto">
+				<p id="texteDateDebut">La date de début de congé ne peut être inférieur à demain </p>
+				</div>
 		</div>
 
 		<div class="form-group row">
@@ -47,6 +50,9 @@
 			<div class="col-sm-7">
 				<input type="text" class="form-control" name="selectedMotif" id="commentaire">
 			</div>
+			<div  class="text-info mx-auto">
+				<p id="texteMotif">Le motif est obligatoire pour les jours feriés</p>
+				</div>
 		</div>
 
 		<div class="form-group d-flex justify-content-center my-5">
@@ -55,7 +61,20 @@
 					type="button">Annuler</button></a>
 				<button
 					class="btn btn-lg btn-outline-light border-dark mx-2 bg-success"
-					type="submit">Valider</button>
+					type="submit" id="btnValider">Valider</button>
 		</div>
+		
+		<%
+			String erreur = (String) request.getAttribute("erreur");
+			if (erreur != null) {
+		%>
+
+		<div>
+			<p class="text-info text-center">Vos congés se chevauchent avec des congés existants, merci de vérifier les dates !<p>
+		</div>
+
+		<%
+			}
+		%>
 	</form>
 </div>

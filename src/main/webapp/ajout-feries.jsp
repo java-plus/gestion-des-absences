@@ -66,6 +66,34 @@
 
 	<%-- chargement des js de JQuery et Bootsrap et feather --%>
 	<%@ include file="jsp/global/load.jsp"%>
+	
+	<script type="text/javascript">
+		$(document).ready(function() {
+			let texteMotif= ''; 
+			let texteDateDebut= ''; 
+			let dateDuJour1 = new Date();
+			dateDuJour1.setDate(dateDuJour1.getDate()+1);
+			dateDuJour1.setHours(0);
+			dateDuJour1.setMinutes(0);
+			$('#texteMotif').hide();
+			$('#texteDateDebut').hide();
+			
+			$('#btnValider').click(function(event) {
+			
+				if (($('#typeJour option:selected').val() == 'ferié') && ($('#commentaire').val() == '') ) {
+					 event.preventDefault(); 
+					 $('#texteMotif').show(); 
+				} 
+		
+				var dateDebutSaisie = new Date($('#date').val());
+				if(dateDebutSaisie < dateDuJour1 ){
+					 event.preventDefault(); 
+					$('#texteDateDebut').show();
+				}
+			
+			});
+		});
+	</script>
 
 </body>
 
