@@ -14,6 +14,7 @@
 			</button>
 
 			<a class="navbar-brand" href="connexion"><img
+
 				src="../img/logo.jpg"
 				width="30" height="30" alt="Accueil">
 			</a>

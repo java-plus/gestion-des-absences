@@ -12,6 +12,7 @@
 			</button>
 
 			<a class="navbar-brand" href="connexion"><img
+
 				src="img/logo.jpg" width="30" height="30" alt="Accueil">
 			</a>
 
@@ -24,7 +25,7 @@
 							des absences</a></li>
 					<li class="nav-item"><a class="nav-link" href="controller/planning-abs.jsp">Planning
 							des absences</a></li>
-					<li class="nav-item"><a class="nav-link" href="controller/#">Validation
+					<li class="nav-item"><a class="nav-link" href="controller/validerConges">Validation
 							demandes</a></li>
 					<li class="nav-item"><a class="nav-link" href="controller/#">Vues
 							synthétiques</a></li>
