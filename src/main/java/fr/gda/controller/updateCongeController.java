@@ -29,7 +29,7 @@ public class updateCongeController extends HttpServlet {
 
 		String dateDebut = null;
 		String dateFin = null;
-		String typeConge = null;
+		int typeConge = 0;
 		String motif = null;
 
 		AbsenceParPersonneDao absenceDao = new AbsenceParPersonneDao();
@@ -45,14 +45,7 @@ public class updateCongeController extends HttpServlet {
 
 					dateDebut = liste.getDateDebut().toString();
 					dateFin = liste.getDateFin().toString();
-					typeConge = liste.getTypeAbsence();
-					if (typeConge.equals("cp")) {
-						typeConge = "2";
-					} else if (typeConge.equals("rtt")) {
-						typeConge = "1";
-					} else if (typeConge.equals("css")) {
-						typeConge = "3";
-					}
+					typeConge = liste.getIdAbsence();
 					motif = liste.getMotif();
 					if (motif == null) {
 						motif = "/";

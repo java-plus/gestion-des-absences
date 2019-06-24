@@ -2,6 +2,8 @@ package fr.gda.model;
 
 import java.time.LocalDate;
 
+import fr.gda.enumeration.TypeAbsence;
+
 /**
  * Classe qui gère une Absence par Personne
  * 
@@ -15,7 +17,7 @@ public class AbsenceParPersonne {
 	/** idUtil : int */
 	private int idUtil;
 	/** idAbsence : int */
-	private String typeAbsence;
+	private int idAbsence;
 	/** dateDebut : Date */
 	private LocalDate dateDebut;
 	/** dateFin : Date */
@@ -36,35 +38,46 @@ public class AbsenceParPersonne {
 	 * @param statut
 	 * @param motif
 	 */
-	public AbsenceParPersonne(int id, int idUtil, String typeAbsence, LocalDate dateDebut, LocalDate dateFin,
-			String statut, String motif) {
+	public AbsenceParPersonne(int id, int idUtil, int idAbsence, LocalDate dateDebut, LocalDate dateFin, String statut,
+			String motif) {
 		super();
 		this.id = id;
 		this.idUtil = idUtil;
-		switch (typeAbsence) {
-		case "1":
-			this.typeAbsence = "RTT";
-			break;
-		case "2":
-			this.typeAbsence = "congé payé";
-			break;
-		case "3":
-			this.typeAbsence = "congé sans solde";
-			break;
-		case "4":
-			this.typeAbsence = "mission";
-			break;
-		case "5":
-			this.typeAbsence = "RTT employeur";
-			break;
-		case "6":
-			this.typeAbsence = "férié";
-			break;
-		}
+		this.idAbsence = idAbsence;
 		this.dateDebut = dateDebut;
 		this.dateFin = dateFin;
 		this.statut = statut;
 		this.motif = motif;
+	}
+
+	public String typeConge(int idConge) {
+
+		String typeConge = null;
+
+		switch (idConge) {
+
+		case 1:
+			typeConge = TypeAbsence.RTT.toString();
+			break;
+		case 2:
+			typeConge = TypeAbsence.CONGE_PAYE.toString();
+			break;
+		case 3:
+			typeConge = TypeAbsence.CONGE_S_SOLDE.toString();
+			break;
+		case 4:
+			typeConge = TypeAbsence.MISSION.toString();
+			break;
+		case 5:
+			typeConge = TypeAbsence.RTT_EMPLOYEUR.toString();
+			break;
+		case 6:
+			typeConge = TypeAbsence.FERIE.toString();
+			break;
+
+		}
+
+		return typeConge;
 	}
 
 	/**
@@ -108,20 +121,20 @@ public class AbsenceParPersonne {
 	/**
 	 * Getter
 	 * 
-	 * @return the typeAbsence
+	 * @return the idAbsence
 	 */
-	public String getTypeAbsence() {
-		return typeAbsence;
+	public int getIdAbsence() {
+		return idAbsence;
 	}
 
 	/**
 	 * Setter
 	 * 
-	 * @param typeAbsence
-	 *            the typeAbsence to set
+	 * @param idAbsence
+	 *            the idAbsence to set
 	 */
-	public void setTypeAbsence(String typeAbsence) {
-		this.typeAbsence = typeAbsence;
+	public void setIdAbsence(int idAbsence) {
+		this.idAbsence = idAbsence;
 	}
 
 	/**
