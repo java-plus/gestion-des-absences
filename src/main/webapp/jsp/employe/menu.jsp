@@ -13,7 +13,7 @@
 				<span class="navbar-toggler-icon"></span>
 			</button>
 
-			<a class="navbar-brand" href="../index.jsp"><img
+			<a class="navbar-brand" href="../login.jsp"><img
 				src="../img/logo.jpg"
 				width="30" height="30" alt="Accueil">
 			</a>
