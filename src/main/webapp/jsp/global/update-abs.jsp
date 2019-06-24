@@ -5,11 +5,12 @@
 
 <div class="container my-5">
 
-	<h1 class="text-center">Demande d'absence</h1>
+	<h1 class="text-center">Modification d'une absence</h1>
 
 	<div class="col-sm-6 mx-auto mt-5">
 
-		<form method="POST" action="ajoutConges?ajout=ok">
+		<form method="POST" action="updateConges?update=<%=(Integer)request.getAttribute("idConge")%>">
+
 
 			<div class="form-group row">
 				<div class="col-sm-5 col-form-label">
@@ -17,7 +18,7 @@
 				</div>
 				<div class="col-sm-7 ">
 					<input type="date" class="form-control" id="dateDebut" name="dateDebut"
-						aria-describedby="dateDebut" placeholder="Date de début" required>
+						aria-describedby="dateDebut" value="<%=(String) request.getAttribute("dateDebut") %>"  required>
 				</div>
 				<div  class="text-info mx-auto">
 				<p id="texteDateDebut">La date de début de congé ne peut être inférieur à demain </p>
@@ -30,7 +31,7 @@
 				</div>
 				<div class="col-sm-7 ">
 					<input type="date" class="form-control" id="dateFin" name="dateFin"
-						aria-describedby="dateFin" placeholder="Date de fin" required>
+						aria-describedby="dateFin" value="<%=(String) request.getAttribute("dateFin") %>" required>
 				</div>
 				<div class="text-info mx-auto">
 				<p id="texteDateFin" >La date de fin de congé ne peut être inférieur à la date de début </p>
@@ -43,7 +44,7 @@
 				</div>
 				<div class="col-sm-7 ">
 					<select class="custom-select" id="type" name="type" required>
-						<option value="">Type de congé</option>
+						<option value=""><%=(String) request.getAttribute("type") %></option>
 						<option value="cp">Congé payé</option>
 						<option value="rtt">RTT</option>
 						<option id="css" value="css">Congé sans solde</option>
@@ -56,7 +57,7 @@
 					<label for="motif">Motif</label>
 				</div>
 				<div class="col-sm-7 ">
-					<textarea class="form-control" id="motif" name="motif" rows="5"></textarea>
+					<textarea class="form-control" id="motif" name="motif" rows="5" placeholder="<%=(String) request.getAttribute("motif") %>"></textarea>
 				</div>
 				<div  class="text-info mx-auto">
 				<p id="texteMotif">Le motif est obligatoire pour les congés sans solde</p>
@@ -66,7 +67,7 @@
 			<div class="form-group row d-flex justify-content-center">
 				<a href="afficherConges"
 					<button type="button" class="btn btn-danger mr-5 mt-3">Annuler</button></a>
-				<button type="submit" id="btnValider" class="btn btn-success mr-5 mt-3">Valider</button>
+				<button type="submit" id="btnValider" class="btn btn-success mr-5 mt-3" >Valider</button>
 			</div>
 
 		<%

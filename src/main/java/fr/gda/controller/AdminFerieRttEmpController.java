@@ -52,9 +52,9 @@ public class AdminFerieRttEmpController extends HttpServlet {
 		String typeConge = null;
 
 		for (AbsenceParPersonne liste : listeAbsences) {
-			String absId = liste.getTypeAbsence();
+			int absId = liste.getIdAbsence();
 
-			if (absId.equals("RTT employeur") || absId.equals("ferié")) {
+			if (absId == 5 || absId == 6) {
 				typeConge = absParPersDao.RecupererTypeConges(liste.getId());
 			}
 		}
