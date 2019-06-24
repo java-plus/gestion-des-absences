@@ -1,6 +1,7 @@
 package fr.gda.model;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 import fr.gda.enumeration.TypeAbsence;
 
@@ -57,27 +58,35 @@ public class AbsenceParPersonne {
 		switch (idConge) {
 
 		case 1:
-			typeConge = TypeAbsence.RTT.toString();
+			typeConge = TypeAbsence.RTT.getTypeAbsence();
 			break;
 		case 2:
-			typeConge = TypeAbsence.CONGE_PAYE.toString();
+			typeConge = TypeAbsence.CONGE_PAYE.getTypeAbsence();
 			break;
 		case 3:
-			typeConge = TypeAbsence.CONGE_S_SOLDE.toString();
+			typeConge = TypeAbsence.CONGE_S_SOLDE.getTypeAbsence();
 			break;
 		case 4:
-			typeConge = TypeAbsence.MISSION.toString();
+			typeConge = TypeAbsence.MISSION.getTypeAbsence();
 			break;
 		case 5:
-			typeConge = TypeAbsence.RTT_EMPLOYEUR.toString();
+			typeConge = TypeAbsence.RTT_EMPLOYEUR.getTypeAbsence();
 			break;
 		case 6:
-			typeConge = TypeAbsence.FERIE.toString();
+			typeConge = TypeAbsence.FERIE.getTypeAbsence();
 			break;
 
 		}
 
 		return typeConge;
+	}
+
+	public String afficherDate(LocalDate date) {
+
+		String dateFr = date.format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+
+		return dateFr;
+
 	}
 
 	/**

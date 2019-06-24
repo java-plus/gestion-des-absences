@@ -54,7 +54,7 @@ public class AfficherCongeController extends HttpServlet {
 
 		absenceDao.SupprimerConges(idConge);
 
-		resp.getWriter().append("<p>Le congé a bien été supprimé !</p>");
+		resp.getWriter().append("ok");
 
 	}
 
