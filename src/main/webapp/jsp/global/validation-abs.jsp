@@ -51,7 +51,7 @@
 	
 		if (listeAbsences != null) {
 			for (AbsenceParPersonne liste : listeAbsences) {
-				if (liste.getTypeAbsence().equals("férié") || liste.getTypeAbsence().equals("RTT employeur")) {
+				if (liste.getIdAbsence() == 5 || liste.getIdAbsence() == 6) {
 					continue;
 				}
 	%>
@@ -61,7 +61,7 @@
 	<div class="row p-2 ligneSuppr<%=liste.getId()%>">
 		<div class="col-sm-3"><%=liste.getDateDebut()%></div>
 		<div class="col-sm-3"><%=liste.getDateFin()%></div>
-		<div class="col-sm-3"><%=liste.getTypeAbsence()%></div>
+		<div class="col-sm-3"><%=liste.typeConge(liste.getIdAbsence())%></div>
 		<% for (Utilisateur util : groupeUtilisateurs) {
 			if (liste.getIdUtil() == util.getId()) {
 				%>
@@ -76,11 +76,11 @@
 			<!-- 		Affichage des boutons valider / rejeter -->
 
 		<div class="btn-group" role="group">
-			<a href="validerDemande?demande=<%=liste.getId()%>&typeAbsence=<%=liste.getTypeAbsence()%>" <button type="button" class="btn btn-dark btn-modif" id="btn-modif">
+			<a href="validerDemande?demande=<%=liste.getId()%>&typeAbsence=<%=liste.getIdAbsence()%>" <button type="button" class="btn btn-dark btn-modif" id="btn-modif">
 				<i data-feather="check">valider</i>
 				</button></a>
 
-			<a href="rejeterDemande?demande=<%=liste.getId()%>" <button type="button" class="btn btn-dark btn-modif" id="btn-modif">
+			<a href="rejeterDemande?demande=<%=liste.getId()%>&typeAbsence=<%=liste.getIdAbsence()%>" <button type="button" class="btn btn-dark btn-modif" id="btn-modif">
 				<i data-feather="x">rejeter</i>
 				</button></a>		
 		</div>

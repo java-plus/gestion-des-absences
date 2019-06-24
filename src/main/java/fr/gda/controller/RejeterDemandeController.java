@@ -34,14 +34,19 @@ public class RejeterDemandeController extends HttpServlet {
 		UtilisateurDao utilisateurDao = new UtilisateurDao();
 
 		Integer idDemande = Integer.parseInt(req.getParameter("demande"));
-		String typeAbsence = req.getParameter("typeAbsence");
+		Integer typeAbsence = Integer.parseInt(req.getParameter("typeAbsence"));
 
 		// Passage au statut REJETEE de la demande
 		absenceDao.modifierStatut(idDemande, "REJETEE");
 
 		// Rajout des jours de congé au compteur
-		Integer nombreJours = absenceDao.calculerNombreJoursConges(idDemande);
-		utilisateurDao.ajouterRetirerJoursParTypeConge(idDemande, typeAbsence, nombreJours);
+		AbsenceParPersonne abs = absenceDao.afficherAbsenceParId(idDemande);
+		Long nombreJoursARemettre = abs.getNombreJoursDemandesSansWE();
+
+		Integer nombreJoursRestants = utilisateurDao.recupererNombreJoursParTypeConge(abs.getIdUtil(),
+				abs.getIdAbsence());
+		utilisateurDao.ajouterRetirerJoursParTypeConge(idDemande, typeAbsence,
+				nombreJoursRestants + nombreJoursARemettre);
 
 		Object userId = session.getAttribute("utilisateurId");
 		int utilisateurId = (int) userId;

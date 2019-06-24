@@ -220,7 +220,7 @@ public class UtilisateurDao {
 	 *            : Nombre de jours à retirer
 	 * 
 	 */
-	public void retirerJoursParTypeConge(Integer idUtilisateur, int typeAbsence, Long nombreJours) {
+	public void ajouterRetirerJoursParTypeConge(Integer idUtilisateur, int typeAbsence, Long nombreJours) {
 
 		Connection conn = ConnexionManager.getInstance();
 		PreparedStatement statement = null;

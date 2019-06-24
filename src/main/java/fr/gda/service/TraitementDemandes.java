@@ -49,7 +49,7 @@ public class TraitementDemandes {
 						// EN_ATTENTE_VALIDATION et le
 						abs.setStatut("EN_ATTENTE_VALIDATION");
 						absenceParPersonneDao.modifierStatut(abs.getId(), "EN_ATTENTE_VALIDATION");
-						utilisateurDao.retirerJoursParTypeConge(abs.getIdUtil(), abs.getIdAbsence(),
+						utilisateurDao.ajouterRetirerJoursParTypeConge(abs.getIdUtil(), abs.getIdAbsence(),
 								nombreJoursRestants - nombreJoursDemandes);
 						// absenceParPersonneDao.lireDemandesPourMailManager(abs.getId(),
 						// nombreJoursDemandes);
@@ -96,7 +96,7 @@ public class TraitementDemandes {
 				// de RTT.
 				abs.setStatut("VALIDEE");
 				absenceParPersonneDao.modifierStatut(abs.getId(), "VALIDEE");
-				utilisateurDao.retirerJoursParTypeConge(abs.getIdUtil(), 1, 1l);
+				utilisateurDao.ajouterRetirerJoursParTypeConge(abs.getIdUtil(), 1, 1l);
 
 			}
 

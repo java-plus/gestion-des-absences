@@ -336,6 +336,62 @@ public class AbsenceParPersonneDao {
 	}
 
 	/**
+	 * méthode qui retourne une absence donnée
+	 * 
+	 * @param idDemande
+	 * @return
+	 */
+	public AbsenceParPersonne afficherAbsenceParId(int idDemande) {
+
+		AbsenceParPersonne absence = null;
+
+		Connection conn = ConnexionManager.getInstance();
+		PreparedStatement statement = null;
+		ResultSet curseur = null;
+
+		try {
+			conn.setAutoCommit(false);
+			statement = conn.prepareStatement("SELECT * FROM absence_personne WHERE id = ?");
+			statement.setInt(1, idDemande);
+
+			curseur = statement.executeQuery();
+
+			conn.commit();
+
+			if (curseur.next()) {
+				Integer id = curseur.getInt("id");
+				Integer idUtilisateur = curseur.getInt("id_util");
+				Integer idAbsence = curseur.getInt("id_absence");
+				LocalDate dateDebut = curseur.getDate("date_debut").toLocalDate();
+				LocalDate dateFin = curseur.getDate("date_fin").toLocalDate();
+				String statut = curseur.getString("statut");
+				String motif = curseur.getString("motif");
+
+				absence = new AbsenceParPersonne(id, idUtilisateur, idAbsence, dateDebut, dateFin, statut, motif);
+			}
+
+			return absence;
+		} catch (SQLException e) {
+			try {
+				conn.rollback();
+			} catch (SQLException e1) {
+				throw new TechnicalException("Le rollback n'a pas fonctionné", e);
+			}
+			throw new TechnicalException("L'ajout ne s'est pas fait", e);
+		} finally {
+			try {
+				if (statement != null) {
+					statement.close();
+				}
+			} catch (SQLException e) {
+
+				throw new TechnicalException("La fermeture ne s'est pas faite", e);
+			}
+		}
+
+	}
+
+	/**
 	 * méthode qui retourne la liste des absences de toutes les personnes
 	 * 
 	 * @param mois
@@ -537,8 +593,7 @@ public class AbsenceParPersonneDao {
 	}
 
 	/**
-	 * <<<<<<< HEAD Méthode qui ajoute un congé dans la base à un utilisateur
-	 * identifié
+	 * Méthode qui ajoute un congé dans la base à un utilisateur identifié
 	 * 
 	 * @param idUser
 	 * @param idAbsence
