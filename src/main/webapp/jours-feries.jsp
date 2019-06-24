@@ -40,13 +40,10 @@
 	<% 
 		} else if (monProfil == "employe") {
 		%>
-<<<<<<< HEAD
+
 	<%@ include file="jsp/employe/menu.jsp"%>
 	} %>
-=======
-	<%@ include file="employe/menu.jsp"%>
-	<%} %>
->>>>>>> master
+
 
 
 

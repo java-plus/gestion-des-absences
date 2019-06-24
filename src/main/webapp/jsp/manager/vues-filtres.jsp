@@ -1,13 +1,13 @@
 <%@ page language="java" pageEncoding="UTF-8" isELIgnored="false"%>
 
-<!--  -->
+
 
 	<%
 		List<Departement> listeDepartements = (List<Departement>) request.getAttribute("listeDepartements");
 	%>
 
 
-<form type="GET" action="afficherVueDepart">
+<form id="form-filtres">
 
 	<div class="row mt-5 mb-3">
 
@@ -18,7 +18,7 @@
 			</div>
 
 			
-			<select class="custom-select" id="inputDepartement">
+			<select class="custom-select" id="inputDepartement" name="inputDepartement">
 			
 			
 				<%
@@ -40,11 +40,11 @@
 		<div class="input-group mb-3 col-sm-2">
 
 			<div class="input-group-prepend">
-				<label class="input-group-text" for="inputGroupSelect01">Mois</label>
+				<label class="input-group-text" for="inputMois">Mois</label>
 			</div>
 
 			<%--A Faire : utiliser méthode Java pour récuperer les mois entrées en base afin de proposer un choix d'année cohérent --%>
-			<select class="custom-select" id="inputGroupSelect01">
+			<select class="custom-select" id="inputMois" name="inputMois">
 				<option selected value="Janvier">Janvier</option>
 				<option value="Février">Février</option>
 				<option value="Mars">Mars</option>
@@ -64,11 +64,11 @@
 		<div class="input-group mb-3 col-sm-2">
 
 			<div class="input-group-prepend">
-				<label class="input-group-text" for="inputGroupSelect01">Année</label>
+				<label class="input-group-text" for="inputAnnee">Année</label>
 			</div>
 
 			<%--A Faire : utiliser méthode Java pour récuperer les années entrées en base afin de proposer un choix d'année cohérent --%>
-			<select class="custom-select" id="inputGroupSelect01">
+			<select class="custom-select" id="inputAnnee" name="inputAnnee">
 				<option selected value="2019">2019</option>
 				<option value="2018">2018</option>
 				<option value="2017">2017</option>
@@ -78,7 +78,7 @@
 		</div>
 
 		<div class="col-sm-1">
-			<button type="submit" class="btn">
+			<button id="btn-submit-filtres" type="submit" class="btn">
 				<i data-feather="search">filtrer</i>
 			</button>
 		</div>

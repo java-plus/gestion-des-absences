@@ -19,11 +19,44 @@ body {
 
 
  .cal-vue-conge:nth-child(odd) {
-	background-color: #393c52
-	;
+	background-color: #393c52;
+	}
+	
+ .attente {
+	color:#ff8000;
+}
+
+.validee {
+	color:green;
+}
+
+ .refusee {
+	color:red;
+}
+
+ .weekend {
+	background-color:rgba(35, 36, 45, 0.5);
+
+}
+
+.nom {
+	background-color:rgba(76, 75, 90, 0.5);
+}
+ .base {
+	/*background-color:white;*/
 }
 
 
+
+/* ----- Couleurs ----------- */
+
+.bg-fonce-01 {
+	background-color: #232638;
+}
+
+
+
+/* -------------------------- */
 
 /* 
 .bg-primary {

@@ -4,7 +4,6 @@
 package fr.gda.controller;
 
 import java.io.IOException;
-import java.util.Calendar;
 import java.util.List;
 
 import javax.servlet.RequestDispatcher;
@@ -14,11 +13,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import fr.gda.dao.AbsenceParPersonneDao;
 import fr.gda.dao.UtilisateurDao;
-import fr.gda.model.AbsenceParPersonne;
 import fr.gda.model.Departement;
-import fr.gda.model.Utilisateur;
+import fr.gda.service.FormatageListAffichageVues;
 
 /**
  * 
@@ -29,38 +26,31 @@ import fr.gda.model.Utilisateur;
  */
 
 @WebServlet(urlPatterns = "/controller/afficherVueDepart")
+
 public class AfficherVuesSynthController extends HttpServlet {
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-		// ---------------- A recuperer du filtre de la page ----------------- //
+		// recuperation de tous les departements pour les afficher dans le filtre
+		UtilisateurDao utilisateurDao = new UtilisateurDao();
+		List<Departement> listeDepartements = utilisateurDao.getTousLesDepartements();
+		req.setAttribute("listeDepartements", listeDepartements);
+
+		// récuperationd des valeurs indiquées par le filtre
 		Integer numeroMois = 8;
 		Integer annee = 2019;
 		Integer idDepartement = 1;
 
-		AbsenceParPersonneDao absenceParPersonneDao = new AbsenceParPersonneDao();
-		List<AbsenceParPersonne> absenceDepartementMoisAnnee = absenceParPersonneDao.afficherAbsencesParDepartementMoisAnnee(numeroMois, annee, idDepartement);
-		req.setAttribute("absenceDepartementMoisAnnee", absenceDepartementMoisAnnee);
+		FormatageListAffichageVues formatageListVue = new FormatageListAffichageVues();
 
-		UtilisateurDao utilisateurDao = new UtilisateurDao();
-		List<Utilisateur> utilisateurParDepartement = utilisateurDao.getUtilisateursParDepartement(idDepartement);
-		req.setAttribute("utilisateurParDepartement", utilisateurParDepartement);
+		String[] ListNoms = formatageListVue.constuireArrayNoms(idDepartement);
+		String[][] ListjourMois = formatageListVue.construireArrayJoursMois(numeroMois, annee, idDepartement);
 
-		List<Departement> listeDepartements = utilisateurDao.getTousLesDepartements();
-		req.setAttribute("listeDepartements", listeDepartements);
+		req.setAttribute("ListjourMois", ListjourMois);
+		req.setAttribute("ListNoms", ListNoms);
 
-		// Récupération du nombre de jours du mois
-		Calendar cal = Calendar.getInstance();
-		cal.set(Calendar.MONTH, numeroMois - 1);
-		int maxDay = cal.getActualMaximum(Calendar.DAY_OF_MONTH);
-		// Année bisextile
-		if (((annee % 4 == 0) && (annee % 100 != 0)) || (annee % 400 == 0)) {
-			if (numeroMois == 2) {
-				maxDay += 1;
-			}
-		}
-		req.setAttribute("maxDay", maxDay);
+		// --------------------------------------------------------------------------------------- //
 
 		String choix = req.getParameter("vue");
 
@@ -70,13 +60,16 @@ public class AfficherVuesSynthController extends HttpServlet {
 
 		String urlDirection = "";
 
-		if (choix.equals("collab")) {
-			urlDirection = "/vues-depart.jsp";
+		if (choix != null) {
 
-		} else if (choix.equals("histo")) {
-			urlDirection = "/vues-histo.jsp";
-		} else if (choix.equals("menu")) {
-			urlDirection = "/vues-synth.jsp";
+			if (choix.equals("collab")) {
+				urlDirection = "/vues-depart.jsp";
+			} else if (choix.equals("histo")) {
+				urlDirection = "/vues-histo.jsp";
+			} else if (choix.equals("menu")) {
+				urlDirection = "/vues-synth.jsp";
+			}
+
 		} else {
 			urlDirection = "/vues-synth.jsp"; // on considere qu'on redirige comme si le choix etait "menu"
 		}
@@ -87,6 +80,22 @@ public class AfficherVuesSynthController extends HttpServlet {
 
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+
+		// récupération des valeurs des input selectionnées
+		String paramDepartement = req.getParameter("inputDepartement");
+		String paramMois = req.getParameter("inputMois");
+		String paramAnnee = req.getParameter("inputAnnee");
+
+		// En fonction des valeurs récupérées via le fitre, on
+
+		// json
+		StringBuilder strJson = new StringBuilder();
+		strJson.append("[{\"departement\" : \"").append(paramDepartement).append("\", \"mois\" : \"").append(paramMois).append("\", \"annee\" : \"").append(paramAnnee).append("\"}]");
+
+		resp.getWriter().append(strJson);
+
+		// RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/vues-depart.jsp");
+		// dispatcher.forward(req, resp);
 
 	}
 

@@ -3,7 +3,7 @@ import="java.util.List, java.util.ArrayList, fr.gda.model.*, fr.gda.dao.*"%>
 
 
 <%
-		List<Utilisateur> utilisateurParDepartement = (List<Utilisateur>) request.getAttribute("utilisateurParDepartement");
+		//List<Utilisateur> utilisateurParDepartement = (List<Utilisateur>) request.getAttribute("utilisateurParDepartement");
 	//	List<AbsenceParPersonne> absenceDepartementMoisAnnee = (List<AbsenceParPersonne>) request.getAttribute("absenceDepartementMoisAnnee");
 		//int maxDay = (int) request.getAttribute("maxDay");
 		
@@ -25,7 +25,7 @@ import="java.util.List, java.util.ArrayList, fr.gda.model.*, fr.gda.dao.*"%>
 	<%-- -------------------- --%>
 
 	<div class="row py-3 bg-primary">
-		<div class="col-sm-2">nom<a class="text-light"href=""><i data-feather="chevron-down"></i></a></div>
+		<div class="col-sm-2 d-flex">nom<a class="text-light ml-auto"href=""><i data-feather="chevron-down"></i></a></div>
 		<div class="col-sm-10 d-flex flex-row p-0">
 			<%
 			for (int i = 1; i <= ListjourMois[0].length; i++) {
@@ -88,10 +88,10 @@ import="java.util.List, java.util.ArrayList, fr.gda.model.*, fr.gda.dao.*"%>
 				} else {
 					if (valeur.equals("N")) {
 						maClasse += classeNormal;
-						valeur = "";
+						valeur = "N";
 					} else if (valeur.equals("W")) {
 						maClasse += classeWeekEnd;
-						valeur = "";
+						valeur = "W";
 					}
 				}
 				

@@ -2,7 +2,7 @@
 <div class="container-fluid m-0 p-0">
 
 	<header>
-		<nav class="navbar navbar-expand-lg sticky-top navbar-dark bg-dark">
+		<nav class="navbar navbar-expand-lg sticky-top navbar-dark bg-fonce-01">
 
 			<button class="navbar-toggler" type="button" data-toggle="collapse"
 				data-target="#navbarTogglerDemo03"
