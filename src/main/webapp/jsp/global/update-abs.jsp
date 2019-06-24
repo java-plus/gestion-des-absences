@@ -47,7 +47,7 @@
 						<option value=""><%=(String) request.getAttribute("type") %></option>
 						<option value="2">Congé payé</option>
 						<option value="1">RTT</option>
-						<option id="3" value="css">Congé sans solde</option>
+						<option value="3">Congé sans solde</option>
 					</select>
 				</div>
 			</div>
