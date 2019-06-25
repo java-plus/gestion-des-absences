@@ -228,3 +228,27 @@
 				L'utilisateur est bien créé
 16:44:12.138 [http-nio-8080-exec-1] INFO  fr.gda.dao.UtilisateurDao -
 				L'utilisateur a bien été créé
+16:53:38.823 [http-nio-8080-exec-4] INFO  f.gda.controller.ConnexionController -
+				Connexion avec email :  patrice@test.fr
+16:53:39.374 [http-nio-8080-exec-4] INFO  fr.gda.dao.UtilisateurDao -
+				Le mot de passe est correct
+16:53:39.376 [http-nio-8080-exec-4] INFO  fr.gda.dao.UtilisateurDao -
+				le profil est validé
+16:53:39.379 [http-nio-8080-exec-4] INFO  fr.gda.dao.UtilisateurDao -
+				l'employé a bien été créé
+16:53:39.380 [http-nio-8080-exec-4] INFO  f.gda.controller.ConnexionController -
+				L'utilisateur est connecté en tant qu'employé
+16:53:40.204 [http-nio-8080-exec-5] INFO  fr.gda.dao.AbsenceParPersonneDao -
+				La récupération de la liste des absences s'est bien faite
+16:53:40.207 [http-nio-8080-exec-5] INFO  fr.gda.dao.UtilisateurDao -
+				L'utilisateur est bien créé
+16:54:00.782 [http-nio-8080-exec-2] INFO  fr.gda.dao.AbsenceParPersonneDao -
+				La récupération de la liste des absences s'est bien faite
+16:54:00.784 [http-nio-8080-exec-2] INFO  fr.gda.dao.UtilisateurDao -
+				L'utilisateur est bien créé
+16:54:11.189 [http-nio-8080-exec-6] INFO  fr.gda.dao.UtilisateurDao -
+				L'utilisateur a bien été créé
+16:54:11.200 [http-nio-8080-exec-6] INFO  fr.gda.dao.AbsenceParPersonneDao -
+				La récupération de la liste des absences s'est bien faite
+16:54:11.203 [http-nio-8080-exec-6] INFO  fr.gda.dao.UtilisateurDao -
+				L'utilisateur est bien créé
