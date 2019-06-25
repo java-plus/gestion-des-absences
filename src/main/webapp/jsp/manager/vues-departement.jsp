@@ -19,7 +19,7 @@ import="java.util.List, java.util.ArrayList, fr.gda.model.*, fr.gda.dao.*"%>
 	<%-- -------------------- --%>
 
 	<div class="row py-3 bg-primary">
-		<div class="col-sm-2 d-flex">nom<a class="text-light ml-auto"href=""><i data-feather="chevron-down"></i></a></div>
+		<div class="col-sm-2 d-flex">nom<a id="trier" class="text-light ml-auto" href="#"><i data-feather="chevron-down">trier</i></a></div>
 		<div class="col-sm-10 d-flex flex-row p-0">
 			<%
 			for (int i = 1; i <= ListjourMois[0].length; i++) {
@@ -34,7 +34,7 @@ import="java.util.List, java.util.ArrayList, fr.gda.model.*, fr.gda.dao.*"%>
 
 	<!-- DEBUT de la boucle pour écrire une ligne par utilisateur -->
 
-	
+	<div id="list-e" class="d-flex flex-column">
 	<%
 	for (int i = 0; i < ListNoms.length; i++) {
 	%>
@@ -106,7 +106,7 @@ import="java.util.List, java.util.ArrayList, fr.gda.model.*, fr.gda.dao.*"%>
 
 	<!-- FIN de la boucle pour écrire une ligne par utilisateur  -->
 
-
+</div>
 
 
 

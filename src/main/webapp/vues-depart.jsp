@@ -76,11 +76,22 @@
 	 					 console.log("fail : " + result + " / "+ status);
 	 					 
 					  });
-				  
-				  
-				  
+	  	  
 	 				  
 			});
+			
+			$('#trier').on( "click", function(event) {
+				if($('#list-e').hasClass('flex-column-reverse')){
+					$('#list-e').removeClass( "flex-column-reverse" ).addClass( "flex-column" );
+					$(".svg.feather.feather-chevron-up").replaceWith(feather.icons.chevron-down.toSvg());
+				} else {
+					$('#list-e').removeClass( "flex-column" ).addClass( "flex-column-reverse" );
+					$(".svg.feather.feather-chevron-up").replaceWith(feather.icons.chevron-down.toSvg());
+				}
+				
+
+			});
+			
 				
 			
 			<%-- FIN ---  script pour gerer les requetes envoyées par le filtre --%>

@@ -48,6 +48,21 @@ body {
 
 
 
+.feather:hover {
+  cursor: pointer;
+  stroke-width: 1.75;
+  transform: scale(1.25);
+  transform-origin: center;
+  transition: all 0.1s ease;
+}
+
+.feather:ACTIVE {
+	transform: scale(1);
+}
+
+
+
+
 /* ----- Couleurs ----------- */
 
 .bg-fonce-01 {
