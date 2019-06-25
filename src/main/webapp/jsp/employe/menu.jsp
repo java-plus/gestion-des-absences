@@ -1,4 +1,6 @@
 <%@ page language="java" pageEncoding="UTF-8" isELIgnored="false"%>
+
+
 <div class="container-fluid m-0 p-0">
 
 	<header>
@@ -19,7 +21,7 @@
 			<div class="collapse navbar-collapse" id="navbarNav">
 
 				<ul class="navbar-nav text-uppercase">
-					<li class="nav-item active"><a class="nav-link" href="../index.jsp">Accueil<span
+					<li class="nav-item active"><a class="nav-link" href="../login.jsp">Accueil<span
 							class="sr-only">(current)</span></a></li>
 					<li class="nav-item"><a class="nav-link" href="afficherConges">Gestion
 							des absences</a></li>
@@ -38,9 +40,11 @@
 					bonjour <span class="user-name"><%=(String)session.getAttribute("prenom")%></span>
 				</div>
 
-				<button class="btn btn-sm btn-none" type="button">
-					<i data-feather="log-out"></i>
-				</button>
+				<form method="GET" action="../connexion">
+					<button class="btn btn-sm btn-none" type="submit">
+						<i data-feather="log-out"></i>
+					</button>
+				</form>
 			</div>
 
 		</nav>

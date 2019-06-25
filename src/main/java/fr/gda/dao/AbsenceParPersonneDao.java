@@ -12,6 +12,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import fr.gda.connexion.ConnexionManager;
+import fr.gda.enumeration.Statut;
 import fr.gda.exception.TechnicalException;
 import fr.gda.model.AbsenceParPersonne;
 import fr.gda.model.TraitementMailManager;
@@ -208,7 +209,7 @@ public class AbsenceParPersonneDao {
 				statement.setInt(2, 6);
 				statement.setString(3, date);
 				statement.setString(4, date);
-				statement.setString(5, "VALIDEE");
+				statement.setString(5, Statut.VALIDEE.toString());
 				statement.setString(6, motif);
 
 				statement.executeUpdate();
@@ -252,7 +253,7 @@ public class AbsenceParPersonneDao {
 				statement.setInt(2, 6);
 				statement.setString(3, date);
 				statement.setString(4, date);
-				statement.setString(5, "INITIALE");
+				statement.setString(5, Statut.INITIALE.toString());
 				statement.setString(6, motif);
 
 				statement.executeUpdate();
@@ -335,6 +336,127 @@ public class AbsenceParPersonneDao {
 	}
 
 	/**
+	 * méthode qui retourne une absence donnée
+	 * 
+	 * @param idDemande
+	 * @return
+	 */
+	public AbsenceParPersonne afficherAbsenceParId(int idDemande) {
+
+		AbsenceParPersonne absence = null;
+
+		Connection conn = ConnexionManager.getInstance();
+		PreparedStatement statement = null;
+		ResultSet curseur = null;
+
+		try {
+			conn.setAutoCommit(false);
+			statement = conn.prepareStatement("SELECT * FROM absence_personne WHERE id = ?");
+			statement.setInt(1, idDemande);
+
+			curseur = statement.executeQuery();
+
+			conn.commit();
+
+			if (curseur.next()) {
+				Integer id = curseur.getInt("id");
+				Integer idUtilisateur = curseur.getInt("id_util");
+				Integer idAbsence = curseur.getInt("id_absence");
+				LocalDate dateDebut = curseur.getDate("date_debut").toLocalDate();
+				LocalDate dateFin = curseur.getDate("date_fin").toLocalDate();
+				String statut = curseur.getString("statut");
+				String motif = curseur.getString("motif");
+
+				absence = new AbsenceParPersonne(id, idUtilisateur, idAbsence, dateDebut, dateFin, statut, motif);
+			}
+
+			return absence;
+		} catch (SQLException e) {
+			try {
+				conn.rollback();
+			} catch (SQLException e1) {
+				throw new TechnicalException("Le rollback n'a pas fonctionné", e);
+			}
+			throw new TechnicalException("L'ajout ne s'est pas fait", e);
+		} finally {
+			try {
+				if (statement != null) {
+					statement.close();
+				}
+			} catch (SQLException e) {
+
+				throw new TechnicalException("La fermeture ne s'est pas faite", e);
+			}
+		}
+
+	}
+
+	/**
+	 * méthode qui retourne la liste des absences de toutes les personnes
+	 * 
+	 * @param mois
+	 * @param annee
+	 * @param departement
+	 * @return
+	 */
+	public List<AbsenceParPersonne> afficherAbsencesParDepartementMoisAnnee(Integer mois, Integer annee,
+			Integer departement) {
+
+		List<AbsenceParPersonne> listeAbsencesDepartementMoisAnnee = new ArrayList<>();
+
+		Connection conn = ConnexionManager.getInstance();
+		PreparedStatement statement = null;
+		ResultSet curseur = null;
+
+		try {
+			conn.setAutoCommit(false);
+			statement = conn.prepareStatement(
+					"SELECT AP.id, id_util, id_absence, date_debut, date_fin, statut, motif FROM absence_personne AP INNER JOIN utilisateur UT ON AP.id_util = UT.id WHERE (YEAR(date_debut) = ? OR YEAR(date_fin) = ?) AND (MONTH(date_debut) = ? OR MONTH(date_fin) = ?) AND id_departement = ?");
+			statement.setInt(1, annee);
+			statement.setInt(2, annee);
+			statement.setInt(3, mois);
+			statement.setInt(4, mois);
+			statement.setInt(5, departement);
+
+			curseur = statement.executeQuery();
+
+			conn.commit();
+
+			while (curseur.next()) {
+				Integer id = curseur.getInt("AP.id");
+				Integer idUtilisateur = curseur.getInt("id_util");
+				Integer idAbsence = curseur.getInt("id_absence");
+				LocalDate dateDebut = curseur.getDate("date_debut").toLocalDate();
+				LocalDate dateFin = curseur.getDate("date_fin").toLocalDate();
+				String statut = curseur.getString("statut");
+				String motif = curseur.getString("motif");
+
+				listeAbsencesDepartementMoisAnnee
+						.add(new AbsenceParPersonne(id, idUtilisateur, idAbsence, dateDebut, dateFin, statut, motif));
+			}
+
+			return listeAbsencesDepartementMoisAnnee;
+		} catch (SQLException e) {
+			try {
+				conn.rollback();
+			} catch (SQLException e1) {
+				throw new TechnicalException("Le rollback n'a pas fonctionné", e);
+			}
+			throw new TechnicalException("La sélection ne s'est pas faite", e);
+		} finally {
+			try {
+				if (statement != null) {
+					statement.close();
+				}
+			} catch (SQLException e) {
+
+				throw new TechnicalException("La fermeture ne s'est pas faite", e);
+			}
+		}
+
+	}
+
+	/**
 	 * méthode qui récupère le type de congés en String
 	 * 
 	 * @param idUtilisateur
@@ -349,6 +471,7 @@ public class AbsenceParPersonneDao {
 
 		try {
 			conn.setAutoCommit(false);
+
 			statement = conn.prepareStatement("SELECT * FROM absence WHERE id = ?");
 			statement.setInt(1, idConge);
 
@@ -360,7 +483,6 @@ public class AbsenceParPersonneDao {
 				typeConge = curseur.getString("type_conge");
 
 			}
-
 			return typeConge;
 		} catch (SQLException e) {
 			try {
@@ -380,6 +502,312 @@ public class AbsenceParPersonneDao {
 			}
 		}
 
+	}
+
+	/**
+	 * méthode supprime un congé grace à son id
+	 * 
+	 * @param idUtilisateur
+	 * @return
+	 */
+	public void SupprimerConges(int idConge) {
+
+		Connection conn = ConnexionManager.getInstance();
+		PreparedStatement statement = null;
+		ResultSet curseur = null;
+		String typeConge = null;
+
+		try {
+			conn.setAutoCommit(false);
+
+			statement = conn.prepareStatement("DELETE FROM absence_personne WHERE id = ?");
+			statement.setInt(1, idConge);
+
+			statement.executeUpdate();
+
+			conn.commit();
+
+		} catch (SQLException e) {
+			try {
+				conn.rollback();
+			} catch (SQLException e1) {
+				throw new TechnicalException("Le rollback n'a pas fonctionné", e);
+			}
+			throw new TechnicalException("L'ajout ne s'est pas fait", e);
+		} finally {
+			try {
+				if (statement != null) {
+					statement.close();
+				}
+			} catch (SQLException e) {
+
+				throw new TechnicalException("La fermeture ne s'est pas faite", e);
+			}
+		}
+
+	}
+
+	/**
+	 * méthode qui modifie un congé grace à son id
+	 * 
+	 * @param idUtilisateur
+	 * @return
+	 */
+	public void modifierConges(Integer idConge, String typeAbsence, String dateDebut, String dateFin, String motif) {
+		Connection conn = ConnexionManager.getInstance();
+		PreparedStatement statement = null;
+
+		try {
+			conn.setAutoCommit(false);
+
+			statement = conn.prepareStatement(
+					"UPDATE  absence_personne SET id_absence= ?, date_debut=?, date_fin= ?, motif=?, statut= ? WHERE id= ? ");
+			statement.setString(1, typeAbsence);
+			statement.setString(2, dateDebut);
+			statement.setString(3, dateFin);
+			statement.setString(4, motif);
+			statement.setString(5, "INITIALE");
+			statement.setInt(6, idConge);
+
+			statement.executeUpdate();
+
+			conn.commit();
+
+		} catch (SQLException e) {
+			try {
+				conn.rollback();
+			} catch (SQLException e1) {
+				throw new TechnicalException("Le rollback n'a pas fonctionné", e);
+			}
+			throw new TechnicalException("L'ajout ne s'est pas fait", e);
+		} finally {
+			try {
+				if (statement != null) {
+					statement.close();
+				}
+			} catch (SQLException e) {
+
+				throw new TechnicalException("La fermeture ne s'est pas faite", e);
+			}
+		}
+
+	}
+
+	/**
+	 * Méthode qui ajoute un congé dans la base à un utilisateur identifié
+	 * 
+	 * @param idUser
+	 * @param idAbsence
+	 * @param dateDebut
+	 * @param dateFin
+	 * @param motif
+	 */
+	public void addConge(int idUser, String idAbsence, String dateDebut, String dateFin, String motif) {
+
+		Connection conn = ConnexionManager.getInstance();
+		PreparedStatement statement = null;
+
+		List<AbsenceParPersonne> liste = new ArrayList<>();
+
+		try {
+			conn.setAutoCommit(false);
+			statement = conn.prepareStatement(
+					"INSERT INTO absence_personne (id_util, id_absence, date_debut, date_fin, statut, motif) VALUES (?, ?, ?, ?, ?, ?)");
+
+			statement.setInt(1, idUser);
+			statement.setInt(2, idUser);
+			statement.setString(3, dateDebut);
+			statement.setString(4, dateFin);
+			statement.setString(5, "INITIALE");
+			statement.setString(6, motif);
+
+			statement.executeUpdate();
+
+			conn.commit();
+		} catch (SQLException e) {
+			try {
+				conn.rollback();
+			} catch (SQLException e1) {
+				throw new TechnicalException("Le rollback n'a pas fonctionné", e);
+			}
+			throw new TechnicalException("L'ajout ne s'est pas fait", e);
+		} finally {
+			try {
+				if (statement != null) {
+					statement.close();
+				}
+			} catch (SQLException e) {
+
+				throw new TechnicalException("La fermeture ne s'est pas faite", e);
+			}
+		}
+	}
+
+	/**
+	 * méthode qui retourne la liste des absences pour un manager
+	 * 
+	 * @param idManager
+	 * @return Liste d'absences par personne
+	 */
+	public List<AbsenceParPersonne> afficherAbsencesParManager(int idManager) {
+
+		List<AbsenceParPersonne> listeAbsencesManager = new ArrayList<>();
+
+		Connection conn = ConnexionManager.getInstance();
+		PreparedStatement statement = null;
+		ResultSet curseur = null;
+
+		try {
+			conn.setAutoCommit(false);
+			statement = conn.prepareStatement(
+					"SELECT AP.* FROM absence_personne AP INNER JOIN utilisateur UT ON AP.id_util = UT.id WHERE id_hierarchie = ? AND statut = 'EN_ATTENTE_VALIDATION' ORDER BY date_debut");
+			statement.setInt(1, idManager);
+
+			curseur = statement.executeQuery();
+
+			conn.commit();
+
+			while (curseur.next()) {
+				Integer id = curseur.getInt("id");
+				Integer idUtil = curseur.getInt("id_util");
+				Integer idAbsence = curseur.getInt("id_absence");
+				LocalDate dateDebut = curseur.getDate("date_debut").toLocalDate();
+				LocalDate dateFin = curseur.getDate("date_fin").toLocalDate();
+				String statut = curseur.getString("statut");
+				String motif = curseur.getString("motif");
+
+				listeAbsencesManager
+						.add(new AbsenceParPersonne(id, idUtil, idAbsence, dateDebut, dateFin, statut, motif));
+			}
+
+			return listeAbsencesManager;
+		} catch (SQLException e) {
+			try {
+				conn.rollback();
+			} catch (SQLException e1) {
+				throw new TechnicalException("Le rollback n'a pas fonctionné", e);
+			}
+			throw new TechnicalException("La sélection ne s'est pas fait", e);
+		} finally {
+			try {
+				if (statement != null) {
+					statement.close();
+				}
+			} catch (SQLException e) {
+
+				throw new TechnicalException("La fermeture ne s'est pas faite", e);
+			}
+		}
+
+	}
+
+	/**
+	 * Méthode qui valide que les dates de congés ne se chevauchent pas pour un
+	 * utilisateur donné
+	 * 
+	 * @param idUser
+	 * @param idAbsence
+	 * @param dateDebut
+	 * @param dateFin
+	 * @param motif
+	 * @return
+	 */
+	public boolean validationDateConge(int idUser, String dateDebut, String dateFin) {
+
+		Connection conn = ConnexionManager.getInstance();
+		PreparedStatement statement = null;
+		ResultSet curseur = null;
+		List<AbsenceParPersonne> liste = new ArrayList<>();
+
+		try {
+			conn.setAutoCommit(false);
+			statement = conn.prepareStatement(
+					"SELECT date_debut, date_fin FROM absence_personne WHERE (? < date_fin) and (? >date_debut) AND id_util = ?;");
+			statement.setString(1, dateDebut);
+			statement.setString(2, dateFin);
+			statement.setInt(3, idUser);
+
+			curseur = statement.executeQuery();
+
+			if (!curseur.next()) {
+
+				return true;
+			}
+			conn.commit();
+			return false;
+
+		} catch (SQLException e) {
+			try {
+				conn.rollback();
+			} catch (SQLException e1) {
+				throw new TechnicalException("Le rollback n'a pas fonctionné", e);
+			}
+			throw new TechnicalException("L'ajout ne s'est pas fait", e);
+		} finally {
+			try {
+				if (statement != null) {
+					statement.close();
+				}
+			} catch (SQLException e) {
+
+				throw new TechnicalException("La fermeture ne s'est pas faite", e);
+			}
+		}
+	}
+
+	/**
+	 * Méthode qui valide que les dates de congés ne se chevauchent pas pour un
+	 * utilisateur donné
+	 * 
+	 * @param idUser
+	 * @param idAbsence
+	 * @param dateDebut
+	 * @param dateFin
+	 * @param motif
+	 * @return
+	 */
+	public boolean validationDateCongeUpdate(int idUser, Integer idConge, String dateDebut, String dateFin) {
+
+		Connection conn = ConnexionManager.getInstance();
+		PreparedStatement statement = null;
+		ResultSet curseur = null;
+		List<AbsenceParPersonne> liste = new ArrayList<>();
+
+		try {
+			conn.setAutoCommit(false);
+			statement = conn.prepareStatement(
+					"SELECT date_debut, date_fin FROM absence_personne WHERE (? < date_fin) and (? >date_debut) AND id_util = ? and id =?;");
+			statement.setString(1, dateDebut);
+			statement.setString(2, dateFin);
+			statement.setInt(3, idUser);
+			statement.setInt(4, idConge);
+
+			curseur = statement.executeQuery();
+
+			if (curseur.next()) {
+
+				return true;
+			}
+			conn.commit();
+			return false;
+
+		} catch (SQLException e) {
+			try {
+				conn.rollback();
+			} catch (SQLException e1) {
+				throw new TechnicalException("Le rollback n'a pas fonctionné", e);
+			}
+			throw new TechnicalException("L'ajout ne s'est pas fait", e);
+		} finally {
+			try {
+				if (statement != null) {
+					statement.close();
+				}
+			} catch (SQLException e) {
+
+				throw new TechnicalException("La fermeture ne s'est pas faite", e);
+			}
+		}
 	}
 
 }

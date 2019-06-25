@@ -55,47 +55,51 @@
 
 
 	<%-- include du contenu --%>
-	<%@ include file="jsp/global/gestion-abs.jsp"%>
+	<%@ include file="jsp/global/ajout-abs.jsp"%>
 
 	<%-- chargement des js de JQuery et Bootsrap et feather --%>
 	<%@ include file="jsp/global/load.jsp"%>
 
 
 
-<script type="text/javascript">
-$(document).ready(function(){
-	
-	$('#resultat').hide(); 
-	
-var id; 
-	
- 	$(".btn-supp").click(function() {
-					
-		url = "afficherConges?suppr=" + this.id; 
-		id = this.id; 
-		$('.btn-success').attr('id', url );
-	});
- 	
-	$(".btn-success").click(function() {
+	<script type="text/javascript">
+		$(document).ready(function() {
+			let texteMotif= ''; 
+			let texteDateDebut= ''; 
+			let texteDateFin= ''; 
+			let dateDuJour1 = new Date();
+			dateDuJour1.setDate(dateDuJour1.getDate()+1);
+			dateDuJour1.setHours(0);
+			dateDuJour1.setMinutes(0);
+			$('#texteMotif').hide();
+			$('#texteDateDebut').hide();
+			$('#texteDateFin').hide(); 
+			
+			$('#btnValider').click(function(event) {
+			
+				if (($('#type option:selected').val() == 'css') && ($('#motif').val() == '') ) {
+					 event.preventDefault(); 
+					 $('#texteMotif').show(); 
+				} 
 		
- 		$.ajax({
-		    url: this.id,
-		    type: 'DELETE',
-		    success: function(result) {
-		   		
-		        $( ".ligneSuppr" + id ).remove();
-		        $('#resultat').show();
-		    }
+				var dateDebutSaisie = new Date($('#dateDebut').val());
+				if(dateDebutSaisie < dateDuJour1 ){
+					 event.preventDefault(); 
+					$('#texteDateDebut').show();
+				}
+				
+				
+				var dateDebutSaisie = new Date($('#dateDebut').val() );
+				var dateFinSaisie = new Date($('#dateFin').val() )
+				if(dateDebutSaisie > dateFinSaisie ){
+					 event.preventDefault(); 
+					 $('#texteDateFin').show();
+				}
+			
+			});
 		});
- 		
-});		
-	});
-
-		
-
-</script>
+	</script>
 
 </body>
 
 </html>
-
