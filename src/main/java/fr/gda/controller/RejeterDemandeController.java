@@ -44,19 +44,21 @@ public class RejeterDemandeController extends HttpServlet {
 		// Passage au statut REJETEE de la demande
 		absenceDao.modifierStatut(idDemande, "REJETEE");
 
-		// Rajout des jours de congé au compteur
+		// Rajout des jours de congé au compteur si RTT ou congé payé
 		AbsenceParPersonne abs = absenceDao.afficherAbsenceParId(idDemande);
 		Long nombreJoursARemettre = abs.getNombreJoursDemandesSansWE();
-
-		Integer nombreJoursRestants = utilisateurDao.recupererNombreJoursParTypeConge(abs.getIdUtil(),
-				abs.getIdAbsence());
-		utilisateurDao.ajouterRetirerJoursParTypeConge(abs.getIdUtil(), typeAbsence,
-				nombreJoursRestants + nombreJoursARemettre);
+		if ((abs.getIdAbsence() == 1) || abs.getIdAbsence() == 2) {
+			Integer nombreJoursRestants = utilisateurDao.recupererNombreJoursParTypeConge(abs.getIdUtil(),
+					abs.getIdAbsence());
+			utilisateurDao.ajouterRetirerJoursParTypeConge(abs.getIdUtil(), typeAbsence,
+					nombreJoursRestants + nombreJoursARemettre);
+		}
 
 		Object userId = session.getAttribute("utilisateurId");
 		int utilisateurId = (int) userId;
 
-		List<AbsenceParPersonne> listeAbsences = absenceDao.afficherAbsencesParManager(utilisateurId);
+		List<AbsenceParPersonne> listeAbsences = absenceDao.afficherAbsencesParManagerTrie(utilisateurId,
+				"DateDebutAsc");
 
 		Utilisateur utilisateur = utilisateurDao.getUtilisateur(utilisateurId);
 

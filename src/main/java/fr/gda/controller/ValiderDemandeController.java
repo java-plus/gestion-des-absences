@@ -39,7 +39,8 @@ public class ValiderDemandeController extends HttpServlet {
 		Object userId = session.getAttribute("utilisateurId");
 		int utilisateurId = (int) userId;
 
-		List<AbsenceParPersonne> listeAbsences = absenceDao.afficherAbsencesParManager(utilisateurId);
+		List<AbsenceParPersonne> listeAbsences = absenceDao.afficherAbsencesParManagerTrie(utilisateurId,
+				"DateDebutAsc");
 
 		Utilisateur utilisateur = utilisateurDao.getUtilisateur(utilisateurId);
 
