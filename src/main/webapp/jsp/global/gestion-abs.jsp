@@ -13,24 +13,22 @@
 	<div class="row p-2 bg-primary">
 		<div class="col-sm-3 ">
 			Date de début
-<!-- 			<div> -->
-<!-- 								</i><i data-feather="chevron-down"></i> -->
-<!-- 			</div> -->
+ 								<a id="DateDebutAsc" href="afficherConges?Tri=DateDebutAsc" style="color:white"><i data-feather="chevron-down">Trier</i></a>
+ 								<a id="DateDebutDesc" href="afficherConges?Tri=DateDebutDesc" style="color:white"><i data-feather="chevron-up">Trier</i></a>
 		</div>
 		<div class="col-sm-3">
 			Date de fin
-<!-- 			<div> -->
-<!-- 								<i data-feather="chevron-up"></i><i data-feather="chevron-down"></i> -->
-								
-<!-- 			</div> -->
+ 								<a id="DateFinAsc" href="afficherConges?Tri=DateFinAsc" style="color:white"><i data-feather="chevron-down">Trier</i></a>
+ 								<a id="DateFinDesc" href="afficherConges?Tri=DateFinDesc" style="color:white"><i data-feather="chevron-up">Trier</i></a>
 		</div>
 		<div class="col-sm-3">
 			Type
 		</div>
 		<div class="col-sm-2">
 			Statut
-<!-- 			<div> -->
-<!-- 								<i data-feather="chevron-up"></i><i data-feather="chevron-down"></i> -->
+ 								<a id="StatutAsc" href="afficherConges?Tri=StatutAsc" style="color:white"><i data-feather="chevron-down">Trier</i></a>
+ 								<a id="StatutDesc" href="afficherConges?Tri=StatutDesc" style="color:white"><i data-feather="chevron-up">Trier</i></a>
+
 <!-- 			</div> -->
 		</div>
 		<div class="col-sm-1">

@@ -13,25 +13,22 @@
 	<div class="row p-2 bg-primary">
 		<div class="col-sm-3 ">
 			Date de début
-<!-- 			<div> -->
-<!-- 								</i><i data-feather="chevron-down"></i> -->
-<!-- 			</div> -->
+				<a id="DateDebutAsc" href="validerConges?Tri=DateDebutAsc" style="color:white"><i data-feather="chevron-down">Trier</i></a>
+ 				<a id="DateDebutDesc" href="validerConges?Tri=DateDebutDesc" style="color:white"><i data-feather="chevron-up">Trier</i></a>
+
 		</div>
 		<div class="col-sm-3">
 			Date de fin
-<!-- 			<div> -->
-<!-- 								<i data-feather="chevron-up"></i><i data-feather="chevron-down"></i> -->
-								
-<!-- 			</div> -->
+				<a id="DateFinAsc" href="validerConges?Tri=DateFinAsc" style="color:white"><i data-feather="chevron-down">Trier</i></a>
+ 				<a id="DateFinDesc" href="validerConges?Tri=DateFinDesc" style="color:white"><i data-feather="chevron-up">Trier</i></a>
 		</div>
 		<div class="col-sm-3">
 			Type
 		</div>
 		<div class="col-sm-2">
 			Nom
-<!-- 			<div> -->
-<!-- 								<i data-feather="chevron-up"></i><i data-feather="chevron-down"></i> -->
-<!-- 			</div> -->
+				<a id="DateFinAsc" href="validerConges?Tri=NomAsc" style="color:white"><i data-feather="chevron-down">Trier</i></a>
+				<a id="DateFinDesc" href="validerConges?Tri=NomDesc" style="color:white"><i data-feather="chevron-up">Trier</i></a>
 		</div>
 		<div class="col-sm-1">
 			Actions
