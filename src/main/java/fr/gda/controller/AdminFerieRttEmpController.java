@@ -1,7 +1,10 @@
 package fr.gda.controller;
 
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.format.TextStyle;
 import java.util.List;
+import java.util.Locale;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -34,50 +37,68 @@ public class AdminFerieRttEmpController extends HttpServlet {
 		String selectedType = req.getParameter("selectedType");
 		String selectedMotif = req.getParameter("selectedMotif");
 
+		LocalDate jour = LocalDate.parse(selectedDate);
+		String jourSemaine = jour.getDayOfWeek().getDisplayName(TextStyle.FULL, Locale.FRANCE);
+
+		String erreurJour = null;
 		String erreurConnexion = null;
-		boolean test = absParPersDao.validationDateFerie(selectedDate);
 
-		if (absParPersDao.validationDateFerie(selectedDate)) {
+		if (jourSemaine.equals("dimanche") || jourSemaine.equals("samedi")) {
 
-			if (selectedType.equals("6")) {
-				absParPersDao.addJourFerie(selectedDate, selectedMotif);
-
-			} else {
-				absParPersDao.addRttEmployeur(selectedDate, selectedMotif);
-
-			}
-
-			UtilisateurDao utilisateurDao = new UtilisateurDao();
-
-			Object userId = session.getAttribute("utilisateurId");
-			int utilisateurId = (int) userId;
-
-			List<AbsenceParPersonne> listeAbsences = absParPersDao.afficherAbsencesPersonne(utilisateurId);
-
-			String typeConge = null;
-
-			for (AbsenceParPersonne liste : listeAbsences) {
-				int absId = liste.getIdAbsence();
-
-				if (absId == 5 || absId == 6) {
-					typeConge = absParPersDao.RecupererTypeConges(liste.getId());
-				}
-			}
-
-			Utilisateur utilisateur = utilisateurDao.getUtilisateur(utilisateurId);
-
-			req.setAttribute("afficherConge", listeAbsences);
-			req.setAttribute("afficherTypeConge", typeConge);
-			req.setAttribute("utilisateur", utilisateur);
-
-			RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/jours-feries.jsp");
-			dispatcher.forward(req, resp);
-		} else {
-			erreurConnexion = "erreur";
-			req.setAttribute("erreur", erreurConnexion);
+			erreurJour = "erreurJ";
+			req.setAttribute("erreurJ", erreurJour);
 
 			RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/ajout-feries.jsp");
 			dispatcher.forward(req, resp);
+
+		} else {
+
+			if (absParPersDao.validationDateFerie(selectedDate)) {
+
+				if (selectedType.equals("6")) {
+					absParPersDao.addJourFerie(selectedDate, selectedMotif);
+
+				} else {
+					if (jourSemaine.equals("dimanche") || jourSemaine.equals("samedi")) {
+					} else {
+						absParPersDao.addRttEmployeur(selectedDate, selectedMotif);
+					}
+
+				}
+
+				UtilisateurDao utilisateurDao = new UtilisateurDao();
+
+				Object userId = session.getAttribute("utilisateurId");
+				int utilisateurId = (int) userId;
+
+				List<AbsenceParPersonne> listeAbsences = absParPersDao.afficherAbsencesPersonne(utilisateurId);
+
+				String typeConge = null;
+
+				for (AbsenceParPersonne liste : listeAbsences) {
+
+					int absId = liste.getIdAbsence();
+
+					if (absId == 5 || absId == 6) {
+						typeConge = absParPersDao.RecupererTypeConges(liste.getId());
+					}
+				}
+
+				Utilisateur utilisateur = utilisateurDao.getUtilisateur(utilisateurId);
+
+				req.setAttribute("afficherConge", listeAbsences);
+				req.setAttribute("afficherTypeConge", typeConge);
+				req.setAttribute("utilisateur", utilisateur);
+
+				RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/jours-feries.jsp");
+				dispatcher.forward(req, resp);
+			} else {
+				erreurConnexion = "erreur";
+				req.setAttribute("erreur", erreurConnexion);
+
+				RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/ajout-feries.jsp");
+				dispatcher.forward(req, resp);
+			}
 		}
 
 	}

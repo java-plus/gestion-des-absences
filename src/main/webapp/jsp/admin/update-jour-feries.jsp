@@ -30,6 +30,21 @@
 				<p id="texteDateDebut">La date de début de congé ne peut être inférieur à demain </p>
 				</div>
 		</div>
+		
+		<%
+			String erreurJour = (String) request.getAttribute("erreurJ");
+			if (erreurJour != null) {
+		%>
+
+		<div>
+			<p class="text-info text-center">Impossible de saisir une RTT
+				employeur le week-end !
+			<p>
+		</div>
+
+		<%
+			}
+		%>
 
 		<div class="form-group row">
 			<div class="col-sm-5">
