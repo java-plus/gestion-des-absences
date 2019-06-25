@@ -38,7 +38,7 @@
 <h1>Cette page est en cours de construction ! </h1>
 </div>
 <div class="d-flex justify-content-center mt-5">
-<a href="../index.jsp"><h3 class="mx-auto">Retour à l'acceuil</h3></a>
+<a href="../"><h3 class="mx-auto">Retour à l'acceuil</h3></a>
 
 </div>
 
