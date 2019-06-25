@@ -38,7 +38,6 @@ public class AbsenceParPersonneDao {
 	public List<AbsenceParPersonne> lireDemandesEnStatutInitiale() {
 
 		List<AbsenceParPersonne> listeDemandesEnStatutInitiale = new ArrayList<>();
-
 		Connection conn = ConnexionManager.getInstance();
 		PreparedStatement statement = null;
 		ResultSet curseur = null;
@@ -201,6 +200,12 @@ public class AbsenceParPersonneDao {
 
 	}
 
+	/**
+	 * Ajout de jour ferié
+	 * 
+	 * @param date
+	 * @param motif
+	 */
 	public void addJourFerie(String date, String motif) {
 
 		// List<AbsenceParPersonne> jourFerie = new ArrayList<>();
@@ -247,6 +252,12 @@ public class AbsenceParPersonneDao {
 		}
 	}
 
+	/**
+	 * Ajout de RTT employeur
+	 * 
+	 * @param date
+	 * @param motif
+	 */
 	public void addRttEmployeur(String date, String motif) {
 
 		Connection conn = ConnexionManager.getInstance();
@@ -262,7 +273,7 @@ public class AbsenceParPersonneDao {
 
 			for (Utilisateur user : users) {
 				statement.setInt(1, user.getId());
-				statement.setInt(2, 6);
+				statement.setInt(2, 5);
 				statement.setString(3, date);
 				statement.setString(4, date);
 				statement.setString(5, Statut.INITIALE.toString());
@@ -654,6 +665,50 @@ public class AbsenceParPersonneDao {
 	}
 
 	/**
+	 * méthode supprime un congé grace à son id
+	 * 
+	 * @param idUtilisateur
+	 * @return
+	 */
+	public void SupprimerCongesAll(int idConge, String date) {
+
+		Connection conn = ConnexionManager.getInstance();
+		PreparedStatement statement = null;
+		ResultSet curseur = null;
+		String typeConge = null;
+
+		try {
+			conn.setAutoCommit(false);
+
+			statement = conn.prepareStatement("DELETE FROM absence_personne WHERE id_absence = ? and date_debut = ?");
+			statement.setInt(1, idConge);
+			statement.setString(2, date);
+
+			statement.executeUpdate();
+
+			conn.commit();
+
+		} catch (SQLException e) {
+			try {
+				conn.rollback();
+			} catch (SQLException e1) {
+				throw new TechnicalException("Le rollback n'a pas fonctionné", e);
+			}
+			throw new TechnicalException("L'ajout ne s'est pas fait", e);
+		} finally {
+			try {
+				if (statement != null) {
+					statement.close();
+				}
+			} catch (SQLException e) {
+
+				throw new TechnicalException("La fermeture ne s'est pas faite", e);
+			}
+		}
+
+	}
+
+	/**
 	 * méthode qui modifie un congé grace à son id
 	 * 
 	 * @param idUtilisateur
@@ -887,6 +942,152 @@ public class AbsenceParPersonneDao {
 				}
 			} catch (SQLException e) {
 				SERVICE_LOG.error("La fermeture ne s'est pas faite", e);
+				throw new TechnicalException("La fermeture ne s'est pas faite", e);
+			}
+		}
+	}
+
+	/**
+	 * méthode qui modifie un jour ferié ou rtt employeur grâce à la date
+	 * 
+	 * @param idConge
+	 * @param typeAbsence
+	 * @param dateDebut
+	 * @param ancienneDate
+	 * @param motif
+	 */
+	public void modifierFeries(Integer idConge, String typeAbsence, String dateDebut, String ancienneDate,
+			String motif) {
+		Connection conn = ConnexionManager.getInstance();
+		PreparedStatement statement = null;
+
+		try {
+			conn.setAutoCommit(false);
+
+			statement = conn.prepareStatement(
+					"UPDATE  absence_personne SET id_absence= ?, date_debut=?, date_fin= ?, motif=?, statut= ? WHERE date_debut= ? ");
+			statement.setString(1, typeAbsence);
+			statement.setString(2, dateDebut);
+			statement.setString(3, dateDebut);
+			statement.setString(4, motif);
+			statement.setString(5, "INITIALE");
+			statement.setString(6, ancienneDate);
+
+			statement.executeUpdate();
+
+			conn.commit();
+
+		} catch (SQLException e) {
+			try {
+				conn.rollback();
+			} catch (SQLException e1) {
+				throw new TechnicalException("Le rollback n'a pas fonctionné", e);
+			}
+			throw new TechnicalException("L'ajout ne s'est pas fait", e);
+		} finally {
+			try {
+				if (statement != null) {
+					statement.close();
+				}
+			} catch (SQLException e) {
+
+				throw new TechnicalException("La fermeture ne s'est pas faite", e);
+			}
+		}
+
+	}
+
+	/**
+	 * Méthode qui valide que les dates de jours feriés et rtt employeurs ne se
+	 * chevauchent pas
+	 * 
+	 * @param dateDebut
+	 * @return
+	 */
+	public boolean validationDateFerie(String dateDebut) {
+
+		Connection conn = ConnexionManager.getInstance();
+		PreparedStatement statement = null;
+		ResultSet curseur = null;
+		List<AbsenceParPersonne> liste = new ArrayList<>();
+
+		try {
+			conn.setAutoCommit(false);
+			statement = conn.prepareStatement(
+					"SELECT date_debut FROM absence_personne WHERE date_debut = ? AND (id_absence = 5 OR id_absence = 6);");
+			statement.setString(1, dateDebut);
+
+			curseur = statement.executeQuery();
+
+			if (!curseur.next()) {
+
+				return true;
+			}
+			conn.commit();
+			return false;
+
+		} catch (SQLException e) {
+			try {
+				conn.rollback();
+			} catch (SQLException e1) {
+				throw new TechnicalException("Le rollback n'a pas fonctionné", e);
+			}
+			throw new TechnicalException("L'ajout ne s'est pas fait", e);
+		} finally {
+			try {
+				if (statement != null) {
+					statement.close();
+				}
+			} catch (SQLException e) {
+
+				throw new TechnicalException("La fermeture ne s'est pas faite", e);
+			}
+		}
+	}
+
+	/**
+	 * Méthode qui valide que les dates de jours feriés et rtt employeurs ne se
+	 * chevauchent pas
+	 * 
+	 * @param dateDebut
+	 * @return
+	 */
+	public boolean validationDateFerieUpdate(String dateDebut) {
+
+		Connection conn = ConnexionManager.getInstance();
+		PreparedStatement statement = null;
+		ResultSet curseur = null;
+		List<AbsenceParPersonne> liste = new ArrayList<>();
+
+		try {
+			conn.setAutoCommit(false);
+			statement = conn.prepareStatement(
+					"SELECT date_debut FROM absence_personne WHERE date_debut < ? AND (id_absence = 5 OR id_absence = 6);");
+			statement.setString(1, dateDebut);
+
+			curseur = statement.executeQuery();
+
+			if (!curseur.next()) {
+
+				return true;
+			}
+			conn.commit();
+			return false;
+
+		} catch (SQLException e) {
+			try {
+				conn.rollback();
+			} catch (SQLException e1) {
+				throw new TechnicalException("Le rollback n'a pas fonctionné", e);
+			}
+			throw new TechnicalException("L'ajout ne s'est pas fait", e);
+		} finally {
+			try {
+				if (statement != null) {
+					statement.close();
+				}
+			} catch (SQLException e) {
+
 				throw new TechnicalException("La fermeture ne s'est pas faite", e);
 			}
 		}

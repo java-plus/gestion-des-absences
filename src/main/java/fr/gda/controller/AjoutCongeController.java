@@ -86,7 +86,6 @@ public class AjoutCongeController extends HttpServlet {
 				RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/ajout-absences.jsp");
 				dispatcher.forward(req, resp);
 			}
-			;
 
 		}
 	}

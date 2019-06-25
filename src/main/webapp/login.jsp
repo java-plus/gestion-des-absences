@@ -17,7 +17,15 @@
         integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <link href="https://fonts.googleapis.com/css?family=Poppins:400,700|Roboto:400,700&display=swap" rel="stylesheet">
 
-    <title>GDA - Connexion</title>
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+	integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+	crossorigin="anonymous">
+<link
+	href="https://fonts.googleapis.com/css?family=Poppins:400,700|Roboto:400,700&display=swap"
+	rel="stylesheet">
+
+<title>GDA - Connexion</title>
 
 </head>
 
@@ -52,7 +60,8 @@
 		%>
 
 		<div>
-			<p class="text-danger text-center">Vos informations d'authentification sont invalides.
+			<p class="text-danger text-center">Vos informations
+				d'authentification sont invalides.
 			<p>
 		</div>
 
@@ -68,7 +77,9 @@
 
 
 
+
 	<%-- chargement des js de JQuery et Bootsrap et feather --%>
+
 	<%@ include file="jsp/global/load.jsp"%>
 
 
