@@ -50,27 +50,31 @@ public class UtilisateurDao {
 				String mdp = curseur.getString("mdp");
 
 				if (mdp.equals(password)) {
+					SERVICE_LOG.info("Le mot de passe est correct");
 					return true;
 				}
 
 			}
 
 			conn.commit();
+			SERVICE_LOG.info("Le mot de passe est incorrect");
 			return false;
 		} catch (SQLException e) {
 			try {
 				conn.rollback();
 			} catch (SQLException e1) {
+				SERVICE_LOG.error("Le rollback n'a pas fonctionné", e);
 				throw new TechnicalException("Le rollback n'a pas fonctionné", e);
 			}
-			throw new TechnicalException("L'ajout ne s'est pas fait", e);
+			SERVICE_LOG.error("La sélection ne s'est pas fait", e);
+			throw new TechnicalException("La sélection ne s'est pas fait", e);
 		} finally {
 			try {
 				if (statement != null) {
 					statement.close();
 				}
 			} catch (SQLException e) {
-
+				SERVICE_LOG.error("La fermeture ne s'est pas faite", e);
 				throw new TechnicalException("La fermeture ne s'est pas faite", e);
 			}
 		}
@@ -122,6 +126,8 @@ public class UtilisateurDao {
 					employe = new Employe(id, nom, prenom, profil, email, mdp, isAdminBool, congeRestant, rttRestant,
 							congePris, rttPris, idHierarchie, idDepartement);
 
+					SERVICE_LOG.info("l'employé a bien été créé");
+
 				}
 
 			}
@@ -133,16 +139,18 @@ public class UtilisateurDao {
 			try {
 				conn.rollback();
 			} catch (SQLException e1) {
+				SERVICE_LOG.error("Le rollback n'a pas fonctionné", e);
 				throw new TechnicalException("Le rollback n'a pas fonctionné", e);
 			}
-			throw new TechnicalException("L'ajout ne s'est pas fait", e);
+			SERVICE_LOG.error("La sélection ne s'est pas faite", e);
+			throw new TechnicalException("La sélection ne s'est pas faite", e);
 		} finally {
 			try {
 				if (statement != null) {
 					statement.close();
 				}
 			} catch (SQLException e) {
-
+				SERVICE_LOG.error("La fermeture ne s'est pas faite", e);
 				throw new TechnicalException("La fermeture ne s'est pas faite", e);
 			}
 		}
@@ -186,15 +194,17 @@ public class UtilisateurDao {
 
 			}
 			conn.commit();
-
+			SERVICE_LOG.info("la récupération du nombre de jour par type de congé s'est bien faite");
 			return nombreJoursCongeRestant;
 
 		} catch (SQLException e) {
 			try {
 				conn.rollback();
 			} catch (SQLException e1) {
+				SERVICE_LOG.error("Le rollback n'a pas fonctionné", e);
 				throw new TechnicalException("Le rollback n'a pas fonctionné", e);
 			}
+			SERVICE_LOG.error("La sélection s'est pas faite", e);
 			throw new TechnicalException("La sélection s'est pas faite", e);
 		} finally {
 			try {
@@ -202,7 +212,7 @@ public class UtilisateurDao {
 					statement.close();
 				}
 			} catch (SQLException e) {
-
+				SERVICE_LOG.error("La fermeture ne s'est pas faite", e);
 				throw new TechnicalException("La fermeture ne s'est pas faite", e);
 			}
 		}
@@ -236,6 +246,8 @@ public class UtilisateurDao {
 			statement.setLong(1, nombreJours);
 			statement.setInt(2, idUtilisateur);
 
+			SERVICE_LOG.info("Le nombre de jour de congé a bien été mis à jour");
+
 			if (statement.executeUpdate() == 0) {
 				// Log de l'erreur
 				SERVICE_LOG.error("impossible de mettre à jour la table");
@@ -244,8 +256,10 @@ public class UtilisateurDao {
 			try {
 				conn.rollback();
 			} catch (SQLException e1) {
+				SERVICE_LOG.error("Le rollback n'a pas fonctionné", e);
 				throw new TechnicalException("Le rollback n'a pas fonctionné", e);
 			}
+			SERVICE_LOG.error("La mise à jour s'est pas faite", e);
 			throw new TechnicalException("La mise à jour s'est pas faite", e);
 		} finally {
 			try {
@@ -253,7 +267,7 @@ public class UtilisateurDao {
 					statement.close();
 				}
 			} catch (SQLException e) {
-
+				SERVICE_LOG.error("La fermeture ne s'est pas faite", e);
 				throw new TechnicalException("La fermeture ne s'est pas faite", e);
 			}
 		}
@@ -304,6 +318,7 @@ public class UtilisateurDao {
 					manager = new Manager(id, nom, prenom, profil, email, mdp, isAdminBool, congeRestant, rttRestant,
 							congePris, rttPris, idHierarchie, idDepartement);
 
+					SERVICE_LOG.info("Le manager a bien été crée");
 				}
 
 			}
@@ -314,8 +329,10 @@ public class UtilisateurDao {
 			try {
 				conn.rollback();
 			} catch (SQLException e1) {
+				SERVICE_LOG.error("Le rollback n'a pas fonctionné", e);
 				throw new TechnicalException("Le rollback n'a pas fonctionné", e);
 			}
+			SERVICE_LOG.error("L'ajout ne s'est pas fait", e);
 			throw new TechnicalException("L'ajout ne s'est pas fait", e);
 		} finally {
 			try {
@@ -323,7 +340,7 @@ public class UtilisateurDao {
 					statement.close();
 				}
 			} catch (SQLException e) {
-
+				SERVICE_LOG.error("La fermeture ne s'est pas faite", e);
 				throw new TechnicalException("La fermeture ne s'est pas faite", e);
 			}
 		}
@@ -384,6 +401,7 @@ public class UtilisateurDao {
 				}
 			}
 
+			SERVICE_LOG.info("L'utilisateur a bien été créé");
 			conn.commit();
 
 			return user;
@@ -391,8 +409,10 @@ public class UtilisateurDao {
 			try {
 				conn.rollback();
 			} catch (SQLException e1) {
+				SERVICE_LOG.error("Le rollback n'a pas fonctionné", e);
 				throw new TechnicalException("Le rollback n'a pas fonctionné", e);
 			}
+			SERVICE_LOG.error("L'ajout ne s'est pas fait", e);
 			throw new TechnicalException("L'ajout ne s'est pas fait", e);
 		} finally {
 			try {
@@ -400,7 +420,7 @@ public class UtilisateurDao {
 					statement.close();
 				}
 			} catch (SQLException e) {
-
+				SERVICE_LOG.error("La fermeture ne s'est pas faite", e);
 				throw new TechnicalException("La fermeture ne s'est pas faite", e);
 			}
 		}
@@ -428,6 +448,7 @@ public class UtilisateurDao {
 			if (curseur.next()) {
 
 				profil = curseur.getString("profil");
+				SERVICE_LOG.info("le profil est validé");
 
 			}
 
@@ -437,16 +458,18 @@ public class UtilisateurDao {
 			try {
 				conn.rollback();
 			} catch (SQLException e1) {
+				SERVICE_LOG.error("Le rollback n'a pas fonctionné", e);
 				throw new TechnicalException("Le rollback n'a pas fonctionné", e);
 			}
-			throw new TechnicalException("L'ajout ne s'est pas fait", e);
+			SERVICE_LOG.error("La sélection ne s'est pas faite", e);
+			throw new TechnicalException("La sélection ne s'est pas faite", e);
 		} finally {
 			try {
 				if (statement != null) {
 					statement.close();
 				}
 			} catch (SQLException e) {
-
+				SERVICE_LOG.error("La fermeture ne s'est pas faite", e);
 				throw new TechnicalException("La fermeture ne s'est pas faite", e);
 			}
 		}
@@ -504,6 +527,8 @@ public class UtilisateurDao {
 
 			}
 
+			SERVICE_LOG.info("L'utilisateur est bien créé");
+
 			conn.commit();
 
 			return utilisateur;
@@ -512,10 +537,11 @@ public class UtilisateurDao {
 			try {
 				conn.rollback();
 			} catch (SQLException e1) {
+				SERVICE_LOG.error("Le rollback n'a pas fonctionné", e);
 				throw new TechnicalException("Le rollback n'a pas fonctionné", e);
 			}
-
-			throw new TechnicalException("La mise à jour ne s'est pas fait", e);
+			SERVICE_LOG.error("L'ajout ne s'est pas fait", e);
+			throw new TechnicalException("L'ajout ne s'est pas fait", e);
 
 		} finally {
 			try {
@@ -523,7 +549,7 @@ public class UtilisateurDao {
 					statement.close();
 				}
 			} catch (SQLException e) {
-
+				SERVICE_LOG.error("La fermeture ne s'est pas faite", e);
 				throw new TechnicalException("La fermeture ne s'est pas faite", e);
 			}
 		}
@@ -578,6 +604,7 @@ public class UtilisateurDao {
 							congeRestant, rttRestant, congePris, rttPris, idHierarchie, idDepartement));
 				}
 
+				SERVICE_LOG.info("La récupéartion des utilisateurs par départemnets s'est bien faite");
 			}
 
 			conn.commit();
@@ -587,8 +614,10 @@ public class UtilisateurDao {
 			try {
 				conn.rollback();
 			} catch (SQLException e1) {
+				SERVICE_LOG.error("Le rollback n'a pas fonctionné", e);
 				throw new TechnicalException("Le rollback n'a pas fonctionné", e);
 			}
+			SERVICE_LOG.error("La sélection ne s'est pas faite", e);
 			throw new TechnicalException("La sélection ne s'est pas faite", e);
 		} finally {
 			try {
@@ -596,7 +625,7 @@ public class UtilisateurDao {
 					statement.close();
 				}
 			} catch (SQLException e) {
-
+				SERVICE_LOG.error("La fermeture ne s'est pas faite", e);
 				throw new TechnicalException("La fermeture ne s'est pas faite", e);
 			}
 		}
@@ -629,14 +658,18 @@ public class UtilisateurDao {
 			if (curseur.next()) {
 				department = curseur.getString("nom");
 
+				SERVICE_LOG.info("Le département est bien récupéré");
+
 			}
 			return department;
 		} catch (SQLException e) {
 			try {
 				conn.rollback();
 			} catch (SQLException e1) {
+				SERVICE_LOG.error("Le rollback n'a pas fonctionné", e);
 				throw new TechnicalException("Le rollback n'a pas fonctionné", e);
 			}
+			SERVICE_LOG.error("La sélection ne s'est pas faite", e);
 			throw new TechnicalException("La sélection ne s'est pas faite", e);
 		} finally {
 			try {
@@ -644,7 +677,7 @@ public class UtilisateurDao {
 					statement.close();
 				}
 			} catch (SQLException e) {
-
+				SERVICE_LOG.error("La fermeture ne s'est pas faite", e);
 				throw new TechnicalException("La fermeture ne s'est pas faite", e);
 			}
 		}

@@ -11,6 +11,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import fr.gda.dao.AbsenceParPersonneDao;
 import fr.gda.dao.UtilisateurDao;
 import fr.gda.model.AbsenceParPersonne;
@@ -18,6 +21,7 @@ import fr.gda.model.Utilisateur;
 
 @WebServlet(urlPatterns = "/controller/afficherConges/*")
 public class AfficherCongeController extends HttpServlet {
+	private static final Logger SERVICE_LOG = LoggerFactory.getLogger(AfficherCongeController.class);
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -30,13 +34,21 @@ public class AfficherCongeController extends HttpServlet {
 		Object userId = session.getAttribute("utilisateurId");
 		int utilisateurId = (int) userId;
 
-		List<AbsenceParPersonne> listeAbsences = absenceDao.afficherAbsencesPersonne(utilisateurId);
+		List<AbsenceParPersonne> listeAbsences = null;
+		// Gestion du tri
+		String triColonnes = req.getParameter("Tri");
+		if (triColonnes == null) {
+			triColonnes = "DateDebutAsc";
+		}
+		listeAbsences = absenceDao.afficherAbsencesPersonneTrie(utilisateurId, triColonnes);
 
 		Utilisateur utilisateur = utilisateurDao.getUtilisateur(utilisateurId);
 
 		req.setAttribute("afficherConge", listeAbsences);
 
 		req.setAttribute("utilisateur", utilisateur);
+
+		SERVICE_LOG.info("Affichage des congés de l'utilisateur : " + utilisateur);
 
 		RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/gestion-absences.jsp");
 		dispatcher.forward(req, resp);
@@ -53,6 +65,8 @@ public class AfficherCongeController extends HttpServlet {
 		Integer idConge = Integer.parseInt(idCongeString);
 
 		absenceDao.SupprimerConges(idConge);
+
+		SERVICE_LOG.info("Le congé a été bien supprimé : idCongé :  " + idConge);
 
 		resp.getWriter().append("ok");
 
