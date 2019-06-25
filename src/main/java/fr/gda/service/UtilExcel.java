@@ -125,9 +125,13 @@ public class UtilExcel {
 
 								int absence = absenceDepartementMoisAnnee.get(m).getIdAbsence();
 
-								// Insertion de cellule
-								cellJour.setCellValue(absenceDepartementMoisAnnee.get(m).typeConge(absence)
-										.toUpperCase().substring(0, 1));
+								// Insertion de cellule : cas particulier pour
+								// le congé sans solde, sinon initiale du mot
+								if (absenceDepartementMoisAnnee.get(m).getIdAbsence() == 3) {
+									cellJour.setCellValue("S");
+								} else
+									cellJour.setCellValue(absenceDepartementMoisAnnee.get(m).typeConge(absence)
+											.toUpperCase().substring(0, 1));
 
 							}
 
@@ -158,18 +162,21 @@ public class UtilExcel {
 		cellLegendeRejetee.setCellStyle(couleurRouge);
 		cellLegendeRejetee.setCellValue("Rejetée");
 
-		Row rowTypeCongeRtt = sheet.createRow(13 + utilisateurParDepartement.size());
-		Cell cellTypeCongeRTT = rowTypeCongeRtt.createCell(1);
-		cellTypeCongeRTT.setCellValue("R : RTT");
-		Row rowTypeCongeConge = sheet.createRow(14 + utilisateurParDepartement.size());
+		Row rowTypeCongeConge = sheet.createRow(13 + utilisateurParDepartement.size());
 		Cell cellTypeCongeConge = rowTypeCongeConge.createCell(1);
 		cellTypeCongeConge.setCellValue("C : Congé");
+		Row rowTypeCongeFerie = sheet.createRow(14 + utilisateurParDepartement.size());
+		Cell cellTypeCongeFerie = rowTypeCongeFerie.createCell(1);
+		cellTypeCongeFerie.setCellValue("F : Férié");
 		Row rowTypeCongeMission = sheet.createRow(15 + utilisateurParDepartement.size());
 		Cell cellTypeCongeMission = rowTypeCongeMission.createCell(1);
 		cellTypeCongeMission.setCellValue("M : Mission");
-		Row rowTypeCongeFerie = sheet.createRow(16 + utilisateurParDepartement.size());
-		Cell cellTypeCongeFerie = rowTypeCongeFerie.createCell(1);
-		cellTypeCongeFerie.setCellValue("F : Férié");
+		Row rowTypeCongeRtt = sheet.createRow(16 + utilisateurParDepartement.size());
+		Cell cellTypeCongeRTT = rowTypeCongeRtt.createCell(1);
+		cellTypeCongeRTT.setCellValue("R : RTT");
+		Row rowTypeCongeSansSolde = sheet.createRow(17 + utilisateurParDepartement.size());
+		Cell cellTypeCongeSansSolde = rowTypeCongeSansSolde.createCell(1);
+		cellTypeCongeSansSolde.setCellValue("S : Sans solde");
 
 		// Affichage du titre
 		Row rowTitre = sheet.createRow(1);

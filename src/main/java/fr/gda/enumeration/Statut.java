@@ -2,7 +2,7 @@ package fr.gda.enumeration;
 
 public enum Statut {
 
-	INITIALE("INITIALE"), EN_ATTENTE_VALIDATION("EN_ATTENTE_VALIDATION"), VALIDEE("VALIDEE"), REJETEE("REJETEE");
+	INITIALE("INITIALE"), EN_ATTENTE_VALIDATION("EN_ATTENTE"), VALIDEE("VALIDEE"), REJETEE("REJETEE");
 
 	/** type : String : type d'absence possible */
 	private String Statut;

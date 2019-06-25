@@ -59,8 +59,8 @@
 	<!-- 	Remplissage des cases du tableau avec les infos de la boucle -->
 
 	<div class="row p-2 ligneSuppr<%=liste.getId()%>">
-		<div class="col-sm-3"><%=liste.getDateDebut()%></div>
-		<div class="col-sm-3"><%=liste.getDateFin()%></div>
+		<div class="col-sm-3"><%=liste.afficherDate(liste.getDateDebut())%></div>
+		<div class="col-sm-3"><%=liste.afficherDate(liste.getDateFin())%></div>
 		<div class="col-sm-3"><%=liste.typeConge(liste.getIdAbsence())%></div>
 		<% for (Utilisateur util : groupeUtilisateurs) {
 			if (liste.getIdUtil() == util.getId()) {
