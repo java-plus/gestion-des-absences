@@ -232,9 +232,8 @@ public class AbsenceParPersonne {
 							.equals(this.getDateDebut().getDayOfWeek().SUNDAY))) {
 				nbJours++;
 			}
-			i++;
-		} while (!this.getDateDebut().plusDays(i).equals(this.getDateFin()));
-		return ++nbJours;
+		} while (!this.getDateDebut().plusDays(i++).isEqual(this.getDateFin()));
+		return nbJours;
 	}
 
 }
