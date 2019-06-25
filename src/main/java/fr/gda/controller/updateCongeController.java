@@ -102,8 +102,6 @@ public class updateCongeController extends HttpServlet {
 			for (AbsenceParPersonne liste : listeAbsence) {
 				if (idConge.equals(liste.getId())) {
 
-					boolean test = absenceDao.validationDateCongeUpdate(utilisateurId, idConge, dateDebut, dateFin);
-
 					if (absenceDao.validationDateCongeUpdate(utilisateurId, idConge, dateDebut, dateFin)) {
 						absenceDao.modifierConges(idConge, typeAbsence, dateDebut, dateFin, motif);
 						UtilisateurDao utilisateurDao = new UtilisateurDao();

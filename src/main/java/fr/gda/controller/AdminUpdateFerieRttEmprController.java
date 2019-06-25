@@ -96,7 +96,7 @@ public class AdminUpdateFerieRttEmprController extends HttpServlet {
 				String ancienneDate = liste.getDateDebut().toString();
 				if (idConge.equals(liste.getId())) {
 
-					if (absenceDao.validationDateFerié(dateDebut)) {
+					if (absenceDao.validationDateFerieUpdate(dateDebut)) {
 						absenceDao.modifierFeries(idConge, typeAbsence, dateDebut, ancienneDate, motif);
 						UtilisateurDao utilisateurDao = new UtilisateurDao();
 

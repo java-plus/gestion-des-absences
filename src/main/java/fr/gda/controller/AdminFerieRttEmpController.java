@@ -35,9 +35,9 @@ public class AdminFerieRttEmpController extends HttpServlet {
 		String selectedMotif = req.getParameter("selectedMotif");
 
 		String erreurConnexion = null;
-		boolean test = absParPersDao.validationDateFerié(selectedDate);
+		boolean test = absParPersDao.validationDateFerie(selectedDate);
 
-		if (absParPersDao.validationDateFerié(selectedDate)) {
+		if (absParPersDao.validationDateFerie(selectedDate)) {
 
 			if (selectedType.equals("6")) {
 				absParPersDao.addJourFerie(selectedDate, selectedMotif);
