@@ -11,6 +11,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import fr.gda.dao.AbsenceParPersonneDao;
 import fr.gda.dao.UtilisateurDao;
 import fr.gda.model.AbsenceParPersonne;
@@ -24,6 +27,8 @@ import fr.gda.model.Utilisateur;
  */
 @WebServlet(urlPatterns = "/controller/rejeterDemande/*")
 public class RejeterDemandeController extends HttpServlet {
+
+	private static final Logger SERVICE_LOG = LoggerFactory.getLogger(ControlerCongeController.class);
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -62,6 +67,8 @@ public class RejeterDemandeController extends HttpServlet {
 		req.setAttribute("groupeUtilisateurs", groupeUitilisateurs);
 
 		req.setAttribute("utilisateur", utilisateur);
+
+		SERVICE_LOG.info("La demande de congé a été rejetée");
 
 		RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/validation-absences.jsp");
 		dispatcher.forward(req, resp);

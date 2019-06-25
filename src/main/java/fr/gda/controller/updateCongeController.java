@@ -11,6 +11,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import fr.gda.dao.AbsenceParPersonneDao;
 import fr.gda.dao.UtilisateurDao;
 import fr.gda.model.AbsenceParPersonne;
@@ -18,6 +21,8 @@ import fr.gda.model.Utilisateur;
 
 @WebServlet(urlPatterns = "/controller/updateConges/*")
 public class updateCongeController extends HttpServlet {
+
+	private static final Logger SERVICE_LOG = LoggerFactory.getLogger(AfficherCongeController.class);
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -70,6 +75,8 @@ public class updateCongeController extends HttpServlet {
 			req.setAttribute("type", afficherConge);
 			req.setAttribute("motif", motif);
 
+			SERVICE_LOG.info("La récupération des informations pour la modification de congé s'est bien faite");
+
 			RequestDispatcher dispatcher = this.getServletContext()
 					.getRequestDispatcher("/update-absences.jsp?update=" + idConge);
 			dispatcher.forward(req, resp);
@@ -102,8 +109,6 @@ public class updateCongeController extends HttpServlet {
 			for (AbsenceParPersonne liste : listeAbsence) {
 				if (idConge.equals(liste.getId())) {
 
-					boolean test = absenceDao.validationDateCongeUpdate(utilisateurId, idConge, dateDebut, dateFin);
-
 					if (absenceDao.validationDateCongeUpdate(utilisateurId, idConge, dateDebut, dateFin)) {
 						absenceDao.modifierConges(idConge, typeAbsence, dateDebut, dateFin, motif);
 						UtilisateurDao utilisateurDao = new UtilisateurDao();
@@ -115,6 +120,8 @@ public class updateCongeController extends HttpServlet {
 
 						req.setAttribute("utilisateur", utilisateur);
 
+						SERVICE_LOG.info("La modification de congé s'est bien faite");
+
 						RequestDispatcher dispatcher = this.getServletContext()
 								.getRequestDispatcher("/gestion-absences.jsp");
 						dispatcher.forward(req, resp);
@@ -122,6 +129,8 @@ public class updateCongeController extends HttpServlet {
 					} else {
 						erreurConnexion = "erreur";
 						req.setAttribute("erreur", erreurConnexion);
+
+						SERVICE_LOG.error("La modification de congé n'a pas pu se faire");
 
 						RequestDispatcher dispatcher = this.getServletContext()
 								.getRequestDispatcher("/ajout-absences.jsp");
