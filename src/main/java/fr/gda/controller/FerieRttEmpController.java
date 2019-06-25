@@ -1,7 +1,9 @@
 package fr.gda.controller;
 
 import java.io.IOException;
+import java.util.List;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -10,6 +12,9 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import fr.gda.dao.AbsenceParPersonneDao;
+import fr.gda.dao.UtilisateurDao;
+import fr.gda.model.AbsenceParPersonne;
+import fr.gda.model.Utilisateur;
 
 /**
  * @author KHARBECHE Bilel
@@ -19,22 +24,35 @@ import fr.gda.dao.AbsenceParPersonneDao;
 public class FerieRttEmpController extends HttpServlet {
 
 	@Override
-	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
 		HttpSession session = req.getSession(false);
 
 		AbsenceParPersonneDao absParPersDao = new AbsenceParPersonneDao();
+		UtilisateurDao utilisateurDao = new UtilisateurDao();
 
-		String SelectedDate = req.getParameter("selectedDate");
-		String SelectedType = req.getParameter("selectedType");
-		String SelectedMotif = req.getParameter("selectedMotif");
+		Object userId = session.getAttribute("utilisateurId");
+		int utilisateurId = (int) userId;
 
-		if (SelectedType.equals("jour ferie")) {
-			absParPersDao.addJourFerie(SelectedDate, SelectedMotif);
+		List<AbsenceParPersonne> listeAbsences = absParPersDao.afficherAbsencesPersonne(utilisateurId);
 
-		} else {
-			absParPersDao.addRttEmployeur(SelectedDate, SelectedMotif);
+		String typeConge = null;
 
+		for (AbsenceParPersonne liste : listeAbsences) {
+			int absId = liste.getIdAbsence();
+
+			if (absId == 5 || absId == 6) {
+				typeConge = absParPersDao.RecupererTypeConges(liste.getId());
+			}
 		}
+
+		Utilisateur utilisateur = utilisateurDao.getUtilisateur(utilisateurId);
+
+		req.setAttribute("afficherConge", listeAbsences);
+		req.setAttribute("afficherTypeConge", typeConge);
+		req.setAttribute("utilisateur", utilisateur);
+
+		RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/jours-feries.jsp");
+		dispatcher.forward(req, resp);
 	}
 }

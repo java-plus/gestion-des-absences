@@ -1,0 +1,281 @@
+14:03:15.929 [http-nio-8080-exec-4] ERROR f.gda.controller.ConnexionController -
+				Paramètre nom reçu cecile@test.fr ee26b0dd4af7e749aa1a8ee3c10ae9923f618980772e473f8819a5d4940e0db27ac185f8a0e1d5f84f88bc887fd67b143732c304cc5fa9ad8e6f57f50028a8ff
+14:03:16.188 [http-nio-8080-exec-4] INFO  fr.gda.dao.UtilisateurDao -
+				Le mot de passe est correct
+14:03:16.194 [http-nio-8080-exec-4] ERROR f.gda.controller.ConnexionController -
+				L'utilisateur est connecté en tant que manager
+14:59:02.667 [http-nio-8080-exec-27] INFO  f.gda.controller.ConnexionController -
+				Connexion avec email :  cecile@test.fr
+14:59:02.909 [http-nio-8080-exec-27] INFO  fr.gda.dao.UtilisateurDao -
+				Le mot de passe est correct
+14:59:02.913 [http-nio-8080-exec-27] INFO  fr.gda.dao.UtilisateurDao -
+				le profil est validé
+14:59:02.915 [http-nio-8080-exec-27] INFO  fr.gda.dao.UtilisateurDao -
+				le profil est validé
+14:59:02.918 [http-nio-8080-exec-27] INFO  fr.gda.dao.UtilisateurDao -
+				Le manager a bien été crée
+14:59:02.918 [http-nio-8080-exec-27] INFO  f.gda.controller.ConnexionController -
+				L'utilisateur est connecté en tant que manager
+14:59:04.342 [http-nio-8080-exec-28] INFO  fr.gda.dao.AbsenceParPersonneDao -
+				La récupération de la liste des absences s'est bien faite
+14:59:04.343 [http-nio-8080-exec-28] INFO  fr.gda.dao.AbsenceParPersonneDao -
+				La récupération de la liste des absences s'est bien faite
+14:59:04.343 [http-nio-8080-exec-28] INFO  fr.gda.dao.AbsenceParPersonneDao -
+				La récupération de la liste des absences s'est bien faite
+14:59:04.343 [http-nio-8080-exec-28] INFO  fr.gda.dao.AbsenceParPersonneDao -
+				La récupération de la liste des absences s'est bien faite
+14:59:04.343 [http-nio-8080-exec-28] INFO  fr.gda.dao.AbsenceParPersonneDao -
+				La récupération de la liste des absences s'est bien faite
+14:59:04.343 [http-nio-8080-exec-28] INFO  fr.gda.dao.AbsenceParPersonneDao -
+				La récupération de la liste des absences s'est bien faite
+14:59:04.343 [http-nio-8080-exec-28] INFO  fr.gda.dao.AbsenceParPersonneDao -
+				La récupération de la liste des absences s'est bien faite
+14:59:04.343 [http-nio-8080-exec-28] INFO  fr.gda.dao.AbsenceParPersonneDao -
+				La récupération de la liste des absences s'est bien faite
+14:59:04.343 [http-nio-8080-exec-28] INFO  fr.gda.dao.AbsenceParPersonneDao -
+				La récupération de la liste des absences s'est bien faite
+14:59:04.345 [http-nio-8080-exec-28] INFO  fr.gda.dao.UtilisateurDao -
+				L'utilisateur est bien créé
+14:59:04.345 [http-nio-8080-exec-28] INFO  f.g.c.AfficherCongeController -
+				Affichage des congés de l'utilisateur : fr.gda.model.Manager@4c0f8f01
+14:59:11.958 [http-nio-8080-exec-31] INFO  fr.gda.dao.AbsenceParPersonneDao -
+				les congés se chevauchent
+14:59:11.959 [http-nio-8080-exec-31] ERROR f.g.controller.AjoutCongeController -
+				Le congé n'a pas pu être ajouté
+14:59:20.924 [http-nio-8080-exec-32] INFO  fr.gda.dao.AbsenceParPersonneDao -
+				les congés ne se chevauchent pas
+14:59:20.926 [http-nio-8080-exec-32] INFO  fr.gda.dao.AbsenceParPersonneDao -
+				L'ajout du congé s'est bien fait, utilisateur : 2, date de début : 2019-07-28, date de fin : 2019-07-28
+14:59:20.935 [http-nio-8080-exec-32] INFO  fr.gda.dao.UtilisateurDao -
+				L'utilisateur est bien créé
+14:59:20.936 [http-nio-8080-exec-32] INFO  fr.gda.dao.AbsenceParPersonneDao -
+				La récupération de la liste des absences s'est bien faite
+14:59:20.937 [http-nio-8080-exec-32] INFO  fr.gda.dao.AbsenceParPersonneDao -
+				La récupération de la liste des absences s'est bien faite
+14:59:20.937 [http-nio-8080-exec-32] INFO  fr.gda.dao.AbsenceParPersonneDao -
+				La récupération de la liste des absences s'est bien faite
+14:59:20.937 [http-nio-8080-exec-32] INFO  fr.gda.dao.AbsenceParPersonneDao -
+				La récupération de la liste des absences s'est bien faite
+14:59:20.937 [http-nio-8080-exec-32] INFO  fr.gda.dao.AbsenceParPersonneDao -
+				La récupération de la liste des absences s'est bien faite
+14:59:20.937 [http-nio-8080-exec-32] INFO  fr.gda.dao.AbsenceParPersonneDao -
+				La récupération de la liste des absences s'est bien faite
+14:59:20.937 [http-nio-8080-exec-32] INFO  fr.gda.dao.AbsenceParPersonneDao -
+				La récupération de la liste des absences s'est bien faite
+14:59:20.937 [http-nio-8080-exec-32] INFO  fr.gda.dao.AbsenceParPersonneDao -
+				La récupération de la liste des absences s'est bien faite
+14:59:20.937 [http-nio-8080-exec-32] INFO  fr.gda.dao.AbsenceParPersonneDao -
+				La récupération de la liste des absences s'est bien faite
+14:59:20.937 [http-nio-8080-exec-32] INFO  fr.gda.dao.AbsenceParPersonneDao -
+				La récupération de la liste des absences s'est bien faite
+14:59:20.938 [http-nio-8080-exec-32] INFO  f.g.controller.AjoutCongeController -
+				un congé a été ajouté pour l'utilisateur : fr.gda.model.Manager@1102f4d0 du 2019-07-28 au 2019-07-28
+15:31:39.030 [main] INFO  fr.gda.dao.AbsenceParPersonneDao -
+				La liste des absences par département et année s'est bien faite
+15:31:39.031 [main] INFO  fr.gda.dao.AbsenceParPersonneDao -
+				La liste des absences par département et année s'est bien faite
+15:31:39.032 [main] INFO  fr.gda.dao.AbsenceParPersonneDao -
+				La liste des absences par département et année s'est bien faite
+15:31:39.032 [main] INFO  fr.gda.dao.AbsenceParPersonneDao -
+				La liste des absences par département et année s'est bien faite
+15:31:39.255 [main] INFO  fr.gda.dao.UtilisateurDao -
+				La récupéartion des utilisateurs par départemnets s'est bien faite
+15:31:39.256 [main] INFO  fr.gda.dao.UtilisateurDao -
+				La récupéartion des utilisateurs par départemnets s'est bien faite
+15:31:39.256 [main] INFO  fr.gda.dao.UtilisateurDao -
+				La récupéartion des utilisateurs par départemnets s'est bien faite
+15:31:39.507 [main] INFO  fr.gda.dao.UtilisateurDao -
+				Le département est bien récupéré
+15:33:05.742 [main] INFO  fr.gda.dao.AbsenceParPersonneDao -
+				La liste des absences par département et année s'est bien faite
+15:33:05.743 [main] INFO  fr.gda.dao.AbsenceParPersonneDao -
+				La liste des absences par département et année s'est bien faite
+15:33:05.744 [main] INFO  fr.gda.dao.AbsenceParPersonneDao -
+				La liste des absences par département et année s'est bien faite
+15:33:05.744 [main] INFO  fr.gda.dao.AbsenceParPersonneDao -
+				La liste des absences par département et année s'est bien faite
+15:33:05.974 [main] INFO  fr.gda.dao.UtilisateurDao -
+				La récupéartion des utilisateurs par départemnets s'est bien faite
+15:33:05.974 [main] INFO  fr.gda.dao.UtilisateurDao -
+				La récupéartion des utilisateurs par départemnets s'est bien faite
+15:33:05.975 [main] INFO  fr.gda.dao.UtilisateurDao -
+				La récupéartion des utilisateurs par départemnets s'est bien faite
+15:33:06.146 [main] INFO  fr.gda.dao.UtilisateurDao -
+				Le département est bien récupéré
+15:33:27.656 [main] INFO  fr.gda.dao.AbsenceParPersonneDao -
+				La liste des absences par département et année s'est bien faite
+15:33:27.657 [main] INFO  fr.gda.dao.AbsenceParPersonneDao -
+				La liste des absences par département et année s'est bien faite
+15:33:27.873 [main] INFO  fr.gda.dao.UtilisateurDao -
+				La récupéartion des utilisateurs par départemnets s'est bien faite
+15:33:27.873 [main] INFO  fr.gda.dao.UtilisateurDao -
+				La récupéartion des utilisateurs par départemnets s'est bien faite
+15:33:27.873 [main] INFO  fr.gda.dao.UtilisateurDao -
+				La récupéartion des utilisateurs par départemnets s'est bien faite
+15:33:28.043 [main] INFO  fr.gda.dao.UtilisateurDao -
+				Le département est bien récupéré
+15:35:10.806 [http-nio-8080-exec-4] INFO  f.gda.controller.ConnexionController -
+				Connexion avec email :  patrice.allardin@free.fr
+15:35:11.245 [http-nio-8080-exec-4] INFO  fr.gda.dao.UtilisateurDao -
+				Le mot de passe est correct
+15:35:11.247 [http-nio-8080-exec-4] INFO  fr.gda.dao.UtilisateurDao -
+				le profil est validé
+15:35:11.248 [http-nio-8080-exec-4] INFO  fr.gda.dao.UtilisateurDao -
+				le profil est validé
+15:35:11.251 [http-nio-8080-exec-4] INFO  fr.gda.dao.UtilisateurDao -
+				Le manager a bien été crée
+15:35:11.252 [http-nio-8080-exec-4] INFO  f.gda.controller.ConnexionController -
+				L'utilisateur est connecté en tant que manager
+15:35:14.922 [http-nio-8080-exec-5] INFO  fr.gda.dao.AbsenceParPersonneDao -
+				La récupération de la liste des absences s'est bien faite
+15:35:14.923 [http-nio-8080-exec-5] INFO  fr.gda.dao.UtilisateurDao -
+				L'utilisateur est bien créé
+15:35:55.120 [http-nio-8080-exec-10] INFO  f.gda.controller.ConnexionController -
+				Connexion avec email :  pat.allardin@gmail.com
+15:35:55.122 [http-nio-8080-exec-10] INFO  fr.gda.dao.UtilisateurDao -
+				Le mot de passe est correct
+15:35:55.123 [http-nio-8080-exec-10] INFO  fr.gda.dao.UtilisateurDao -
+				le profil est validé
+15:35:55.126 [http-nio-8080-exec-10] INFO  fr.gda.dao.UtilisateurDao -
+				l'employé a bien été créé
+15:35:55.127 [http-nio-8080-exec-10] INFO  f.gda.controller.ConnexionController -
+				L'utilisateur est connecté en tant qu'employé
+15:35:56.760 [http-nio-8080-exec-1] INFO  fr.gda.dao.AbsenceParPersonneDao -
+				La récupération de la liste des absences s'est bien faite
+15:35:56.761 [http-nio-8080-exec-1] INFO  fr.gda.dao.UtilisateurDao -
+				L'utilisateur est bien créé
+15:36:27.974 [http-nio-8080-exec-6] INFO  fr.gda.dao.UtilisateurDao -
+				L'utilisateur a bien été créé
+15:36:27.985 [http-nio-8080-exec-6] INFO  fr.gda.dao.AbsenceParPersonneDao -
+				La récupération de la liste des absences s'est bien faite
+15:36:27.990 [http-nio-8080-exec-6] INFO  fr.gda.dao.UtilisateurDao -
+				L'utilisateur est bien créé
+15:36:36.487 [http-nio-8080-exec-8] INFO  f.gda.controller.ConnexionController -
+				Connexion avec email :  patrice.allardin@free.fr
+15:36:36.488 [http-nio-8080-exec-8] INFO  fr.gda.dao.UtilisateurDao -
+				Le mot de passe est correct
+15:36:36.489 [http-nio-8080-exec-8] INFO  fr.gda.dao.UtilisateurDao -
+				le profil est validé
+15:36:36.491 [http-nio-8080-exec-8] INFO  fr.gda.dao.UtilisateurDao -
+				le profil est validé
+15:36:36.492 [http-nio-8080-exec-8] INFO  fr.gda.dao.UtilisateurDao -
+				Le manager a bien été crée
+15:36:36.493 [http-nio-8080-exec-8] INFO  f.gda.controller.ConnexionController -
+				L'utilisateur est connecté en tant que manager
+15:36:39.889 [http-nio-8080-exec-10] INFO  fr.gda.dao.AbsenceParPersonneDao -
+				La récupération de la liste des absences s'est bien faite
+15:36:39.892 [http-nio-8080-exec-10] INFO  fr.gda.dao.UtilisateurDao -
+				L'utilisateur est bien créé
+15:36:43.881 [http-nio-8080-exec-1] INFO  fr.gda.dao.AbsenceParPersonneDao -
+				La récupération de la liste des absences s'est bien faite
+15:36:43.885 [http-nio-8080-exec-1] INFO  fr.gda.dao.UtilisateurDao -
+				L'utilisateur est bien créé
+15:36:45.034 [http-nio-8080-exec-2] INFO  fr.gda.dao.AbsenceParPersonneDao -
+				La récupération de la liste des absences s'est bien faite
+15:36:45.036 [http-nio-8080-exec-2] INFO  fr.gda.dao.UtilisateurDao -
+				L'utilisateur est bien créé
+15:36:46.457 [http-nio-8080-exec-3] INFO  fr.gda.dao.AbsenceParPersonneDao -
+				La récupération de la liste des absences s'est bien faite
+15:36:46.460 [http-nio-8080-exec-3] INFO  fr.gda.dao.UtilisateurDao -
+				L'utilisateur est bien créé
+15:36:47.561 [http-nio-8080-exec-5] INFO  fr.gda.dao.AbsenceParPersonneDao -
+				La récupération de la liste des absences s'est bien faite
+15:36:47.564 [http-nio-8080-exec-5] INFO  fr.gda.dao.UtilisateurDao -
+				L'utilisateur est bien créé
+15:36:57.863 [http-nio-8080-exec-7] INFO  f.gda.controller.ConnexionController -
+				Connexion avec email :  pat.allardin@gmail.com
+15:36:57.864 [http-nio-8080-exec-7] INFO  fr.gda.dao.UtilisateurDao -
+				Le mot de passe est correct
+15:36:57.866 [http-nio-8080-exec-7] INFO  fr.gda.dao.UtilisateurDao -
+				le profil est validé
+15:36:57.868 [http-nio-8080-exec-7] INFO  fr.gda.dao.UtilisateurDao -
+				l'employé a bien été créé
+15:36:57.869 [http-nio-8080-exec-7] INFO  f.gda.controller.ConnexionController -
+				L'utilisateur est connecté en tant qu'employé
+15:36:59.736 [http-nio-8080-exec-8] INFO  fr.gda.dao.AbsenceParPersonneDao -
+				La récupération de la liste des absences s'est bien faite
+15:36:59.738 [http-nio-8080-exec-8] INFO  fr.gda.dao.UtilisateurDao -
+				L'utilisateur est bien créé
+15:37:03.035 [http-nio-8080-exec-10] INFO  fr.gda.dao.AbsenceParPersonneDao -
+				La récupération de la liste des absences s'est bien faite
+15:39:12.640 [http-nio-8080-exec-3] INFO  fr.gda.dao.AbsenceParPersonneDao -
+				La récupération de la liste des absences s'est bien faite
+15:39:12.650 [http-nio-8080-exec-3] INFO  fr.gda.dao.UtilisateurDao -
+				L'utilisateur est bien créé
+15:39:12.652 [http-nio-8080-exec-3] INFO  fr.gda.dao.AbsenceParPersonneDao -
+				La récupération de la liste des absences s'est bien faite
+15:40:31.185 [main] INFO  fr.gda.dao.AbsenceParPersonneDao -
+				Une absence en statut initale a été ajoutée : 24 1 5 2019-07-14 2019-07-14 INITIALE 
+15:40:31.187 [main] INFO  fr.gda.dao.AbsenceParPersonneDao -
+				Une absence en statut initale a été ajoutée : 25 2 5 2019-07-14 2019-07-14 INITIALE 
+15:40:31.187 [main] INFO  fr.gda.dao.AbsenceParPersonneDao -
+				Une absence en statut initale a été ajoutée : 26 3 5 2019-07-14 2019-07-14 INITIALE 
+15:40:31.187 [main] INFO  fr.gda.dao.AbsenceParPersonneDao -
+				Une absence en statut initale a été ajoutée : 27 4 5 2019-07-14 2019-07-14 INITIALE 
+15:40:31.187 [main] INFO  fr.gda.dao.AbsenceParPersonneDao -
+				Une absence en statut initale a été ajoutée : 23 2 1 2019-08-21 2019-08-23 INITIALE rtt
+15:40:58.389 [main] INFO  fr.gda.dao.AbsenceParPersonneDao -
+				Une absence en statut initale a été ajoutée : 24 1 5 2019-07-14 2019-07-14 INITIALE 
+15:40:58.391 [main] INFO  fr.gda.dao.AbsenceParPersonneDao -
+				Une absence en statut initale a été ajoutée : 25 2 5 2019-07-14 2019-07-14 INITIALE 
+15:40:58.391 [main] INFO  fr.gda.dao.AbsenceParPersonneDao -
+				Une absence en statut initale a été ajoutée : 26 3 5 2019-07-14 2019-07-14 INITIALE 
+15:40:58.391 [main] INFO  fr.gda.dao.AbsenceParPersonneDao -
+				Une absence en statut initale a été ajoutée : 27 4 5 2019-07-14 2019-07-14 INITIALE 
+15:40:58.392 [main] INFO  fr.gda.dao.AbsenceParPersonneDao -
+				Une absence en statut initale a été ajoutée : 23 2 1 2019-08-21 2019-08-23 INITIALE rtt
+15:44:31.716 [main] INFO  fr.gda.dao.AbsenceParPersonneDao -
+				Une absence en statut initale a été ajoutée : 24 1 5 2019-07-14 2019-07-14 INITIALE 
+15:44:31.718 [main] INFO  fr.gda.dao.AbsenceParPersonneDao -
+				Une absence en statut initale a été ajoutée : 25 2 5 2019-07-14 2019-07-14 INITIALE 
+15:44:31.718 [main] INFO  fr.gda.dao.AbsenceParPersonneDao -
+				Une absence en statut initale a été ajoutée : 26 3 5 2019-07-14 2019-07-14 INITIALE 
+15:44:31.718 [main] INFO  fr.gda.dao.AbsenceParPersonneDao -
+				Une absence en statut initale a été ajoutée : 27 4 5 2019-07-14 2019-07-14 INITIALE 
+15:44:31.718 [main] INFO  fr.gda.dao.AbsenceParPersonneDao -
+				Une absence en statut initale a été ajoutée : 23 2 1 2019-08-21 2019-08-23 INITIALE rtt
+15:46:36.681 [main] INFO  fr.gda.dao.AbsenceParPersonneDao -
+				Le statut a été mis à jour pour le congé 24
+15:46:36.688 [main] INFO  fr.gda.dao.UtilisateurDao -
+				Le nombre de jour de congé a bien été mis à jour
+15:47:04.445 [main] INFO  fr.gda.dao.AbsenceParPersonneDao -
+				Une absence en statut initale a été ajoutée : 25 2 5 2019-07-14 2019-07-14 INITIALE 
+15:47:04.448 [main] INFO  fr.gda.dao.AbsenceParPersonneDao -
+				Une absence en statut initale a été ajoutée : 26 3 5 2019-07-14 2019-07-14 INITIALE 
+15:47:04.448 [main] INFO  fr.gda.dao.AbsenceParPersonneDao -
+				Une absence en statut initale a été ajoutée : 27 4 5 2019-07-14 2019-07-14 INITIALE 
+15:47:04.448 [main] INFO  fr.gda.dao.AbsenceParPersonneDao -
+				Une absence en statut initale a été ajoutée : 23 2 1 2019-08-21 2019-08-23 INITIALE rtt
+15:47:04.461 [main] INFO  fr.gda.dao.AbsenceParPersonneDao -
+				Le statut a été mis à jour pour le congé 24
+15:47:04.462 [main] INFO  fr.gda.dao.UtilisateurDao -
+				Le nombre de jour de congé a bien été mis à jour
+15:47:55.769 [main] ERROR fr.gda.dao.UtilisateurDao -
+				La mise à jour s'est pas faite
+com.mysql.cj.jdbc.exceptions.MySQLTransactionRollbackException: Lock wait timeout exceeded; try restarting transaction
+	at com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:123)
+	at com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:97)
+	at com.mysql.cj.jdbc.exceptions.SQLExceptionsMapping.translateException(SQLExceptionsMapping.java:122)
+	at com.mysql.cj.jdbc.ClientPreparedStatement.executeInternal(ClientPreparedStatement.java:974)
+	at com.mysql.cj.jdbc.ClientPreparedStatement.executeUpdateInternal(ClientPreparedStatement.java:1113)
+	at com.mysql.cj.jdbc.ClientPreparedStatement.executeUpdateInternal(ClientPreparedStatement.java:1061)
+	at com.mysql.cj.jdbc.ClientPreparedStatement.executeLargeUpdate(ClientPreparedStatement.java:1381)
+	at com.mysql.cj.jdbc.ClientPreparedStatement.executeUpdate(ClientPreparedStatement.java:1046)
+	at fr.gda.dao.UtilisateurDao.ajouterRetirerJoursParTypeConge(UtilisateurDao.java:251)
+	at fr.gda.service.TraitementDemandes.main(TraitementDemandes.java:99)
+15:48:05.257 [main] INFO  fr.gda.dao.AbsenceParPersonneDao -
+				Une absence en statut initale a été ajoutée : 25 2 5 2019-07-14 2019-07-14 INITIALE 
+15:48:05.259 [main] INFO  fr.gda.dao.AbsenceParPersonneDao -
+				Une absence en statut initale a été ajoutée : 26 3 5 2019-07-14 2019-07-14 INITIALE 
+15:48:05.259 [main] INFO  fr.gda.dao.AbsenceParPersonneDao -
+				Une absence en statut initale a été ajoutée : 27 4 5 2019-07-14 2019-07-14 INITIALE 
+15:48:05.260 [main] INFO  fr.gda.dao.AbsenceParPersonneDao -
+				Une absence en statut initale a été ajoutée : 23 2 1 2019-08-21 2019-08-23 INITIALE rtt
+15:54:49.318 [main] INFO  fr.gda.dao.AbsenceParPersonneDao -
+				Une absence en statut initale a été ajoutée : 25 2 5 2019-07-14 2019-07-14 INITIALE 
+15:54:49.322 [main] INFO  fr.gda.dao.AbsenceParPersonneDao -
+				Une absence en statut initale a été ajoutée : 26 3 5 2019-07-14 2019-07-14 INITIALE 
+15:54:49.322 [main] INFO  fr.gda.dao.AbsenceParPersonneDao -
+				Une absence en statut initale a été ajoutée : 27 4 5 2019-07-14 2019-07-14 INITIALE 
+15:54:49.322 [main] INFO  fr.gda.dao.AbsenceParPersonneDao -
+				Une absence en statut initale a été ajoutée : 23 2 1 2019-08-21 2019-08-23 INITIALE rtt

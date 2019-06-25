@@ -228,7 +228,7 @@ public class UtilExcel {
 
 		// Lancement par main pour test
 		UtilExcel utilexcel = new UtilExcel();
-		utilexcel.exportExcel(6, 2019, 1);
+		utilexcel.exportExcel(8, 2019, 1);
 
 	}
 }
