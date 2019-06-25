@@ -45,7 +45,7 @@ public class RejeterDemandeController extends HttpServlet {
 
 		Integer nombreJoursRestants = utilisateurDao.recupererNombreJoursParTypeConge(abs.getIdUtil(),
 				abs.getIdAbsence());
-		utilisateurDao.ajouterRetirerJoursParTypeConge(idDemande, typeAbsence,
+		utilisateurDao.ajouterRetirerJoursParTypeConge(abs.getIdUtil(), typeAbsence,
 				nombreJoursRestants + nombreJoursARemettre);
 
 		Object userId = session.getAttribute("utilisateurId");
