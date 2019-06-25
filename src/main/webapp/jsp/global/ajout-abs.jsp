@@ -1,5 +1,5 @@
 <%@	page
-	import="java.util.List, fr.gda.controller.*, fr.gda.filter.*, fr.gda.model.*, fr.gda.dao.*"%>
+	import="java.util.List, fr.gda.controller.*, fr.gda.filter.*, fr.gda.model.*, fr.gda.dao.*, fr.gda.enumeration.*"%>
 <%@ page language="java" pageEncoding="UTF-8" isELIgnored="false"%>
 
 
@@ -22,6 +22,9 @@
 				<div  class="text-info mx-auto">
 				<p id="texteDateDebut">La date de début de congé ne peut être inférieur à demain </p>
 				</div>
+								<div  class="text-info mx-auto">
+				<p id="texteDateMaxDebut">La date de début de congé saisie est trop loin ! </p>
+				</div>
 			</div>
 
 			<div class="form-group row">
@@ -35,6 +38,9 @@
 				<div class="text-info mx-auto">
 				<p id="texteDateFin" >La date de fin de congé ne peut être inférieur à la date de début </p>
 				</div>
+												<div  class="text-info mx-auto">
+				<p id="texteDateMaxFin">La date de fin de congé saisie est trop loin ! </p>
+				</div>
 			</div>
 
 			<div class="form-group row">
@@ -44,9 +50,9 @@
 				<div class="col-sm-7 ">
 					<select class="custom-select" id="type" name="type" required>
 						<option value="">Type de congé</option>
-						<option value="2">Congé payé</option>
-						<option value="1">RTT</option>
-						<option value="3">Congé sans solde</option>
+						<option value="2"><%=TypeAbsence.CONGE_PAYE.getTypeAbsence() %></option>
+						<option value="1"><%=TypeAbsence.RTT.getTypeAbsence() %></option>
+						<option value="3"><%=TypeAbsence.CONGE_S_SOLDE.getTypeAbsence() %></option>
 					</select>
 				</div>
 			</div>
