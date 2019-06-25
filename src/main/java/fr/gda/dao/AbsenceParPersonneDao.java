@@ -188,6 +188,12 @@ public class AbsenceParPersonneDao {
 
 	}
 
+	/**
+	 * Ajout de jour ferié
+	 * 
+	 * @param date
+	 * @param motif
+	 */
 	public void addJourFerie(String date, String motif) {
 
 		// List<AbsenceParPersonne> jourFerie = new ArrayList<>();
@@ -234,6 +240,12 @@ public class AbsenceParPersonneDao {
 		}
 	}
 
+	/**
+	 * Ajout de RTT employeur
+	 * 
+	 * @param date
+	 * @param motif
+	 */
 	public void addRttEmployeur(String date, String motif) {
 
 		Connection conn = ConnexionManager.getInstance();
@@ -794,6 +806,15 @@ public class AbsenceParPersonneDao {
 		}
 	}
 
+	/**
+	 * méthode qui modifie un jour ferié ou rtt employeur grâce à la date
+	 * 
+	 * @param idConge
+	 * @param typeAbsence
+	 * @param dateDebut
+	 * @param ancienneDate
+	 * @param motif
+	 */
 	public void modifierFeries(Integer idConge, String typeAbsence, String dateDebut, String ancienneDate,
 			String motif) {
 		Connection conn = ConnexionManager.getInstance();
@@ -835,6 +856,13 @@ public class AbsenceParPersonneDao {
 
 	}
 
+	/**
+	 * Méthode qui valide que les dates de jours feriés et rtt employeurs ne se
+	 * chevauchent pas
+	 * 
+	 * @param dateDebut
+	 * @return
+	 */
 	public boolean validationDateFerie(String dateDebut) {
 
 		Connection conn = ConnexionManager.getInstance();
@@ -876,6 +904,13 @@ public class AbsenceParPersonneDao {
 		}
 	}
 
+	/**
+	 * Méthode qui valide que les dates de jours feriés et rtt employeurs ne se
+	 * chevauchent pas
+	 * 
+	 * @param dateDebut
+	 * @return
+	 */
 	public boolean validationDateFerieUpdate(String dateDebut) {
 
 		Connection conn = ConnexionManager.getInstance();
