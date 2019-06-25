@@ -37,7 +37,14 @@ public class ControlerCongeController extends HttpServlet {
 		Object userId = session.getAttribute("utilisateurId");
 		int utilisateurId = (int) userId;
 
-		List<AbsenceParPersonne> listeAbsences = absenceDao.afficherAbsencesParManager(utilisateurId);
+		List<AbsenceParPersonne> listeAbsences = null;
+		// Gestion du tri
+		String triColonnes = req.getParameter("Tri");
+		if (triColonnes == null) {
+			triColonnes = "DateDebutAsc";
+		}
+
+		listeAbsences = absenceDao.afficherAbsencesParManagerTrie(utilisateurId, triColonnes);
 
 		Utilisateur utilisateur = utilisateurDao.getUtilisateur(utilisateurId);
 
