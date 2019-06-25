@@ -798,6 +798,47 @@ public class AbsenceParPersonneDao {
 		}
 	}
 
+	public void modifierFeries(Integer idConge, String typeAbsence, String dateDebut, String ancienneDate,
+			String motif) {
+		Connection conn = ConnexionManager.getInstance();
+		PreparedStatement statement = null;
+
+		try {
+			conn.setAutoCommit(false);
+
+			statement = conn.prepareStatement(
+					"UPDATE  absence_personne SET id_absence= ?, date_debut=?, date_fin= ?, motif=?, statut= ? WHERE date_debut= ? ");
+			statement.setString(1, typeAbsence);
+			statement.setString(2, dateDebut);
+			statement.setString(3, dateDebut);
+			statement.setString(4, motif);
+			statement.setString(5, "INITIALE");
+			statement.setString(6, ancienneDate);
+
+			statement.executeUpdate();
+
+			conn.commit();
+
+		} catch (SQLException e) {
+			try {
+				conn.rollback();
+			} catch (SQLException e1) {
+				throw new TechnicalException("Le rollback n'a pas fonctionné", e);
+			}
+			throw new TechnicalException("L'ajout ne s'est pas fait", e);
+		} finally {
+			try {
+				if (statement != null) {
+					statement.close();
+				}
+			} catch (SQLException e) {
+
+				throw new TechnicalException("La fermeture ne s'est pas faite", e);
+			}
+		}
+
+	}
+
 	public boolean validationDateFerié(String dateDebut) {
 
 		Connection conn = ConnexionManager.getInstance();

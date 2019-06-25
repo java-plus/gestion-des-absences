@@ -39,7 +39,7 @@ public class AdminFerieRttEmpController extends HttpServlet {
 
 		if (absParPersDao.validationDateFerié(selectedDate)) {
 
-			if (selectedType.equals("ferié")) {
+			if (selectedType.equals("6")) {
 				absParPersDao.addJourFerie(selectedDate, selectedMotif);
 
 			} else {

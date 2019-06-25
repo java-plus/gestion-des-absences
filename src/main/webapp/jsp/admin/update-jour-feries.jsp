@@ -10,22 +10,21 @@
 <%@page import="java.time.format.DateTimeFormatter"%>
 <%@page import="java.time.Year"%>
 <%@page import="java.time.Instant"%>
-<%@page import="fr.gda.enumeration.*" %>
 <%@	page
 	import="java.util.List, fr.gda.controller.*, fr.gda.filter.*, fr.gda.model.*, fr.gda.dao.*"%>
 <%@ page language="java" pageEncoding="UTF-8" isELIgnored="false"%>
 
 <div class="container my-5 mx-auto">
-	<h1 class="d-flex justify-content-center my-5">Nouveau jour ferié
+	<h1 class="d-flex justify-content-center my-5">Modifier jour ferié
 		/ RTT employeur</h1>
 
-	<form method="post" class=" col-sm-5 mx-auto" action="adminJFerieRttEmp">
+	<form method="post" class=" col-sm-5 mx-auto" action="updateFerie?update=<%=(Integer)request.getAttribute("idConge")%>">
 		<div class="form-group row">
 			<div class="col-sm-5">
 				<label for="date">Date</label>
 			</div>
 			<div class="col-sm-7">
-				<input type="date" class="form-control" name="selectedDate" id="date">
+				<input type="date" class="form-control" name="dateDebut" id="date" value="<%=(String) request.getAttribute("dateDebut") %>">
 			</div>
 			<div  class="text-info mx-auto">
 				<p id="texteDateDebut">La date de début de congé ne peut être inférieur à demain </p>
@@ -37,7 +36,7 @@
 				<label for="typeJour">Type de jour</label>
 			</div>
 			<div class="col-sm-7">
-				<select class="form-control" name="selectedType" id="typeJour" required>
+				<select class="form-control" name="type" id="typeJour" required>
 					<option value="">(Type de jour)</option>
 					<option value="6"><%=TypeAbsence.FERIE.getTypeAbsence()%></option>
 					<option value="5"><%=TypeAbsence.RTT_EMPLOYEUR.getTypeAbsence()%></option>
@@ -50,7 +49,7 @@
 				<label for="commentaire">Commentaires</label>
 			</div>
 			<div class="col-sm-7">
-				<input type="text" class="form-control" name="selectedMotif" id="commentaire">
+				<input type="text" class="form-control" name="motif" id="commentaire" placeholder="<%=(String) request.getAttribute("motif") %>">
 			</div>
 			<div  class="text-info mx-auto">
 				<p id="texteMotif">Le motif est obligatoire pour les jours feriés</p>

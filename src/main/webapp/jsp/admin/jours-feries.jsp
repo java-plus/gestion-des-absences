@@ -19,7 +19,7 @@
 		function selectAnnee() {
 			console.log(document.forms[1]);
 			document.location.href = "http://localhost:8080/gda/controller/jFerieRttEmp?selectedAn="
-				+ document.forms["joursFeries"].anSelect.value;
+					+ document.forms["joursFeries"].anSelect.value;
 		}
 	</script>
 
@@ -109,25 +109,28 @@
 				int typeConge = liste.getIdAbsence();
 				String jour = liste.getDateDebut().getDayOfWeek().getDisplayName(TextStyle.FULL, Locale.FRANCE);
 				String jourMaj = jour.substring(0, 1).toUpperCase() + jour.substring(1);
-				if ((typeConge == 6 || typeConge == 5)
-						&& an.equals(liste.getDateDebut().toString().substring(0, 4))
+				if ((typeConge == 6 || typeConge == 5) && an.equals(liste.getDateDebut().toString().substring(0, 4))
 						&& (liste.getStatut().equals("VALIDEE") || liste.getStatut().equals("INITIALE"))) {
 	%>
-	<div class="row p-2 my-1 ligneSuppr<%=liste.getIdAbsence()%>_<%=liste.getDateDebut()%>">
+	<div
+		class="row p-2 my-1 ligneSuppr<%=liste.getIdAbsence()%>_<%=liste.getDateDebut()%>">
 		<div class="col-sm-3 mx-auto"><%=liste.afficherDate(liste.getDateDebut())%></div>
 		<div class="col-sm-2 mx-auto"><%=liste.typeConge(typeConge)%></div>
 		<div class="col-sm-2 mx-auto"><%=jourMaj%></div>
 		<div class="col-sm-2 mx-auto"><%=liste.getMotif()%></div>
 		<%
-			if (liste.getStatut().equals("INITIALE")) {
+			if (liste.getStatut().equals("INITIALE")
+								|| (liste.getStatut().equals("VALIDEE") && typeConge == 6)) {
 		%>
 		<div class="col-sm-2 mx-auto">
-			<button type="button" class="btn btn-dark btn-modif bg-warning"
-				data-toggle="" data-target="" id="<%=liste.getId()%>">
-				<i data-feather="edit-2">modifier</i>
-			</button>
+			<a href="updateFerie?update=<%=liste.getId()%>"><button
+					type="button" class="btn btn-dark btn-modif bg-warning"
+					data-toggle="" data-target="" id="btn-modif">
+					<i data-feather="edit-2">modifier</i>
+				</button></a>
 			<button type="button" class="btn btn-dark btn-supp bg-danger"
-				data-toggle="modal" data-target="#modal" id="<%=liste.getIdAbsence()%>_<%=liste.getDateDebut()%>">
+				data-toggle="modal" data-target="#modal"
+				id="<%=liste.getIdAbsence()%>_<%=liste.getDateDebut()%>">
 				<i data-feather="trash">supprimer</i>
 			</button>
 		</div>
