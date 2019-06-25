@@ -37,7 +37,7 @@ public class AfficherVuesSynthController extends HttpServlet {
 		List<Departement> listeDepartements = utilisateurDao.getTousLesDepartements();
 		req.setAttribute("listeDepartements", listeDepartements);
 
-		// récuperationd des valeurs indiquées par le filtre
+		// récuperation des valeurs indiquées par le filtre
 		Integer numeroMois = 8;
 		Integer annee = 2019;
 		Integer idDepartement = 1;
@@ -45,7 +45,7 @@ public class AfficherVuesSynthController extends HttpServlet {
 		FormatageListAffichageVues formatageListVue = new FormatageListAffichageVues();
 
 		String[] ListNoms = formatageListVue.constuireArrayNoms(idDepartement);
-		String[][] ListjourMois = formatageListVue.construireArrayJoursMois(numeroMois, annee, idDepartement);
+		String[][] ListjourMois = formatageListVue.construireArrayJoursMoisAll(numeroMois, annee, idDepartement);
 
 		req.setAttribute("ListjourMois", ListjourMois);
 		req.setAttribute("ListNoms", ListNoms);

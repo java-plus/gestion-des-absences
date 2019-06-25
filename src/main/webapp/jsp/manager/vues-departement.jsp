@@ -3,13 +3,9 @@ import="java.util.List, java.util.ArrayList, fr.gda.model.*, fr.gda.dao.*"%>
 
 
 <%
-	
-		
-		String[] ListNoms = (String[]) request.getAttribute("ListNoms");
-		String[][] ListjourMois = (String[][]) request.getAttribute("ListjourMois");
-		
-		
-	%>
+	String[] ListNoms = (String[]) request.getAttribute("ListNoms");
+	String[][] ListjourMois = (String[][]) request.getAttribute("ListjourMois");
+%>
 
 
 
@@ -19,7 +15,7 @@ import="java.util.List, java.util.ArrayList, fr.gda.model.*, fr.gda.dao.*"%>
 
 
 	<%-- include des filtres --%>
-	<%@ include file="vues-filtres.jsp"%>
+	<%@ include file="../global/vues-filtres.jsp"%>
 	<%-- -------------------- --%>
 
 	<div class="row py-3 bg-primary">
@@ -56,7 +52,7 @@ import="java.util.List, java.util.ArrayList, fr.gda.model.*, fr.gda.dao.*"%>
 				
 				
 				String valeur = ListjourMois[i][k];
-				String congeEtat ="";
+				String congeEtat = "";
 				String maClasse = "cal-vue-dept text-center py-2 ";
 				
 				String classeAttente = "attente";
@@ -70,8 +66,6 @@ import="java.util.List, java.util.ArrayList, fr.gda.model.*, fr.gda.dao.*"%>
 					String[] parts = valeur.split("-");
 					valeur = parts[0];
 					congeEtat = parts[1];
-					
-					
 					
 					
 					if (congeEtat.equals("REJETEE")) {
@@ -98,14 +92,11 @@ import="java.util.List, java.util.ArrayList, fr.gda.model.*, fr.gda.dao.*"%>
 				<div class="<%= maClasse %>"><%= valeur %></div>
 				<%
 				
-				
-				
-				
 			}
+			
 			%>
 		
-			
-			
+	
 		</div>
 	</div>
 	

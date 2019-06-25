@@ -52,7 +52,45 @@
 	<%-- chargement des js de JQuery et Bootsrap et feather --%>
 	<%@ include file="jsp/global/load.jsp"%>
 
-
+<script>
+	
+		$(document).ready(function() {
+			
+			<%-- DEBUT ---  script pour gerer les requetes envoyées par le filtre --%>			
+	
+			$( "#form-filtres" ).on( "submit", function(event) {
+				  event.preventDefault();
+				  var dataForm  = $(this).serialize();
+				  
+				  $.ajax({
+	 					method : "POST",
+	 					url : "afficherVueDepart?vue=collab",
+	 					data : dataForm,
+	 					dataType : "json"
+	 					
+	 				}).done(function( result, status ) {
+	 					
+	 					
+	 					console.log("departeemnt : " + result[0].departement);
+	 					console.log("mois = " + result[0].mois);
+	 					console.log("annee = " + result[0].annee);
+	 				  }).fail(function(result, status) {
+	 					  
+	 					 console.log("fail : " + result + " / "+ status);
+	 					 
+					  });
+				  
+				  
+				  
+	 				  
+			});
+				
+			
+			<%-- FIN ---  script pour gerer les requetes envoyées par le filtre --%>
+	
+	
+		})
+	</script>
 </body>
 
 </html>

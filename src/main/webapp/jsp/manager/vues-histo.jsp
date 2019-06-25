@@ -8,10 +8,12 @@
 
 
 	<%-- include des filtres --%>
-	<%@ include file="vues-filtres.jsp" %>
+	<%@ include file="../global/vues-filtres.jsp" %>
 	
 	
-	<canvas id="myChart" width="400" height="400"></canvas>
+	<div>
+		<canvas id="myChart" width="400" height="400"></canvas>
+	</div>
 	
 
 
