@@ -8,7 +8,7 @@
 	</appender>
 <!-- 	redirection vers un fichier -->
 	<appender name="FILE" class="ch.qos.logback.core.FileAppender">
-		<file>C:\Users\Cécile Peyras\Documents\workspace-sts-3.8.4.RELEASE\gestion-des-absences\app.log</file>
+		<file>${MY_HOME}\app.log</file>
 		<append>true</append>
 		<immediateFlush>true</immediateFlush>
 		<encoder>
