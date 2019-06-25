@@ -336,6 +336,83 @@ public class AbsenceParPersonneDao {
 	}
 
 	/**
+	 * méthode qui retourne la liste des absences pour une personne donnée,
+	 * triée
+	 * 
+	 * @param idUtilisateur
+	 * @param ordreTri
+	 * @return
+	 */
+	public List<AbsenceParPersonne> afficherAbsencesPersonneTrie(int idUtilisateur, String ordreTri) {
+
+		List<AbsenceParPersonne> listeAbsences = new ArrayList<>();
+
+		Connection conn = ConnexionManager.getInstance();
+		PreparedStatement statement = null;
+		ResultSet curseur = null;
+
+		try {
+			conn.setAutoCommit(false);
+			if (ordreTri.equals("DateDebutAsc")) {
+				statement = conn
+						.prepareStatement("SELECT * FROM absence_personne WHERE id_util = ? ORDER BY date_debut ASC");
+			} else if (ordreTri.equals("DateDebutDesc")) {
+				statement = conn
+						.prepareStatement("SELECT * FROM absence_personne WHERE id_util = ? ORDER BY date_debut DESC");
+			} else if (ordreTri.equals("DateFinAsc")) {
+				statement = conn
+						.prepareStatement("SELECT * FROM absence_personne WHERE id_util = ? ORDER BY date_fin ASC");
+			} else if (ordreTri.equals("DateFinDesc")) {
+				statement = conn
+						.prepareStatement("SELECT * FROM absence_personne WHERE id_util = ? ORDER BY date_fin DESC");
+			} else if (ordreTri.equals("StatutAsc")) {
+				statement = conn
+						.prepareStatement("SELECT * FROM absence_personne WHERE id_util = ? ORDER BY statut ASC");
+			} else if (ordreTri.equals("StatutDesc")) {
+				statement = conn
+						.prepareStatement("SELECT * FROM absence_personne WHERE id_util = ? ORDER BY statut DESC");
+			}
+
+			statement.setInt(1, idUtilisateur);
+
+			curseur = statement.executeQuery();
+
+			conn.commit();
+
+			while (curseur.next()) {
+				Integer id = curseur.getInt("id");
+				Integer idAbsence = curseur.getInt("id_absence");
+				LocalDate dateDebut = curseur.getDate("date_debut").toLocalDate();
+				LocalDate dateFin = curseur.getDate("date_fin").toLocalDate();
+				String statut = curseur.getString("statut");
+				String motif = curseur.getString("motif");
+
+				listeAbsences
+						.add(new AbsenceParPersonne(id, idUtilisateur, idAbsence, dateDebut, dateFin, statut, motif));
+			}
+
+			return listeAbsences;
+		} catch (SQLException e) {
+			try {
+				conn.rollback();
+			} catch (SQLException e1) {
+				throw new TechnicalException("Le rollback n'a pas fonctionné", e);
+			}
+			throw new TechnicalException("La récupération des données ne s'est pas faite", e);
+		} finally {
+			try {
+				if (statement != null) {
+					statement.close();
+				}
+			} catch (SQLException e) {
+
+				throw new TechnicalException("La fermeture ne s'est pas faite", e);
+			}
+		}
+
+	}
+
+	/**
 	 * méthode qui retourne une absence donnée
 	 * 
 	 * @param idDemande
@@ -640,12 +717,13 @@ public class AbsenceParPersonneDao {
 	}
 
 	/**
-	 * méthode qui retourne la liste des absences pour un manager
+	 * méthode qui retourne la liste des absences pour un manager, triée
 	 * 
 	 * @param idManager
+	 * @param ordreTri
 	 * @return Liste d'absences par personne
 	 */
-	public List<AbsenceParPersonne> afficherAbsencesParManager(int idManager) {
+	public List<AbsenceParPersonne> afficherAbsencesParManagerTrie(int idManager, String ordreTri) {
 
 		List<AbsenceParPersonne> listeAbsencesManager = new ArrayList<>();
 
@@ -655,8 +733,26 @@ public class AbsenceParPersonneDao {
 
 		try {
 			conn.setAutoCommit(false);
-			statement = conn.prepareStatement(
-					"SELECT AP.* FROM absence_personne AP INNER JOIN utilisateur UT ON AP.id_util = UT.id WHERE id_hierarchie = ? AND statut = 'EN_ATTENTE_VALIDATION' ORDER BY date_debut");
+			if (ordreTri.equals("DateDebutAsc")) {
+				statement = conn.prepareStatement(
+						"SELECT AP.* FROM absence_personne AP INNER JOIN utilisateur UT ON AP.id_util = UT.id WHERE id_hierarchie = ? AND statut = 'EN_ATTENTE_VALIDATION' ORDER BY date_debut ASC");
+			} else if (ordreTri.equals("DateDebutDesc")) {
+				statement = conn.prepareStatement(
+						"SELECT AP.* FROM absence_personne AP INNER JOIN utilisateur UT ON AP.id_util = UT.id WHERE id_hierarchie = ? AND statut = 'EN_ATTENTE_VALIDATION' ORDER BY date_debut DESC");
+			} else if (ordreTri.equals("DateFinAsc")) {
+				statement = conn.prepareStatement(
+						"SELECT AP.* FROM absence_personne AP INNER JOIN utilisateur UT ON AP.id_util = UT.id WHERE id_hierarchie = ? AND statut = 'EN_ATTENTE_VALIDATION' ORDER BY date_fin ASC");
+			} else if (ordreTri.equals("DateFinDesc")) {
+				statement = conn.prepareStatement(
+						"SELECT AP.* FROM absence_personne AP INNER JOIN utilisateur UT ON AP.id_util = UT.id WHERE id_hierarchie = ? AND statut = 'EN_ATTENTE_VALIDATION' ORDER BY date_fin DESC");
+			} else if (ordreTri.equals("NomAsc")) {
+				statement = conn.prepareStatement(
+						"SELECT AP.* FROM absence_personne AP INNER JOIN utilisateur UT ON AP.id_util = UT.id WHERE id_hierarchie = ? AND statut = 'EN_ATTENTE_VALIDATION' ORDER BY UT.prenom ASC, UT.nom ASC");
+			} else if (ordreTri.equals("NomDesc")) {
+				statement = conn.prepareStatement(
+						"SELECT AP.* FROM absence_personne AP INNER JOIN utilisateur UT ON AP.id_util = UT.id WHERE id_hierarchie = ? AND statut = 'EN_ATTENTE_VALIDATION' ORDER BY UT.prenom DESC, UT.nom DESC");
+			}
+
 			statement.setInt(1, idManager);
 
 			curseur = statement.executeQuery();
