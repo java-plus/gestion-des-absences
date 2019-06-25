@@ -8,7 +8,9 @@
 	</appender>
 <!-- 	redirection vers un fichier -->
 	<appender name="FILE" class="ch.qos.logback.core.FileAppender">
+
 		<file>${MY_HOME}\app.log</file>
+
 		<append>true</append>
 		<immediateFlush>true</immediateFlush>
 		<encoder>
@@ -24,4 +26,3 @@
 		<appender-ref ref="FILE" />
 	</root>
 </configuration>
-

@@ -50,6 +50,15 @@
 				if (liste.getIdAbsence() == 6 || liste.getIdAbsence() == 5) {
 					continue;
 				}
+				
+				
+				String statut = null;
+					if(liste.getStatut().equals("EN_ATTENTE_VALIDATION")){
+						statut = "EN_ATTENTE"; 
+					} else {
+						statut = liste.getStatut(); 
+					}
+			
 	%>
 
 	<!-- 	Remplissage des cases du tableau avec les infos de la boucle -->
@@ -58,7 +67,7 @@
 		<div class="col-sm-3"><%=liste.afficherDate(liste.getDateDebut())%></div>
 		<div class="col-sm-3"><%=liste.afficherDate(liste.getDateFin())%></div>
 		<div class="col-sm-3"><%=liste.typeConge(liste.getIdAbsence())%></div>
-		<div class="col-sm-2"><%=liste.getStatut()%></div>
+		<div class="col-sm-2"><%=statut %></div>
 		<div class="col-sm-1 ">
 
 			<!-- 		Affichage des boutons modifier / supprimer en fonction du statut -->
