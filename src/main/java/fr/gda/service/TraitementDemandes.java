@@ -96,7 +96,10 @@ public class TraitementDemandes {
 				// de RTT.
 				abs.setStatut("VALIDEE");
 				absenceParPersonneDao.modifierStatut(abs.getId(), "VALIDEE");
-				utilisateurDao.ajouterRetirerJoursParTypeConge(abs.getIdUtil(), 1, 1l);
+				Integer nombreJoursRestantsRTTPourEmployeur = utilisateurDao
+						.recupererNombreJoursParTypeConge(abs.getIdUtil(), 1);
+				utilisateurDao.ajouterRetirerJoursParTypeConge(abs.getIdUtil(), 1,
+						(Integer) nombreJoursRestantsRTTPourEmployeur - 1l);
 
 			}
 
