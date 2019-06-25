@@ -1334,3 +1334,19 @@
 				Le congé a bien été supprimé, id du congé : 117
 17:12:11.903 [http-nio-8080-exec-7] INFO  f.g.c.AfficherCongeController -
 				Le congé a été bien supprimé : idCongé :  117
+17:24:51.534 [http-nio-8080-exec-8] INFO  f.gda.controller.ConnexionController -
+				Connexion avec email :  cecile@test.fr
+17:24:52.047 [http-nio-8080-exec-8] INFO  fr.gda.dao.UtilisateurDao -
+				Le mot de passe est correct
+17:24:52.049 [http-nio-8080-exec-8] INFO  fr.gda.dao.UtilisateurDao -
+				le profil est validé
+17:24:52.050 [http-nio-8080-exec-8] INFO  fr.gda.dao.UtilisateurDao -
+				le profil est validé
+17:24:52.052 [http-nio-8080-exec-8] INFO  fr.gda.dao.UtilisateurDao -
+				Le manager a bien été crée
+17:24:52.053 [http-nio-8080-exec-8] INFO  f.gda.controller.ConnexionController -
+				L'utilisateur est connecté en tant que manager
+17:24:53.774 [http-nio-8080-exec-9] INFO  fr.gda.dao.UtilisateurDao -
+				L'utilisateur est bien créé
+17:24:53.775 [http-nio-8080-exec-9] INFO  f.g.c.AfficherCongeController -
+				Affichage des congés de l'utilisateur : fr.gda.model.Manager@64e7e06c
