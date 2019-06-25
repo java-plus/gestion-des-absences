@@ -5,3 +5,5 @@
 .classpath
 database.properties
 *.xlsx
+logback.xml
+app.log
