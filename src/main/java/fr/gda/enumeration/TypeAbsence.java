@@ -2,8 +2,8 @@ package fr.gda.enumeration;
 
 public enum TypeAbsence {
 
-	RTT("RTT"), CONGE_PAYE("congé payé"), CONGE_S_SOLDE("congé sans solde"), MISSION("mission"), RTT_EMPLOYEUR(
-			"RTT employeur"), FERIE("ferié");
+	RTT("RTT"), CONGE_PAYE("Congé payé"), CONGE_S_SOLDE("Congé sans solde"), MISSION("Mission"), RTT_EMPLOYEUR(
+			"RTT employeur"), FERIE("Ferié");
 
 	/** type : String : type d'absence possible */
 	private String typeAbsence;
