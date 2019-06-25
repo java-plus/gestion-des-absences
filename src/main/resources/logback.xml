@@ -8,7 +8,11 @@
 	</appender>
 <!-- 	redirection vers un fichier -->
 	<appender name="FILE" class="ch.qos.logback.core.FileAppender">
+<<<<<<< HEAD
 		<file>C:\Users\KHARBECHE Bilel\Documents\workspace-sts-3.8.4.RELEASE\projet-absence\gestion-des-absences/app.log</file>
+=======
+		<file>C:\Users\Patrice\Documents\workspace-sts-3.8.4.RELEASE\gestion-des-absences\app.log</file>
+>>>>>>> 1c7ef1ee10a05d42dfeae2d56d7c6b3962298d9f
 		<append>true</append>
 		<immediateFlush>true</immediateFlush>
 		<encoder>
