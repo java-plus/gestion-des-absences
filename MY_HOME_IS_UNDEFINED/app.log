@@ -1,0 +1,10 @@
+10:25:11.759 [main] INFO  fr.gda.dao.AbsenceParPersonneDao -
+				Une absence en statut initale a été ajoutée : 49 3 1 2019-09-23 2019-09-27 INITIALE rtt
+10:25:11.767 [main] INFO  fr.gda.dao.UtilisateurDao -
+				la récupération du nombre de jour par type de congé s'est bien faite
+10:25:11.768 [main] INFO  fr.gda.dao.AbsenceParPersonneDao -
+				Le statut a été mis à jour pour le congé 49
+10:25:11.775 [main] INFO  fr.gda.dao.UtilisateurDao -
+				Le nombre de jour de congé a bien été mis à jour
+10:25:11.784 [main] INFO  fr.gda.dao.AbsenceParPersonneDao -
+				Récupération des infos pour mail au manager réussie.
