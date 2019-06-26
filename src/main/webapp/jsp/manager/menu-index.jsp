@@ -23,11 +23,11 @@
 						href="login.jsp">Accueil<span class="sr-only">(current)</span></a></li>
 					<li class="nav-item"><a class="nav-link" href="controller/afficherConges">Gestion
 							des absences</a></li>
-					<li class="nav-item"><a class="nav-link" href="controller/planning-abs.jsp">Planning
+					<li class="nav-item"><a class="nav-link" href="controller/afficherPlanningAbs">Planning
 							des absences</a></li>
 					<li class="nav-item"><a class="nav-link" href="controller/validerConges">Validation
 							demandes</a></li>
-					<li class="nav-item"><a class="nav-link" href="controller/#">Vues
+					<li class="nav-item"><a class="nav-link" href="controller/afficherVueDepart">Vues
 							synthétiques</a></li>
 					<li class="nav-item"><a class="nav-link" href="controller/jFerieRttEmp">Jours
 							fériés</a></li>

@@ -1,4 +1,5 @@
-<%@ page language="java" pageEncoding="UTF-8" isELIgnored="false"%>
+<%@ page language="java" pageEncoding="UTF-8" isELIgnored="false" 
+import="java.util.List, fr.gda.controller.*, fr.gda.filter.*, fr.gda.model.*, fr.gda.dao.*, java.time.LocalDate"%>
 
 <!DOCTYPE html>
 <html lang="fr">
@@ -32,25 +33,65 @@
 
 
 	<% 
-		if (monProfil == "manager") { 
+// 		if (((String)request.getAttribute("monProfil")).equals("manager")) { 
 		%>
-	<%@ include file="manager/menu.jsp"%>
+
+	<%@ include file="jsp/manager/menu.jsp"%>
+
 	<% 
-		} else if (monProfil == "employe") {
+// 		} else {
 		%>
-	<%@ include file="employe/menu.jsp"%>
-	} %>
+<%-- 	<%@ include file="jsp/employe/menu-index.jsp"%> --%>
+<%-- 	<% } %> --%>
 
 
 
 
 	<%-- include du contenu --%>
-	<%@ include file="global/planning-abs.jsp"%>
+	<%@ include file="jsp/global/planning-abs.jsp"%>
 
 	<%-- chargement des js de JQuery et Bootsrap et feather --%>
-	<%@ include file="global/load.jsp"%>
+	<%@ include file="jsp/global/load.jsp"%>
 
-
+<script>
+	
+		$(document).ready(function() {
+			
+			<%-- DEBUT ---  script pour gerer les requetes envoyées par le filtre --%>			
+	
+			$( "#form-filtres" ).on( "submit", function(event) {
+				  event.preventDefault();
+				  var dataForm  = $(this).serialize();
+				  
+				  $.ajax({
+	 					method : "POST",
+	 					url : "afficherVueDepart?vue=collab",
+	 					data : dataForm,
+	 					dataType : "json"
+	 					
+	 				}).done(function( result, status ) {
+	 					
+	 					
+	 					console.log("departeemnt : " + result[0].departement);
+	 					console.log("mois = " + result[0].mois);
+	 					console.log("annee = " + result[0].annee);
+	 				  }).fail(function(result, status) {
+	 					  
+	 					 console.log("fail : " + result + " / "+ status);
+	 					 
+					  });
+				  
+				  
+				  
+	 				  
+			});
+				
+			
+			<%-- FIN ---  script pour gerer les requetes envoyées par le filtre --%>
+	
+	
+		})
+	</script>
 </body>
 
 </html>
