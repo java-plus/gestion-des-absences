@@ -14,6 +14,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import fr.gda.dao.AbsenceParPersonneDao;
 import fr.gda.dao.UtilisateurDao;
 import fr.gda.model.AbsenceParPersonne;
@@ -27,6 +30,9 @@ import fr.gda.model.Utilisateur;
  */
 @WebServlet(urlPatterns = "/controller/adminJFerieRttEmp")
 public class AdminFerieRttEmpController extends HttpServlet {
+
+	/** SERVICE_LOG : Logger */
+	private static final Logger SERVICE_LOG = LoggerFactory.getLogger(AdminFerieRttEmpController.class);
 
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -91,12 +97,15 @@ public class AdminFerieRttEmpController extends HttpServlet {
 				req.setAttribute("afficherConge", listeAbsences);
 				req.setAttribute("afficherTypeConge", typeConge);
 				req.setAttribute("utilisateur", utilisateur);
+				SERVICE_LOG.info("Le jour férié/RTT employeur a été ajouté");
 
 				RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/jours-feries.jsp");
 				dispatcher.forward(req, resp);
 			} else {
 				erreurConnexion = "erreur";
 				req.setAttribute("erreur", erreurConnexion);
+
+				SERVICE_LOG.error("Le jour férié/RTT employer n'a pas pu être ajouter car il chevauche un autre");
 
 				RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/ajout-feries.jsp");
 				dispatcher.forward(req, resp);
@@ -126,6 +135,8 @@ public class AdminFerieRttEmpController extends HttpServlet {
 		String dateConge = elements[1];
 
 		absenceDao.SupprimerCongesAll(idConge, dateConge);
+
+		SERVICE_LOG.info("Le jour férié/RTT employeur a été supprimé");
 
 		resp.getWriter().append("<p>Le congé a bien été supprimé !</p>");
 
