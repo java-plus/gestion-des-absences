@@ -51,6 +51,12 @@ public class AbsenceParPersonne {
 		this.motif = motif;
 	}
 
+	/**
+	 * méthode qui convertit un id de congé en nom du congé
+	 * 
+	 * @param idConge
+	 * @return
+	 */
 	public String typeConge(int idConge) {
 
 		String typeConge = null;

@@ -19,9 +19,16 @@ import fr.gda.dao.UtilisateurDao;
 import fr.gda.model.AbsenceParPersonne;
 import fr.gda.model.Utilisateur;
 
+/**
+ * Classe qui gère l'ajout des congés
+ * 
+ * @author Cécile Peyras
+ *
+ */
 @WebServlet(urlPatterns = "/controller/ajoutConges/*")
 public class AjoutCongeController extends HttpServlet {
 
+	/** SERVICE_LOG : Logger */
 	private static final Logger SERVICE_LOG = LoggerFactory.getLogger(AjoutCongeController.class);
 
 	@Override

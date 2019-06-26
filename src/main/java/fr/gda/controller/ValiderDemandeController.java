@@ -22,6 +22,7 @@ import fr.gda.model.Utilisateur;
 @WebServlet(urlPatterns = "/controller/validerDemande/*")
 public class ValiderDemandeController extends HttpServlet {
 
+	/** SERVICE_LOG : Logger */
 	private static final Logger SERVICE_LOG = LoggerFactory.getLogger(ValiderDemandeController.class);
 
 	@Override

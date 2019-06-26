@@ -28,6 +28,7 @@ import fr.gda.model.Utilisateur;
 @WebServlet(urlPatterns = "/controller/rejeterDemande/*")
 public class RejeterDemandeController extends HttpServlet {
 
+	/** SERVICE_LOG : Logger */
 	private static final Logger SERVICE_LOG = LoggerFactory.getLogger(ControlerCongeController.class);
 
 	@Override

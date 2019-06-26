@@ -27,6 +27,7 @@ import fr.gda.model.Manager;
 @WebServlet(urlPatterns = "/connexion/*")
 public class ConnexionController extends HttpServlet {
 
+	/** SERVICE_LOG : Logger */
 	private static final Logger SERVICE_LOG = LoggerFactory.getLogger(ConnexionController.class);
 
 	@Override

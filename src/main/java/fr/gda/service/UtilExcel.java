@@ -33,6 +33,7 @@ import fr.gda.model.Utilisateur;
 
 public class UtilExcel {
 
+	/** fileName : String */
 	private String fileName = "ExportAbsences";
 
 	/** Méthode d'export Excel */

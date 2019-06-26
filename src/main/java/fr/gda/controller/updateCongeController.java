@@ -19,9 +19,16 @@ import fr.gda.dao.UtilisateurDao;
 import fr.gda.model.AbsenceParPersonne;
 import fr.gda.model.Utilisateur;
 
+/**
+ * Classe qui sert à la mise à jour des congés
+ * 
+ * @author Cécile Peyras
+ *
+ */
 @WebServlet(urlPatterns = "/controller/updateConges/*")
 public class updateCongeController extends HttpServlet {
 
+	/** SERVICE_LOG : Logger */
 	private static final Logger SERVICE_LOG = LoggerFactory.getLogger(AfficherCongeController.class);
 
 	@Override
