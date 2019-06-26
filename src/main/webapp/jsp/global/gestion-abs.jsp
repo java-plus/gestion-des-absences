@@ -10,7 +10,7 @@
 
 	<h1>Gestion des absences</h1>
 
-	<div class="row p-2 bg-primary">
+	<div class="row p-2 bg-dark ">
 		<div class="col-sm-3 ">
 			Date de début
  								<a id="DateDebutAsc" href="afficherConges?Tri=DateDebutAsc" style="color:white"><i data-feather="chevron-down">Trier</i></a>
@@ -123,7 +123,7 @@
 <div class="container">
 	Demander une absence
 	<a href="ajoutConges?ajout=add">
-	<button class="btn btn-lg btn-outline-primary" type="button">créer</button>
+	<button class="btn btn-lg btn-dark" type="button">créer</button>
 	</a>
 </div>
 
