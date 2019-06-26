@@ -60,7 +60,7 @@
 	</div>
 
 
-	<div class="row p-2 my-1 bg-primary">
+	<div class="row p-2 my-1 bg-dark font-weight-bold  rounded">
 
 		<div class="col-sm-3 d-flex align-items-center mx-auto">
 			<div>Date</div>
@@ -121,11 +121,11 @@
 		%>
 		<div class="col-sm-2 mx-auto">
 			<a href="updateFerie?update=<%=liste.getId()%>"><button
-					type="button" class="btn btn-dark btn-modif bg-warning"
+					type="button" class="btn btn-dark btn-modif "
 					data-toggle="" data-target="" id="btn-modif">
 					<i data-feather="edit-2">modifier</i>
 				</button></a>
-			<button type="button" class="btn btn-dark btn-supp bg-danger"
+			<button type="button" class="btn btn-dark btn-supp "
 				data-toggle="modal" data-target="#modal"
 				id="<%=liste.getIdAbsence()%>_<%=liste.getDateDebut()%>">
 				<i data-feather="trash">supprimer</i>
@@ -147,7 +147,7 @@
 
 <div class="container">
 	<a href="adminJFerieRttEmp"><button
-			class="btn btn-lg btn-outline-primary my-3" type="button">Ajouter
+			class="btn btn-lg btn-dark my-3" type="button">Ajouter
 			un jour férié ou un RTT employeur</button></a>
 </div>
 

@@ -58,7 +58,7 @@
 	</div>
 
 
-	<div class="row p-2 my-1 bg-primary">
+	<div class="row p-2 my-1 bg-dark font-weight-bold">
 
 		<div class="col-sm-3 d-flex align-items-center mx-auto">
 			<div>Date</div>
@@ -90,7 +90,6 @@
 
 	<%
 		List<AbsenceParPersonne> listeAbsences = (List<AbsenceParPersonne>) request.getAttribute("afficherConge");
-		//Integer typeConge = request.getAttribute("afficherTypeConge");
 		Utilisateur utilisateur = (Utilisateur) request.getAttribute("utilisateur");
 		AbsenceParPersonneDao absenceDao = new AbsenceParPersonneDao();
 
