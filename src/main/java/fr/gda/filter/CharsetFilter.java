@@ -10,12 +10,20 @@ import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.annotation.WebFilter;
 
+/**
+ * Classe qui fait un filtre pour l'encodage
+ * 
+ * @author Cécile Peyras
+ *
+ */
 @WebFilter("/controller/*")
 public class CharsetFilter implements Filter {
 
+	@Override
 	public void init(FilterConfig config) throws ServletException {
 	}
 
+	@Override
 	public void doFilter(ServletRequest request,
 
 			ServletResponse response, FilterChain next)
@@ -30,6 +38,7 @@ public class CharsetFilter implements Filter {
 		next.doFilter(request, response);
 	}
 
+	@Override
 	public void destroy() {
 	}
 }

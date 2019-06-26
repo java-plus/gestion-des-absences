@@ -15,10 +15,6 @@ import fr.gda.model.AbsenceParPersonne;
  */
 public class TraitementDemandes {
 
-	public TraitementDemandes() {
-		// TODO Auto-generated constructor stub
-	}
-
 	public static void main(String[] args) {
 		// Création de Dao pour les demandes de congés au statut Initiale
 		AbsenceParPersonneDao absenceParPersonneDao = new AbsenceParPersonneDao();
@@ -32,10 +28,6 @@ public class TraitementDemandes {
 		for (AbsenceParPersonne abs : absenceAuStatutInitiale) {
 			// Nombre de jours = Ecart entre les dates en jours (dates incluses)
 			Long nombreJoursDemandes = abs.getNombreJoursDemandesSansWE();
-			// --Long nombreJoursDemandes =
-			// ChronoUnit.DAYS.between(abs.getDateDebut(), abs.getDateFin()) +
-			// 1;
-			// System.out.println(nombreJoursDemandes);
 
 			// Pour les congés payés, congés sans solde et RTT employés:
 			if (abs.getIdAbsence() == 1 || abs.getIdAbsence() == 2 || abs.getIdAbsence() == 3) {
@@ -51,8 +43,7 @@ public class TraitementDemandes {
 						absenceParPersonneDao.modifierStatut(abs.getId(), "EN_ATTENTE_VALIDATION");
 						utilisateurDao.ajouterRetirerJoursParTypeConge(abs.getIdUtil(), abs.getIdAbsence(),
 								nombreJoursRestants - nombreJoursDemandes);
-						// absenceParPersonneDao.lireDemandesPourMailManager(abs.getId(),
-						// nombreJoursDemandes);
+
 						try {
 							UtilMessagerie.EnvoyerMailManager(abs.getId(), abs.getIdUtil(), abs.getIdAbsence(),
 									nombreJoursDemandes);
@@ -76,8 +67,6 @@ public class TraitementDemandes {
 					// Congé sans solde
 					abs.setStatut("EN_ATTENTE_VALIDATION");
 					absenceParPersonneDao.modifierStatut(abs.getId(), "EN_ATTENTE_VALIDATION");
-					// Utils.EnvoyerMailManager(abs.getIdUtil(),
-					// abs.getIdAbsence(), nombreJoursDemandes);
 					try {
 						UtilMessagerie.EnvoyerMailManager(abs.getId(), abs.getIdUtil(), abs.getIdAbsence(),
 								nombreJoursDemandes);

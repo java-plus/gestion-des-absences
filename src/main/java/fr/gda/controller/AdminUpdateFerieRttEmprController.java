@@ -14,6 +14,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import fr.gda.dao.AbsenceParPersonneDao;
 import fr.gda.dao.UtilisateurDao;
 import fr.gda.model.AbsenceParPersonne;
@@ -21,6 +24,9 @@ import fr.gda.model.Utilisateur;
 
 @WebServlet(urlPatterns = "/controller/updateFerie/*")
 public class AdminUpdateFerieRttEmprController extends HttpServlet {
+
+	/** SERVICE_LOG : Logger */
+	private static final Logger SERVICE_LOG = LoggerFactory.getLogger(AfficherCongeController.class);
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -67,6 +73,8 @@ public class AdminUpdateFerieRttEmprController extends HttpServlet {
 			req.setAttribute("type", afficherConge);
 			req.setAttribute("motif", motif);
 
+			SERVICE_LOG.info("Le jour ferié/Rtt employeur a été mis à jour");
+
 			RequestDispatcher dispatcher = this.getServletContext()
 					.getRequestDispatcher("/update-jours-feries.jsp?update=" + idConge);
 			dispatcher.forward(req, resp);
@@ -102,6 +110,8 @@ public class AdminUpdateFerieRttEmprController extends HttpServlet {
 			erreurJour = "erreurJ";
 			req.setAttribute("erreurJ", erreurJour);
 
+			SERVICE_LOG.error("Le jour ferié/Rtt employeur n'a été mis à jour car c'est un samedi ou dimanche");
+
 			RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/ajout-feries.jsp");
 			dispatcher.forward(req, resp);
 
@@ -124,6 +134,7 @@ public class AdminUpdateFerieRttEmprController extends HttpServlet {
 							req.setAttribute("afficherConge", listeAbsenceAJour);
 
 							req.setAttribute("utilisateur", utilisateur);
+							SERVICE_LOG.info("Le jour ferié/Rtt employeur a été mis à jour");
 
 							RequestDispatcher dispatcher = this.getServletContext()
 									.getRequestDispatcher("/jours-feries.jsp");
@@ -132,6 +143,8 @@ public class AdminUpdateFerieRttEmprController extends HttpServlet {
 						} else {
 							erreurConnexion = "erreur";
 							req.setAttribute("erreur", erreurConnexion);
+
+							SERVICE_LOG.error("Le jour ferié/Rtt employeur n'a été mis à jour il chevauche un autre");
 
 							RequestDispatcher dispatcher = this.getServletContext()
 									.getRequestDispatcher("/ajout-feries.jsp");

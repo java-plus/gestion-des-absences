@@ -1,0 +1,80 @@
+09:28:57.113 [http-nio-8080-exec-6] INFO  f.gda.controller.ConnexionController -
+				Connexion avec email :  cecile@test.fr
+09:28:58.373 [http-nio-8080-exec-7] INFO  f.gda.controller.ConnexionController -
+				Connexion avec email :  cecile@test.fr
+09:28:58.579 [http-nio-8080-exec-6] INFO  fr.gda.dao.UtilisateurDao -
+				Le mot de passe est correct
+09:28:58.579 [http-nio-8080-exec-7] INFO  fr.gda.dao.UtilisateurDao -
+				Le mot de passe est correct
+09:28:58.581 [http-nio-8080-exec-6] INFO  fr.gda.dao.UtilisateurDao -
+				le profil est validé
+09:28:58.582 [http-nio-8080-exec-7] INFO  fr.gda.dao.UtilisateurDao -
+				le profil est validé
+09:28:58.585 [http-nio-8080-exec-6] INFO  fr.gda.dao.UtilisateurDao -
+				le profil est validé
+09:28:58.585 [http-nio-8080-exec-7] INFO  fr.gda.dao.UtilisateurDao -
+				le profil est validé
+09:28:58.588 [http-nio-8080-exec-7] INFO  fr.gda.dao.UtilisateurDao -
+				Le manager a bien été crée
+09:28:58.588 [http-nio-8080-exec-6] INFO  fr.gda.dao.UtilisateurDao -
+				Le manager a bien été crée
+09:28:58.589 [http-nio-8080-exec-6] INFO  f.gda.controller.ConnexionController -
+				L'utilisateur est connecté en tant que manager
+09:28:58.589 [http-nio-8080-exec-7] INFO  f.gda.controller.ConnexionController -
+				L'utilisateur est connecté en tant que manager
+09:28:59.880 [http-nio-8080-exec-10] INFO  fr.gda.dao.UtilisateurDao -
+				L'utilisateur est bien créé
+09:28:59.880 [http-nio-8080-exec-10] INFO  f.g.c.AfficherCongeController -
+				Affichage des congés de l'utilisateur : fr.gda.model.Manager@10813e61
+09:29:37.231 [http-nio-8080-exec-5] INFO  fr.gda.dao.AbsenceParPersonneDao -
+				La liste des absence par manager a bien été faite
+09:29:37.232 [http-nio-8080-exec-5] INFO  fr.gda.dao.UtilisateurDao -
+				L'utilisateur est bien créé
+09:29:37.234 [http-nio-8080-exec-5] INFO  fr.gda.dao.UtilisateurDao -
+				L'utilisateur a bien été créé
+09:29:37.234 [http-nio-8080-exec-5] INFO  f.g.c.ControlerCongeController -
+				L'affichage des absences à valider s'est bien exécuté
+09:29:48.255 [http-nio-8080-exec-1] INFO  fr.gda.dao.AbsenceParPersonneDao -
+				La récupération de la liste des absences s'est bien faite
+09:29:48.261 [http-nio-8080-exec-1] INFO  fr.gda.dao.UtilisateurDao -
+				L'utilisateur est bien créé
+09:30:07.249 [http-nio-8080-exec-9] INFO  fr.gda.dao.AbsenceParPersonneDao -
+				La liste des absence par manager a bien été faite
+09:30:07.250 [http-nio-8080-exec-9] INFO  fr.gda.dao.UtilisateurDao -
+				L'utilisateur est bien créé
+09:30:07.251 [http-nio-8080-exec-9] INFO  fr.gda.dao.UtilisateurDao -
+				L'utilisateur a bien été créé
+09:30:07.252 [http-nio-8080-exec-9] INFO  f.g.c.ControlerCongeController -
+				L'affichage des absences à valider s'est bien exécuté
+09:30:08.750 [http-nio-8080-exec-3] INFO  fr.gda.dao.AbsenceParPersonneDao -
+				La récupération de la liste des absences s'est bien faite
+09:30:08.751 [http-nio-8080-exec-3] INFO  fr.gda.dao.UtilisateurDao -
+				L'utilisateur est bien créé
+09:30:11.452 [http-nio-8080-exec-5] INFO  fr.gda.dao.AbsenceParPersonneDao -
+				La liste des absence par manager a bien été faite
+09:30:11.453 [http-nio-8080-exec-5] INFO  fr.gda.dao.UtilisateurDao -
+				L'utilisateur est bien créé
+09:30:11.454 [http-nio-8080-exec-5] INFO  fr.gda.dao.UtilisateurDao -
+				L'utilisateur a bien été créé
+09:30:11.457 [http-nio-8080-exec-5] INFO  f.g.c.ControlerCongeController -
+				L'affichage des absences à valider s'est bien exécuté
+09:30:12.693 [http-nio-8080-exec-7] INFO  fr.gda.dao.AbsenceParPersonneDao -
+				La récupération de la liste des absences s'est bien faite
+09:30:12.694 [http-nio-8080-exec-7] INFO  fr.gda.dao.UtilisateurDao -
+				L'utilisateur est bien créé
+09:30:29.375 [http-nio-8080-exec-2] INFO  fr.gda.dao.AbsenceParPersonneDao -
+				La récupération de la liste des absences s'est bien faite
+09:30:29.381 [http-nio-8080-exec-2] INFO  fr.gda.dao.UtilisateurDao -
+				L'utilisateur est bien créé
+09:49:12.667 [http-nio-8080-exec-10] INFO  f.gda.controller.ConnexionController -
+				Connexion avec email :  cecile@test.fr
+09:49:12.670 [http-nio-8080-exec-10] INFO  fr.gda.dao.UtilisateurDao -
+				Le mot de passe est correct
+09:49:12.671 [http-nio-8080-exec-10] INFO  fr.gda.dao.UtilisateurDao -
+				le profil est validé
+09:49:12.673 [http-nio-8080-exec-10] INFO  fr.gda.dao.UtilisateurDao -
+				le profil est validé
+09:49:12.675 [http-nio-8080-exec-10] INFO  fr.gda.dao.UtilisateurDao -
+				Le manager a bien été crée
+09:49:12.677 [http-nio-8080-exec-10] INFO  f.gda.controller.ConnexionController -
+				L'utilisateur est connecté en tant que manager

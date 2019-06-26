@@ -19,8 +19,16 @@ import fr.gda.dao.UtilisateurDao;
 import fr.gda.model.AbsenceParPersonne;
 import fr.gda.model.Utilisateur;
 
+/**
+ * classe qui gère l'affichage des congés
+ * 
+ * @author Cécile Peyras
+ *
+ */
 @WebServlet(urlPatterns = "/controller/afficherConges/*")
 public class AfficherCongeController extends HttpServlet {
+
+	/** SERVICE_LOG : Logger */
 	private static final Logger SERVICE_LOG = LoggerFactory.getLogger(AfficherCongeController.class);
 
 	@Override

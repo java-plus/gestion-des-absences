@@ -29,6 +29,7 @@ import fr.gda.model.Utilisateur;
 @WebServlet(urlPatterns = "/controller/validerConges/*")
 public class ControlerCongeController extends HttpServlet {
 
+	/** SERVICE_LOG : Logger */
 	private static final Logger SERVICE_LOG = LoggerFactory.getLogger(ControlerCongeController.class);
 
 	@Override

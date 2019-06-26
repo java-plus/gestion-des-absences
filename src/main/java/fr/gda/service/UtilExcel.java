@@ -33,6 +33,7 @@ import fr.gda.model.Utilisateur;
 
 public class UtilExcel {
 
+	/** fileName : String */
 	private String fileName = "ExportAbsences";
 
 	/** Méthode d'export Excel */
@@ -228,7 +229,7 @@ public class UtilExcel {
 
 		// Lancement par main pour test
 		UtilExcel utilexcel = new UtilExcel();
-		utilexcel.exportExcel(8, 2019, 1);
+		utilexcel.exportExcel(6, 2019, 1);
 
 	}
 }

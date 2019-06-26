@@ -11,6 +11,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import fr.gda.dao.AbsenceParPersonneDao;
 import fr.gda.dao.UtilisateurDao;
 import fr.gda.model.AbsenceParPersonne;
@@ -22,6 +25,9 @@ import fr.gda.model.Utilisateur;
  */
 @WebServlet(urlPatterns = "/controller/jFerieRttEmp")
 public class FerieRttEmpController extends HttpServlet {
+
+	/** SERVICE_LOG : Logger */
+	private static final Logger SERVICE_LOG = LoggerFactory.getLogger(AfficherCongeController.class);
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -51,6 +57,8 @@ public class FerieRttEmpController extends HttpServlet {
 		req.setAttribute("afficherConge", listeAbsences);
 		req.setAttribute("afficherTypeConge", typeConge);
 		req.setAttribute("utilisateur", utilisateur);
+
+		SERVICE_LOG.info("La liste des jours feriés a été affichée");
 
 		RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/jours-feries.jsp");
 		dispatcher.forward(req, resp);

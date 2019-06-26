@@ -19,9 +19,16 @@ import fr.gda.dao.UtilisateurDao;
 import fr.gda.model.AbsenceParPersonne;
 import fr.gda.model.Utilisateur;
 
+/**
+ * Classe qui gère les demandes à valider
+ * 
+ * @author Patrice
+ *
+ */
 @WebServlet(urlPatterns = "/controller/validerDemande/*")
 public class ValiderDemandeController extends HttpServlet {
 
+	/** SERVICE_LOG : Logger */
 	private static final Logger SERVICE_LOG = LoggerFactory.getLogger(ValiderDemandeController.class);
 
 	@Override

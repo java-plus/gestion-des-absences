@@ -51,6 +51,12 @@ public class AbsenceParPersonne {
 		this.motif = motif;
 	}
 
+	/**
+	 * méthode qui convertit un id de congé en nom du congé
+	 * 
+	 * @param idConge
+	 * @return
+	 */
 	public String typeConge(int idConge) {
 
 		String typeConge = null;
@@ -232,9 +238,6 @@ public class AbsenceParPersonne {
 							.equals(this.getDateDebut().getDayOfWeek().SUNDAY))) {
 				nbJours++;
 			}
-			// i++;
-			// } while
-			// (!this.getDateDebut().plusDays(i).equals(this.getDateFin()));
 		} while (!this.getDateDebut().plusDays(i++).isEqual(this.getDateFin()));
 		return nbJours;
 	}
