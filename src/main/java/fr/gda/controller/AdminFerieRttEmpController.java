@@ -23,7 +23,8 @@ import fr.gda.model.AbsenceParPersonne;
 import fr.gda.model.Utilisateur;
 
 /**
- * 
+ * Gère l'ajout et la suppression de jour ferié ou RTT employeur ainsi que
+ * l'affichage de ces derniers
  * 
  * @author KHARBECHE Bilel
  *
