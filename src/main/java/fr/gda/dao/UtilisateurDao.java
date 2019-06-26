@@ -12,6 +12,7 @@ import org.slf4j.LoggerFactory;
 
 import fr.gda.connexion.ConnexionManager;
 import fr.gda.exception.TechnicalException;
+import fr.gda.model.Departement;
 import fr.gda.model.Employe;
 import fr.gda.model.Manager;
 import fr.gda.model.Utilisateur;
@@ -123,8 +124,7 @@ public class UtilisateurDao {
 					int idHierarchie = curseur.getInt("id_hierarchie");
 					int idDepartement = curseur.getInt("id_departement");
 
-					employe = new Employe(id, nom, prenom, profil, email, mdp, isAdminBool, congeRestant, rttRestant,
-							congePris, rttPris, idHierarchie, idDepartement);
+					employe = new Employe(id, nom, prenom, profil, email, mdp, isAdminBool, congeRestant, rttRestant, congePris, rttPris, idHierarchie, idDepartement);
 
 					SERVICE_LOG.info("l'employé a bien été créé");
 
@@ -315,8 +315,7 @@ public class UtilisateurDao {
 					int idHierarchie = curseur.getInt("id_hierarchie");
 					int idDepartement = curseur.getInt("id_departement");
 
-					manager = new Manager(id, nom, prenom, profil, email, mdp, isAdminBool, congeRestant, rttRestant,
-							congePris, rttPris, idHierarchie, idDepartement);
+					manager = new Manager(id, nom, prenom, profil, email, mdp, isAdminBool, congeRestant, rttRestant, congePris, rttPris, idHierarchie, idDepartement);
 
 					SERVICE_LOG.info("Le manager a bien été crée");
 				}
@@ -388,13 +387,11 @@ public class UtilisateurDao {
 				int idDepartement = curseur.getInt("id_departement");
 
 				if (profil.equals("employé")) {
-					utilisateur = new Employe(id, nom, prenom, profil, email, mdp, isAdminBool, congeRestant,
-							rttRestant, congePris, rttPris, idHierarchie, idDepartement);
+					utilisateur = new Employe(id, nom, prenom, profil, email, mdp, isAdminBool, congeRestant, rttRestant, congePris, rttPris, idHierarchie, idDepartement);
 
 					user.add(utilisateur);
 				} else {
-					utilisateur = new Manager(id, nom, prenom, profil, email, mdp, isAdminBool, congeRestant,
-							rttRestant, congePris, rttPris, idHierarchie, idDepartement);
+					utilisateur = new Manager(id, nom, prenom, profil, email, mdp, isAdminBool, congeRestant, rttRestant, congePris, rttPris, idHierarchie, idDepartement);
 
 					user.add(utilisateur);
 
@@ -518,11 +515,9 @@ public class UtilisateurDao {
 
 				if (profil.equals("employé")) {
 
-					utilisateur = new Employe(id, nom, prenom, profil, email, mdp, isAdminBool, congeRestant,
-							rttRestant, congePris, rttPris, idHierarchie, idDepartement);
+					utilisateur = new Employe(id, nom, prenom, profil, email, mdp, isAdminBool, congeRestant, rttRestant, congePris, rttPris, idHierarchie, idDepartement);
 				} else {
-					utilisateur = new Manager(id, nom, prenom, profil, email, mdp, isAdminBool, congeRestant,
-							rttRestant, congePris, rttPris, idHierarchie, idDepartement);
+					utilisateur = new Manager(id, nom, prenom, profil, email, mdp, isAdminBool, congeRestant, rttRestant, congePris, rttPris, idHierarchie, idDepartement);
 				}
 
 			}
@@ -570,7 +565,7 @@ public class UtilisateurDao {
 
 		try {
 			conn.setAutoCommit(false);
-			statement = conn.prepareStatement("SELECT * FROM utilisateur WHERE id_departement = ?");
+			statement = conn.prepareStatement("SELECT * FROM utilisateur WHERE id_departement = ? ORDER BY nom");
 			statement.setInt(1, idDepartement);
 			curseur = statement.executeQuery();
 
@@ -597,11 +592,9 @@ public class UtilisateurDao {
 
 				if (profil.equals("employé")) {
 
-					utilisateurParDepartement.add(new Employe(id, nom, prenom, profil, email, mdp, isAdminBool,
-							congeRestant, rttRestant, congePris, rttPris, idHierarchie, idDepartement));
+					utilisateurParDepartement.add(new Employe(id, nom, prenom, profil, email, mdp, isAdminBool, congeRestant, rttRestant, congePris, rttPris, idHierarchie, idDepartement));
 				} else {
-					utilisateurParDepartement.add(new Manager(id, nom, prenom, profil, email, mdp, isAdminBool,
-							congeRestant, rttRestant, congePris, rttPris, idHierarchie, idDepartement));
+					utilisateurParDepartement.add(new Manager(id, nom, prenom, profil, email, mdp, isAdminBool, congeRestant, rttRestant, congePris, rttPris, idHierarchie, idDepartement));
 				}
 
 				SERVICE_LOG.info("La récupéartion des utilisateurs par départemnets s'est bien faite");
@@ -678,6 +671,59 @@ public class UtilisateurDao {
 				}
 			} catch (SQLException e) {
 				SERVICE_LOG.error("La fermeture ne s'est pas faite", e);
+				throw new TechnicalException("La fermeture ne s'est pas faite", e);
+			}
+		}
+	}
+
+	/**
+	 * méthode qui récupère une liste de tous les départements existants en bdd
+	 * 
+	 * @param idDepartement
+	 * @return List<Departement> de departement, chaque département possede un id(int) et un nom(String)
+	 **/
+
+	public List<Departement> getTousLesDepartements() {
+
+		List<Departement> listeDeTousLesDepartements = new ArrayList<>();
+
+		Connection conn = ConnexionManager.getInstance();
+		PreparedStatement statement = null;
+		ResultSet curseur = null;
+
+		try {
+			conn.setAutoCommit(false);
+
+			statement = conn.prepareStatement("SELECT * FROM departement");
+			curseur = statement.executeQuery();
+
+			conn.commit();
+
+			while (curseur.next()) {
+
+				int id = curseur.getInt("id");
+				String nom = curseur.getString("nom");
+
+				listeDeTousLesDepartements.add(new Departement(id, nom));
+
+			}
+
+			return listeDeTousLesDepartements;
+
+		} catch (SQLException e) {
+			try {
+				conn.rollback();
+			} catch (SQLException e1) {
+				throw new TechnicalException("Le rollback n'a pas fonctionné", e);
+			}
+			throw new TechnicalException("La sélection ne s'est pas faite", e);
+		} finally {
+			try {
+				if (statement != null) {
+					statement.close();
+				}
+			} catch (SQLException e) {
+
 				throw new TechnicalException("La fermeture ne s'est pas faite", e);
 			}
 		}

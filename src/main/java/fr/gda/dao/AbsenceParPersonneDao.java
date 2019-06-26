@@ -44,8 +44,7 @@ public class AbsenceParPersonneDao {
 
 		try {
 			conn.setAutoCommit(false);
-			statement = conn
-					.prepareStatement("SELECT * FROM absence_personne WHERE statut = 'INITIALE' ORDER BY date_debut");
+			statement = conn.prepareStatement("SELECT * FROM absence_personne WHERE statut = 'INITIALE' ORDER BY date_debut");
 
 			curseur = statement.executeQuery();
 
@@ -60,10 +59,8 @@ public class AbsenceParPersonneDao {
 				String statut = curseur.getString("statut");
 				String motif = curseur.getString("motif");
 
-				listeDemandesEnStatutInitiale
-						.add(new AbsenceParPersonne(id, idUtil, idAbsence, dateDebut, dateFin, statut, motif));
-				SERVICE_LOG.info("Une absence en statut initale a été ajoutée : " + id + " " + idUtil + " " + idAbsence
-						+ " " + dateDebut + " " + dateFin + " " + statut + " " + motif);
+				listeDemandesEnStatutInitiale.add(new AbsenceParPersonne(id, idUtil, idAbsence, dateDebut, dateFin, statut, motif));
+				SERVICE_LOG.info("Une absence en statut initale a été ajoutée : " + id + " " + idUtil + " " + idAbsence + " " + dateDebut + " " + dateFin + " " + statut + " " + motif);
 			}
 
 			return listeDemandesEnStatutInitiale;
@@ -103,8 +100,7 @@ public class AbsenceParPersonneDao {
 
 		try {
 			conn.setAutoCommit(false);
-			statement = conn.prepareStatement(
-					"select AP.id, AP.date_debut, AP.date_fin, UT.prenom, UT.nom, HU.mail, type_conge from absence_personne AP inner join utilisateur UT on UT.id = AP.id_util inner join absence A on A.id = AP.id_absence inner join utilisateur HU on HU.id = UT.id_hierarchie WHERE AP.id = ?");
+			statement = conn.prepareStatement("select AP.id, AP.date_debut, AP.date_fin, UT.prenom, UT.nom, HU.mail, type_conge from absence_personne AP inner join utilisateur UT on UT.id = AP.id_util inner join absence A on A.id = AP.id_absence inner join utilisateur HU on HU.id = UT.id_hierarchie WHERE AP.id = ?");
 			statement.setInt(1, idAbsence);
 			curseur = statement.executeQuery();
 
@@ -119,8 +115,7 @@ public class AbsenceParPersonneDao {
 				String huMail = curseur.getString("HU.mail");
 				String typeConge = curseur.getString("type_conge");
 
-				TraitementMailManager absencePourMail = new TraitementMailManager(apId, dateDebut, dateFin, utPrenom,
-						utNom, huMail, typeConge);
+				TraitementMailManager absencePourMail = new TraitementMailManager(apId, dateDebut, dateFin, utPrenom, utNom, huMail, typeConge);
 				SERVICE_LOG.info("Récupération des infos pour mail au manager réussie.");
 
 				return absencePourMail;
@@ -218,8 +213,7 @@ public class AbsenceParPersonneDao {
 
 		try {
 			conn.setAutoCommit(false);
-			statement = conn.prepareStatement(
-					"INSERT INTO absence_personne (id_util, id_absence, date_debut, date_fin, statut, motif) VALUES (?, ?, ?, ?, ?, ?)");
+			statement = conn.prepareStatement("INSERT INTO absence_personne (id_util, id_absence, date_debut, date_fin, statut, motif) VALUES (?, ?, ?, ?, ?, ?)");
 
 			for (Utilisateur user : users) {
 				statement.setInt(1, user.getId());
@@ -268,8 +262,7 @@ public class AbsenceParPersonneDao {
 
 		try {
 			conn.setAutoCommit(false);
-			statement = conn.prepareStatement(
-					"INSERT INTO absence_personne (id_util, id_absence, date_debut, date_fin, statut, motif) VALUES (?, ?, ?, ?, ?, ?)");
+			statement = conn.prepareStatement("INSERT INTO absence_personne (id_util, id_absence, date_debut, date_fin, statut, motif) VALUES (?, ?, ?, ?, ?, ?)");
 
 			for (Utilisateur user : users) {
 				statement.setInt(1, user.getId());
@@ -333,8 +326,7 @@ public class AbsenceParPersonneDao {
 				String statut = curseur.getString("statut");
 				String motif = curseur.getString("motif");
 
-				listeAbsences
-						.add(new AbsenceParPersonne(id, idUtilisateur, idAbsence, dateDebut, dateFin, statut, motif));
+				listeAbsences.add(new AbsenceParPersonne(id, idUtilisateur, idAbsence, dateDebut, dateFin, statut, motif));
 
 			}
 
@@ -381,23 +373,17 @@ public class AbsenceParPersonneDao {
 		try {
 			conn.setAutoCommit(false);
 			if (ordreTri.equals("DateDebutAsc")) {
-				statement = conn
-						.prepareStatement("SELECT * FROM absence_personne WHERE id_util = ? ORDER BY date_debut ASC");
+				statement = conn.prepareStatement("SELECT * FROM absence_personne WHERE id_util = ? ORDER BY date_debut ASC");
 			} else if (ordreTri.equals("DateDebutDesc")) {
-				statement = conn
-						.prepareStatement("SELECT * FROM absence_personne WHERE id_util = ? ORDER BY date_debut DESC");
+				statement = conn.prepareStatement("SELECT * FROM absence_personne WHERE id_util = ? ORDER BY date_debut DESC");
 			} else if (ordreTri.equals("DateFinAsc")) {
-				statement = conn
-						.prepareStatement("SELECT * FROM absence_personne WHERE id_util = ? ORDER BY date_fin ASC");
+				statement = conn.prepareStatement("SELECT * FROM absence_personne WHERE id_util = ? ORDER BY date_fin ASC");
 			} else if (ordreTri.equals("DateFinDesc")) {
-				statement = conn
-						.prepareStatement("SELECT * FROM absence_personne WHERE id_util = ? ORDER BY date_fin DESC");
+				statement = conn.prepareStatement("SELECT * FROM absence_personne WHERE id_util = ? ORDER BY date_fin DESC");
 			} else if (ordreTri.equals("StatutAsc")) {
-				statement = conn
-						.prepareStatement("SELECT * FROM absence_personne WHERE id_util = ? ORDER BY statut ASC");
+				statement = conn.prepareStatement("SELECT * FROM absence_personne WHERE id_util = ? ORDER BY statut ASC");
 			} else if (ordreTri.equals("StatutDesc")) {
-				statement = conn
-						.prepareStatement("SELECT * FROM absence_personne WHERE id_util = ? ORDER BY statut DESC");
+				statement = conn.prepareStatement("SELECT * FROM absence_personne WHERE id_util = ? ORDER BY statut DESC");
 			}
 
 			statement.setInt(1, idUtilisateur);
@@ -414,8 +400,7 @@ public class AbsenceParPersonneDao {
 				String statut = curseur.getString("statut");
 				String motif = curseur.getString("motif");
 
-				listeAbsences
-						.add(new AbsenceParPersonne(id, idUtilisateur, idAbsence, dateDebut, dateFin, statut, motif));
+				listeAbsences.add(new AbsenceParPersonne(id, idUtilisateur, idAbsence, dateDebut, dateFin, statut, motif));
 			}
 
 			return listeAbsences;
@@ -507,8 +492,7 @@ public class AbsenceParPersonneDao {
 	 * @param departement
 	 * @return
 	 */
-	public List<AbsenceParPersonne> afficherAbsencesParDepartementMoisAnnee(Integer mois, Integer annee,
-			Integer departement) {
+	public List<AbsenceParPersonne> afficherAbsencesParDepartementMoisAnnee(Integer mois, Integer annee, Integer departement) {
 
 		List<AbsenceParPersonne> listeAbsencesDepartementMoisAnnee = new ArrayList<>();
 
@@ -518,8 +502,7 @@ public class AbsenceParPersonneDao {
 
 		try {
 			conn.setAutoCommit(false);
-			statement = conn.prepareStatement(
-					"SELECT AP.id, id_util, id_absence, date_debut, date_fin, statut, motif FROM absence_personne AP INNER JOIN utilisateur UT ON AP.id_util = UT.id WHERE (YEAR(date_debut) = ? OR YEAR(date_fin) = ?) AND (MONTH(date_debut) = ? OR MONTH(date_fin) = ?) AND id_departement = ?");
+			statement = conn.prepareStatement("SELECT AP.id, id_util, id_absence, date_debut, date_fin, statut, motif FROM absence_personne AP INNER JOIN utilisateur UT ON AP.id_util = UT.id WHERE (YEAR(date_debut) = ? OR YEAR(date_fin) = ?) AND (MONTH(date_debut) = ? OR MONTH(date_fin) = ?) AND id_departement = ?");
 			statement.setInt(1, annee);
 			statement.setInt(2, annee);
 			statement.setInt(3, mois);
@@ -539,8 +522,7 @@ public class AbsenceParPersonneDao {
 				String statut = curseur.getString("statut");
 				String motif = curseur.getString("motif");
 
-				listeAbsencesDepartementMoisAnnee
-						.add(new AbsenceParPersonne(id, idUtilisateur, idAbsence, dateDebut, dateFin, statut, motif));
+				listeAbsencesDepartementMoisAnnee.add(new AbsenceParPersonne(id, idUtilisateur, idAbsence, dateDebut, dateFin, statut, motif));
 
 				SERVICE_LOG.info("La liste des absences par département et année s'est bien faite");
 			}
@@ -721,8 +703,7 @@ public class AbsenceParPersonneDao {
 		try {
 			conn.setAutoCommit(false);
 
-			statement = conn.prepareStatement(
-					"UPDATE  absence_personne SET id_absence= ?, date_debut=?, date_fin= ?, motif=?, statut= ? WHERE id= ? ");
+			statement = conn.prepareStatement("UPDATE  absence_personne SET id_absence= ?, date_debut=?, date_fin= ?, motif=?, statut= ? WHERE id= ? ");
 			statement.setString(1, typeAbsence);
 			statement.setString(2, dateDebut);
 			statement.setString(3, dateFin);
@@ -773,8 +754,7 @@ public class AbsenceParPersonneDao {
 
 		try {
 			conn.setAutoCommit(false);
-			statement = conn.prepareStatement(
-					"INSERT INTO absence_personne (id_util, id_absence, date_debut, date_fin, statut, motif) VALUES (?, ?, ?, ?, ?, ?)");
+			statement = conn.prepareStatement("INSERT INTO absence_personne (id_util, id_absence, date_debut, date_fin, statut, motif) VALUES (?, ?, ?, ?, ?, ?)");
 
 			statement.setInt(1, idUser);
 			statement.setString(2, idAbsence);
@@ -785,8 +765,7 @@ public class AbsenceParPersonneDao {
 
 			statement.executeUpdate();
 
-			SERVICE_LOG.info("L'ajout du congé s'est bien fait, utilisateur : " + idUser + ", date de début : "
-					+ dateDebut + ", date de fin : " + dateFin);
+			SERVICE_LOG.info("L'ajout du congé s'est bien fait, utilisateur : " + idUser + ", date de début : " + dateDebut + ", date de fin : " + dateFin);
 
 			conn.commit();
 		} catch (SQLException e) {
@@ -828,23 +807,17 @@ public class AbsenceParPersonneDao {
 		try {
 			conn.setAutoCommit(false);
 			if (ordreTri.equals("DateDebutAsc")) {
-				statement = conn.prepareStatement(
-						"SELECT AP.* FROM absence_personne AP INNER JOIN utilisateur UT ON AP.id_util = UT.id WHERE id_hierarchie = ? AND statut = 'EN_ATTENTE_VALIDATION' ORDER BY date_debut ASC");
+				statement = conn.prepareStatement("SELECT AP.* FROM absence_personne AP INNER JOIN utilisateur UT ON AP.id_util = UT.id WHERE id_hierarchie = ? AND statut = 'EN_ATTENTE_VALIDATION' ORDER BY date_debut ASC");
 			} else if (ordreTri.equals("DateDebutDesc")) {
-				statement = conn.prepareStatement(
-						"SELECT AP.* FROM absence_personne AP INNER JOIN utilisateur UT ON AP.id_util = UT.id WHERE id_hierarchie = ? AND statut = 'EN_ATTENTE_VALIDATION' ORDER BY date_debut DESC");
+				statement = conn.prepareStatement("SELECT AP.* FROM absence_personne AP INNER JOIN utilisateur UT ON AP.id_util = UT.id WHERE id_hierarchie = ? AND statut = 'EN_ATTENTE_VALIDATION' ORDER BY date_debut DESC");
 			} else if (ordreTri.equals("DateFinAsc")) {
-				statement = conn.prepareStatement(
-						"SELECT AP.* FROM absence_personne AP INNER JOIN utilisateur UT ON AP.id_util = UT.id WHERE id_hierarchie = ? AND statut = 'EN_ATTENTE_VALIDATION' ORDER BY date_fin ASC");
+				statement = conn.prepareStatement("SELECT AP.* FROM absence_personne AP INNER JOIN utilisateur UT ON AP.id_util = UT.id WHERE id_hierarchie = ? AND statut = 'EN_ATTENTE_VALIDATION' ORDER BY date_fin ASC");
 			} else if (ordreTri.equals("DateFinDesc")) {
-				statement = conn.prepareStatement(
-						"SELECT AP.* FROM absence_personne AP INNER JOIN utilisateur UT ON AP.id_util = UT.id WHERE id_hierarchie = ? AND statut = 'EN_ATTENTE_VALIDATION' ORDER BY date_fin DESC");
+				statement = conn.prepareStatement("SELECT AP.* FROM absence_personne AP INNER JOIN utilisateur UT ON AP.id_util = UT.id WHERE id_hierarchie = ? AND statut = 'EN_ATTENTE_VALIDATION' ORDER BY date_fin DESC");
 			} else if (ordreTri.equals("NomAsc")) {
-				statement = conn.prepareStatement(
-						"SELECT AP.* FROM absence_personne AP INNER JOIN utilisateur UT ON AP.id_util = UT.id WHERE id_hierarchie = ? AND statut = 'EN_ATTENTE_VALIDATION' ORDER BY UT.prenom ASC, UT.nom ASC");
+				statement = conn.prepareStatement("SELECT AP.* FROM absence_personne AP INNER JOIN utilisateur UT ON AP.id_util = UT.id WHERE id_hierarchie = ? AND statut = 'EN_ATTENTE_VALIDATION' ORDER BY UT.prenom ASC, UT.nom ASC");
 			} else if (ordreTri.equals("NomDesc")) {
-				statement = conn.prepareStatement(
-						"SELECT AP.* FROM absence_personne AP INNER JOIN utilisateur UT ON AP.id_util = UT.id WHERE id_hierarchie = ? AND statut = 'EN_ATTENTE_VALIDATION' ORDER BY UT.prenom DESC, UT.nom DESC");
+				statement = conn.prepareStatement("SELECT AP.* FROM absence_personne AP INNER JOIN utilisateur UT ON AP.id_util = UT.id WHERE id_hierarchie = ? AND statut = 'EN_ATTENTE_VALIDATION' ORDER BY UT.prenom DESC, UT.nom DESC");
 			}
 
 			statement.setInt(1, idManager);
@@ -862,8 +835,7 @@ public class AbsenceParPersonneDao {
 				String statut = curseur.getString("statut");
 				String motif = curseur.getString("motif");
 
-				listeAbsencesManager
-						.add(new AbsenceParPersonne(id, idUtil, idAbsence, dateDebut, dateFin, statut, motif));
+				listeAbsencesManager.add(new AbsenceParPersonne(id, idUtil, idAbsence, dateDebut, dateFin, statut, motif));
 				SERVICE_LOG.info("La liste des absence par manager a bien été faite");
 			}
 
@@ -909,8 +881,7 @@ public class AbsenceParPersonneDao {
 
 		try {
 			conn.setAutoCommit(false);
-			statement = conn.prepareStatement(
-					"SELECT date_debut, date_fin FROM absence_personne WHERE (? <= date_fin) and (? >=date_debut) AND id_util = ? and statut != ? and id_absence != 5 AND id_absence !=6;");
+			statement = conn.prepareStatement("SELECT date_debut, date_fin FROM absence_personne WHERE (? <= date_fin) and (? >=date_debut) AND id_util = ? and statut != ? and id_absence != 5 AND id_absence !=6;");
 			statement.setString(1, dateDebut);
 			statement.setString(2, dateFin);
 			statement.setInt(3, idUser);
@@ -956,16 +927,14 @@ public class AbsenceParPersonneDao {
 	 * @param ancienneDate
 	 * @param motif
 	 */
-	public void modifierFeries(Integer idConge, String typeAbsence, String dateDebut, String ancienneDate,
-			String motif) {
+	public void modifierFeries(Integer idConge, String typeAbsence, String dateDebut, String ancienneDate, String motif) {
 		Connection conn = ConnexionManager.getInstance();
 		PreparedStatement statement = null;
 
 		try {
 			conn.setAutoCommit(false);
 
-			statement = conn.prepareStatement(
-					"UPDATE  absence_personne SET id_absence= ?, date_debut=?, date_fin= ?, motif=?, statut= ? WHERE date_debut= ? ");
+			statement = conn.prepareStatement("UPDATE  absence_personne SET id_absence= ?, date_debut=?, date_fin= ?, motif=?, statut= ? WHERE date_debut= ? ");
 			statement.setString(1, typeAbsence);
 			statement.setString(2, dateDebut);
 			statement.setString(3, dateDebut);
@@ -1013,8 +982,7 @@ public class AbsenceParPersonneDao {
 
 		try {
 			conn.setAutoCommit(false);
-			statement = conn.prepareStatement(
-					"SELECT date_debut FROM absence_personne WHERE date_debut = ? AND (id_absence = 5 OR id_absence = 6);");
+			statement = conn.prepareStatement("SELECT date_debut FROM absence_personne WHERE date_debut = ? AND (id_absence = 5 OR id_absence = 6);");
 			statement.setString(1, dateDebut);
 
 			curseur = statement.executeQuery();
@@ -1061,8 +1029,7 @@ public class AbsenceParPersonneDao {
 
 		try {
 			conn.setAutoCommit(false);
-			statement = conn.prepareStatement(
-					"SELECT date_debut FROM absence_personne WHERE date_debut < ? AND (id_absence = 5 OR id_absence = 6);");
+			statement = conn.prepareStatement("SELECT date_debut FROM absence_personne WHERE date_debut < ? AND (id_absence = 5 OR id_absence = 6);");
 			statement.setString(1, dateDebut);
 
 			curseur = statement.executeQuery();
@@ -1112,8 +1079,7 @@ public class AbsenceParPersonneDao {
 
 		try {
 			conn.setAutoCommit(false);
-			statement = conn.prepareStatement(
-					"SELECT date_debut, date_fin FROM absence_personne WHERE (? <= date_fin) and (? >= date_debut) AND id_util = ? and id !=? and statut != ? and id_absence != 5 AND id_absence !=6;");
+			statement = conn.prepareStatement("SELECT date_debut, date_fin FROM absence_personne WHERE (? <= date_fin) and (? >= date_debut) AND id_util = ? and id !=? and statut != ? and id_absence != 5 AND id_absence !=6;");
 
 			statement.setString(1, dateDebut);
 			statement.setString(2, dateFin);

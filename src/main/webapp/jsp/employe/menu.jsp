@@ -26,7 +26,7 @@
 							class="sr-only">(current)</span></a></li>
 					<li class="nav-item"><a class="nav-link" href="afficherConges">Gestion
 							des absences</a></li>
-					<li class="nav-item"><a class="nav-link" href="planning-abs.jsp">Planning
+					<li class="nav-item"><a class="nav-link" href="afficherPlanningAbs">Planning
 							des absences</a></li>
 					<li class="nav-item"><a class="nav-link" href="jFerieRttEmp">Jours fériés</a></li>
 				</ul>
