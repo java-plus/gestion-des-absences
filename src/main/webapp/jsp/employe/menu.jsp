@@ -13,7 +13,8 @@
 				<span class="navbar-toggler-icon"></span>
 			</button>
 
-			<a class="navbar-brand" href="../index.jsp"><img
+			<a class="navbar-brand" href="../login.jsp"><img
+
 				src="../img/logo.jpg"
 				width="30" height="30" alt="Accueil">
 			</a>
@@ -27,7 +28,7 @@
 							des absences</a></li>
 					<li class="nav-item"><a class="nav-link" href="planning-abs.jsp">Planning
 							des absences</a></li>
-					<li class="nav-item"><a class="nav-link" href="jours-feries.jsp">Jours fériés</a></li>
+					<li class="nav-item"><a class="nav-link" href="jFerieRttEmp">Jours fériés</a></li>
 				</ul>
 
 			</div>

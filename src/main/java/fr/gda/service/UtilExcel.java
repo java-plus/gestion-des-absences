@@ -33,6 +33,7 @@ import fr.gda.model.Utilisateur;
 
 public class UtilExcel {
 
+	/** fileName : String */
 	private String fileName = "ExportAbsences";
 
 	/** Méthode d'export Excel */
@@ -107,9 +108,12 @@ public class UtilExcel {
 						// Si c'est le même utilisateur
 						if (absenceDepartementMoisAnnee.get(m).getIdUtil() == utilisateurParDepartement.get(i)
 								.getId()) {
-							// Si c'est sous les mêmes dates de mois
-							if (absenceDepartementMoisAnnee.get(m).getDateDebut().getDayOfMonth() <= k
-									& absenceDepartementMoisAnnee.get(m).getDateFin().getDayOfMonth() >= k) {
+							// Si c'est entre les dates de début et de fin
+							LocalDate dateK = LocalDate.of(annee, numeroMois, k);
+							if ((absenceDepartementMoisAnnee.get(m).getDateDebut().isBefore(dateK)
+									&& absenceDepartementMoisAnnee.get(m).getDateFin().isAfter(dateK))
+									|| absenceDepartementMoisAnnee.get(m).getDateDebut().isEqual(dateK)
+									|| absenceDepartementMoisAnnee.get(m).getDateFin().isEqual(dateK)) {
 								// Changement de couleur si besoin
 								if (absenceDepartementMoisAnnee.get(m).getStatut().equals("REJETEE")) {
 									cellJour.setCellStyle(couleurRouge);
@@ -119,10 +123,16 @@ public class UtilExcel {
 										.equals("EN_ATTENTE_VALIDATION")) {
 									cellJour.setCellStyle(couleurGrise);
 								}
-								// Insertion de cellule
-								cellJour.setCellValue(absenceParPersonneDao
-										.RecupererTypeConges(absenceDepartementMoisAnnee.get(m).getIdAbsence())
-										.toUpperCase().substring(0, 1));
+
+								int absence = absenceDepartementMoisAnnee.get(m).getIdAbsence();
+
+								// Insertion de cellule : cas particulier pour
+								// le congé sans solde, sinon initiale du mot
+								if (absenceDepartementMoisAnnee.get(m).getIdAbsence() == 3) {
+									cellJour.setCellValue("S");
+								} else
+									cellJour.setCellValue(absenceDepartementMoisAnnee.get(m).typeConge(absence)
+											.toUpperCase().substring(0, 1));
 
 							}
 
@@ -153,18 +163,21 @@ public class UtilExcel {
 		cellLegendeRejetee.setCellStyle(couleurRouge);
 		cellLegendeRejetee.setCellValue("Rejetée");
 
-		Row rowTypeCongeRtt = sheet.createRow(13 + utilisateurParDepartement.size());
-		Cell cellTypeCongeRTT = rowTypeCongeRtt.createCell(1);
-		cellTypeCongeRTT.setCellValue("R : RTT");
-		Row rowTypeCongeConge = sheet.createRow(14 + utilisateurParDepartement.size());
+		Row rowTypeCongeConge = sheet.createRow(13 + utilisateurParDepartement.size());
 		Cell cellTypeCongeConge = rowTypeCongeConge.createCell(1);
 		cellTypeCongeConge.setCellValue("C : Congé");
+		Row rowTypeCongeFerie = sheet.createRow(14 + utilisateurParDepartement.size());
+		Cell cellTypeCongeFerie = rowTypeCongeFerie.createCell(1);
+		cellTypeCongeFerie.setCellValue("F : Férié");
 		Row rowTypeCongeMission = sheet.createRow(15 + utilisateurParDepartement.size());
 		Cell cellTypeCongeMission = rowTypeCongeMission.createCell(1);
 		cellTypeCongeMission.setCellValue("M : Mission");
-		Row rowTypeCongeFerie = sheet.createRow(16 + utilisateurParDepartement.size());
-		Cell cellTypeCongeFerie = rowTypeCongeFerie.createCell(1);
-		cellTypeCongeFerie.setCellValue("F : Férié");
+		Row rowTypeCongeRtt = sheet.createRow(16 + utilisateurParDepartement.size());
+		Cell cellTypeCongeRTT = rowTypeCongeRtt.createCell(1);
+		cellTypeCongeRTT.setCellValue("R : RTT");
+		Row rowTypeCongeSansSolde = sheet.createRow(17 + utilisateurParDepartement.size());
+		Cell cellTypeCongeSansSolde = rowTypeCongeSansSolde.createCell(1);
+		cellTypeCongeSansSolde.setCellValue("S : Sans solde");
 
 		// Affichage du titre
 		Row rowTitre = sheet.createRow(1);

@@ -11,6 +11,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.apache.commons.codec.digest.DigestUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import fr.gda.dao.UtilisateurDao;
 import fr.gda.model.Employe;
@@ -25,12 +27,17 @@ import fr.gda.model.Manager;
 @WebServlet(urlPatterns = "/connexion/*")
 public class ConnexionController extends HttpServlet {
 
+	/** SERVICE_LOG : Logger */
+	private static final Logger SERVICE_LOG = LoggerFactory.getLogger(ConnexionController.class);
+
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		// récupération des identifiants
 		String email = req.getParameter("email");
 		String password = req.getParameter("password");
 		password = DigestUtils.sha512Hex(password);
+
+		SERVICE_LOG.info("Connexion avec email :  " + email);
 
 		UtilisateurDao utilisateurDao = new UtilisateurDao();
 
@@ -55,6 +62,8 @@ public class ConnexionController extends HttpServlet {
 				session.setAttribute("profil", employe.getProfil());
 				session.setAttribute("isAdmin", employe.isAdmin());
 
+				SERVICE_LOG.info("L'utilisateur est connecté en tant qu'employé");
+
 				RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/index.jsp");
 				dispatcher.forward(req, resp);
 
@@ -69,6 +78,8 @@ public class ConnexionController extends HttpServlet {
 				session.setAttribute("profil", manager.getProfil());
 				session.setAttribute("isAdmin", manager.isAdmin());
 
+				SERVICE_LOG.info("L'utilisateur est connecté en tant que manager");
+
 				RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/index.jsp");
 				dispatcher.forward(req, resp);
 
@@ -78,6 +89,7 @@ public class ConnexionController extends HttpServlet {
 		else {
 			erreurConnexion = "erreur";
 			req.setAttribute("erreur", erreurConnexion);
+			SERVICE_LOG.error("L'utilisateur n'a pas pu se connecter");
 			RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/login.jsp");
 			dispatcher.forward(req, resp);
 

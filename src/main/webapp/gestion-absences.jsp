@@ -65,6 +65,8 @@
 <script type="text/javascript">
 $(document).ready(function(){
 	
+	$('#resultat').hide(); 
+	
 var id; 
 	
  	$(".btn-supp").click(function() {
@@ -80,8 +82,9 @@ var id;
 		    url: this.id,
 		    type: 'DELETE',
 		    success: function(result) {
-		        console.log(result);
+		   		
 		        $( ".ligneSuppr" + id ).remove();
+		        $('#resultat').show();
 		    }
 		});
  		

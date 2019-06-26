@@ -14,6 +14,18 @@ public class Absence {
 	private String type;
 
 	/**
+	 * Constructeur
+	 * 
+	 * @param id
+	 * @param type
+	 */
+	public Absence(int id, String type) {
+		super();
+		this.id = id;
+		this.type = type;
+	}
+
+	/**
 	 * Getter
 	 * 
 	 * @return the id

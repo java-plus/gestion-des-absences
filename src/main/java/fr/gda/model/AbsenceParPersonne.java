@@ -1,6 +1,9 @@
 package fr.gda.model;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
+import fr.gda.enumeration.TypeAbsence;
 
 /**
  * Classe qui gère une Absence par Personne
@@ -46,6 +49,50 @@ public class AbsenceParPersonne {
 		this.dateFin = dateFin;
 		this.statut = statut;
 		this.motif = motif;
+	}
+
+	/**
+	 * méthode qui convertit un id de congé en nom du congé
+	 * 
+	 * @param idConge
+	 * @return
+	 */
+	public String typeConge(int idConge) {
+
+		String typeConge = null;
+
+		switch (idConge) {
+
+		case 1:
+			typeConge = TypeAbsence.RTT.getTypeAbsence();
+			break;
+		case 2:
+			typeConge = TypeAbsence.CONGE_PAYE.getTypeAbsence();
+			break;
+		case 3:
+			typeConge = TypeAbsence.CONGE_S_SOLDE.getTypeAbsence();
+			break;
+		case 4:
+			typeConge = TypeAbsence.MISSION.getTypeAbsence();
+			break;
+		case 5:
+			typeConge = TypeAbsence.RTT_EMPLOYEUR.getTypeAbsence();
+			break;
+		case 6:
+			typeConge = TypeAbsence.FERIE.getTypeAbsence();
+			break;
+
+		}
+
+		return typeConge;
+	}
+
+	public String afficherDate(LocalDate date) {
+
+		String dateFr = date.format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+
+		return dateFr;
+
 	}
 
 	/**
@@ -180,4 +227,19 @@ public class AbsenceParPersonne {
 	public void setMotif(String motif) {
 		this.motif = motif;
 	}
+
+	/** Méthode qui retourne le nombre de jours demandés */
+	public Long getNombreJoursDemandesSansWE() {
+		Long nbJours = 0l;
+		Integer i = 0;
+		do {
+			if ((!this.getDateDebut().plusDays(i).getDayOfWeek().equals(this.getDateDebut().getDayOfWeek().SATURDAY))
+					&& (!this.getDateDebut().plusDays(i).getDayOfWeek()
+							.equals(this.getDateDebut().getDayOfWeek().SUNDAY))) {
+				nbJours++;
+			}
+		} while (!this.getDateDebut().plusDays(i++).isEqual(this.getDateFin()));
+		return nbJours;
+	}
+
 }
