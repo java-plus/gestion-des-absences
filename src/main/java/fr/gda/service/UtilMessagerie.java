@@ -9,6 +9,17 @@ import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+import com.mailjet.client.ClientOptions;
+import com.mailjet.client.MailjetClient;
+import com.mailjet.client.MailjetRequest;
+import com.mailjet.client.MailjetResponse;
+import com.mailjet.client.errors.MailjetException;
+import com.mailjet.client.errors.MailjetSocketTimeoutException;
+import com.mailjet.client.resource.Emailv31;
+
 import fr.gda.dao.AbsenceParPersonneDao;
 import fr.gda.model.TraitementMailManager;
 
@@ -48,8 +59,8 @@ public class UtilMessagerie {
 	static final String SUBJECT = "Une demande de congé a été déposée";
 
 	/** Méthode d'envoi de mail au manager */
-	public static void EnvoyerMailManager(Integer demande, Integer demandeur, Integer typeAbsence,
-			Long nombreJoursDemandes) throws Exception {
+	public static void EnvoyerMailManager(Integer demande, Integer demandeur, int typeAbsence, Long nombreJoursDemandes)
+			throws Exception {
 		// Récupération des infos de mail du manager, nom de demandeur, type
 		// d'absence et nombre de jours de la demande, en fonction de la demande
 		AbsenceParPersonneDao absenceParPersonneDao = new AbsenceParPersonneDao();
@@ -105,5 +116,35 @@ public class UtilMessagerie {
 			// Fermeture de connexion
 			transport.close();
 		}
+	}
+
+	/** Méthode d'envoi de mail au manager par API Mailjet */
+	public static void EnvoyerMailManagerMailJet() {
+
+		MailjetClient client = new MailjetClient("be4a2c514ea2aa8eb96ab8bb776ac024", "81713f2563d17269f5b399100ccf8047",
+				new ClientOptions("v3.1"));
+		MailjetRequest request;
+		MailjetResponse response;
+		JSONArray to = new JSONArray();
+		to.put(new JSONObject().put(Emailv31.Message.EMAIL, "pat.allardin@gmail.com"));
+		JSONObject message = new JSONObject();
+		message.put(Emailv31.Message.FROM,
+				new JSONObject().put("Email", "pat.allardin@gmail.com").put("Name", "Gestion des absences"))
+				.put(Emailv31.Message.SUBJECT, SUBJECT).put(Emailv31.Message.HTMLPART, "Une demande a été réalisée")
+				.put(Emailv31.Message.TO, "patrice.allardin@free.fr");
+		request = new MailjetRequest(Emailv31.resource).property(Emailv31.MESSAGES, (new JSONArray().put(message)));
+		try {
+			response = client.post(request);
+		} catch (MailjetException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (MailjetSocketTimeoutException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
+	public static void main(String[] args) {
+		EnvoyerMailManagerMailJet();
 	}
 }

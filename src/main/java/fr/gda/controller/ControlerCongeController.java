@@ -20,47 +20,52 @@ import fr.gda.model.AbsenceParPersonne;
 import fr.gda.model.Utilisateur;
 
 /**
- * @author KHARBECHE Bilel
+ * Classe de validation des congés
+ * 
+ * @author Patrice
  *
  */
-@WebServlet(urlPatterns = "/controller/jFerieRttEmp")
-public class FerieRttEmpController extends HttpServlet {
+
+@WebServlet(urlPatterns = "/controller/validerConges/*")
+public class ControlerCongeController extends HttpServlet {
 
 	/** SERVICE_LOG : Logger */
-	private static final Logger SERVICE_LOG = LoggerFactory.getLogger(AfficherCongeController.class);
+	private static final Logger SERVICE_LOG = LoggerFactory.getLogger(ControlerCongeController.class);
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
 		HttpSession session = req.getSession(false);
 
-		AbsenceParPersonneDao absParPersDao = new AbsenceParPersonneDao();
+		AbsenceParPersonneDao absenceDao = new AbsenceParPersonneDao();
+
 		UtilisateurDao utilisateurDao = new UtilisateurDao();
 
 		Object userId = session.getAttribute("utilisateurId");
 		int utilisateurId = (int) userId;
 
-		List<AbsenceParPersonne> listeAbsences = absParPersDao.afficherAbsencesPersonne(utilisateurId);
-
-		String typeConge = null;
-
-		for (AbsenceParPersonne liste : listeAbsences) {
-			int absId = liste.getIdAbsence();
-
-			if (absId == 5 || absId == 6) {
-				typeConge = absParPersDao.RecupererTypeConges(liste.getId());
-			}
+		List<AbsenceParPersonne> listeAbsences = null;
+		// Gestion du tri
+		String triColonnes = req.getParameter("Tri");
+		if (triColonnes == null) {
+			triColonnes = "DateDebutAsc";
 		}
+
+		listeAbsences = absenceDao.afficherAbsencesParManagerTrie(utilisateurId, triColonnes);
 
 		Utilisateur utilisateur = utilisateurDao.getUtilisateur(utilisateurId);
 
+		List<Utilisateur> groupeUitilisateurs = utilisateurDao.getUtilisateurs();
+
 		req.setAttribute("afficherConge", listeAbsences);
-		req.setAttribute("afficherTypeConge", typeConge);
+
+		req.setAttribute("groupeUtilisateurs", groupeUitilisateurs);
+
 		req.setAttribute("utilisateur", utilisateur);
 
-		SERVICE_LOG.info("La liste des jours feriés a été affichée");
+		SERVICE_LOG.info("L'affichage des absences à valider s'est bien exécuté");
 
-		RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/jours-feries.jsp");
+		RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/validation-absences.jsp");
 		dispatcher.forward(req, resp);
 	}
+
 }

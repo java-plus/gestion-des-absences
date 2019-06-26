@@ -11,13 +11,25 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import fr.gda.dao.AbsenceParPersonneDao;
 import fr.gda.dao.UtilisateurDao;
 import fr.gda.model.AbsenceParPersonne;
 import fr.gda.model.Utilisateur;
 
+/**
+ * classe qui gère l'affichage des congés
+ * 
+ * @author Cécile Peyras
+ *
+ */
 @WebServlet(urlPatterns = "/controller/afficherConges/*")
 public class AfficherCongeController extends HttpServlet {
+
+	/** SERVICE_LOG : Logger */
+	private static final Logger SERVICE_LOG = LoggerFactory.getLogger(AfficherCongeController.class);
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -30,15 +42,21 @@ public class AfficherCongeController extends HttpServlet {
 		Object userId = session.getAttribute("utilisateurId");
 		int utilisateurId = (int) userId;
 
-		List<AbsenceParPersonne> listeAbsences = absenceDao.afficherAbsencesPersonne(utilisateurId);
-
-		String typeConge = null;
+		List<AbsenceParPersonne> listeAbsences = null;
+		// Gestion du tri
+		String triColonnes = req.getParameter("Tri");
+		if (triColonnes == null) {
+			triColonnes = "DateDebutAsc";
+		}
+		listeAbsences = absenceDao.afficherAbsencesPersonneTrie(utilisateurId, triColonnes);
 
 		Utilisateur utilisateur = utilisateurDao.getUtilisateur(utilisateurId);
 
 		req.setAttribute("afficherConge", listeAbsences);
-		req.setAttribute("afficherTypeConge", typeConge);
+
 		req.setAttribute("utilisateur", utilisateur);
+
+		SERVICE_LOG.info("Affichage des congés de l'utilisateur : " + utilisateur);
 
 		RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/gestion-absences.jsp");
 		dispatcher.forward(req, resp);
@@ -56,7 +74,9 @@ public class AfficherCongeController extends HttpServlet {
 
 		absenceDao.SupprimerConges(idConge);
 
-		resp.getWriter().append("<p>Le congé a bien été supprimé !</p>");
+		SERVICE_LOG.info("Le congé a été bien supprimé : idCongé :  " + idConge);
+
+		resp.getWriter().append("ok");
 
 	}
 

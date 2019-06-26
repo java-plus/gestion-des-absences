@@ -1,9 +1,8 @@
-
 <%@ page language="java" pageEncoding="UTF-8" isELIgnored="false"%>
 <div class="container-fluid m-0 p-0">
 
 	<header>
-		<nav class="navbar navbar-expand-lg sticky-top navbar-dark bg-fonce-01">
+		<nav class="navbar navbar-expand-lg sticky-top navbar-dark bg-dark">
 
 			<button class="navbar-toggler" type="button" data-toggle="collapse"
 				data-target="#navbarTogglerDemo03"
@@ -12,7 +11,7 @@
 				<span class="navbar-toggler-icon"></span>
 			</button>
 
-			<a class="navbar-brand" href="../index.jsp"><img
+			<a class="navbar-brand" href="../login.jsp"><img
 				src="../img/logo.jpg" width="30" height="30" alt="Accueil">
 			</a>
 
@@ -25,11 +24,11 @@
 							des absences</a></li>
 					<li class="nav-item"><a class="nav-link" href="afficherPlanningAbs">Planning
 							des absences</a></li>
-					<li class="nav-item"><a class="nav-link" href="#">Validation
+					<li class="nav-item"><a class="nav-link" href="validerConges">Validation
 							demandes</a></li>
 					<li class="nav-item"><a class="nav-link" href="afficherVueDepart">Vues
 							synthétiques</a></li>
-					<li class="nav-item"><a class="nav-link" href="jours-feries.jsp">Jours
+					<li class="nav-item"><a class="nav-link" href="jFerieRttEmp">Jours
 							fériés</a></li>
 				</ul>
 

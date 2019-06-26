@@ -13,24 +13,22 @@
 	<div class="row p-2 bg-primary">
 		<div class="col-sm-3 ">
 			Date de début
-<!-- 			<div> -->
-<!-- 								</i><i data-feather="chevron-down"></i> -->
-<!-- 			</div> -->
+ 								<a id="DateDebutAsc" href="afficherConges?Tri=DateDebutAsc" style="color:white"><i data-feather="chevron-down">Trier</i></a>
+ 								<a id="DateDebutDesc" href="afficherConges?Tri=DateDebutDesc" style="color:white"><i data-feather="chevron-up">Trier</i></a>
 		</div>
 		<div class="col-sm-3">
 			Date de fin
-<!-- 			<div> -->
-<!-- 								<i data-feather="chevron-up"></i><i data-feather="chevron-down"></i> -->
-								
-<!-- 			</div> -->
+ 								<a id="DateFinAsc" href="afficherConges?Tri=DateFinAsc" style="color:white"><i data-feather="chevron-down">Trier</i></a>
+ 								<a id="DateFinDesc" href="afficherConges?Tri=DateFinDesc" style="color:white"><i data-feather="chevron-up">Trier</i></a>
 		</div>
 		<div class="col-sm-3">
 			Type
 		</div>
 		<div class="col-sm-2">
 			Statut
-<!-- 			<div> -->
-<!-- 								<i data-feather="chevron-up"></i><i data-feather="chevron-down"></i> -->
+ 								<a id="StatutAsc" href="afficherConges?Tri=StatutAsc" style="color:white"><i data-feather="chevron-down">Trier</i></a>
+ 								<a id="StatutDesc" href="afficherConges?Tri=StatutDesc" style="color:white"><i data-feather="chevron-up">Trier</i></a>
+
 <!-- 			</div> -->
 		</div>
 		<div class="col-sm-1">
@@ -44,24 +42,32 @@
 
 	<%
 		List<AbsenceParPersonne> listeAbsences = (List<AbsenceParPersonne>) request.getAttribute("afficherConge");
-		String typeConge = (String) request.getAttribute("afficherTypeConge");
+		
 		Utilisateur utilisateur = (Utilisateur) request.getAttribute("utilisateur");
-		AbsenceParPersonneDao absenceDao = new AbsenceParPersonneDao();
+	
 		if (listeAbsences != null) {
 			for (AbsenceParPersonne liste : listeAbsences) {
-				typeConge = absenceDao.RecupererTypeConges(liste.getIdAbsence());
-				if (typeConge.equals("férié") || typeConge.equals("RTT employeur")) {
+				if (liste.getIdAbsence() == 6 || liste.getIdAbsence() == 5) {
 					continue;
 				}
+				
+				
+				String statut = null;
+					if(liste.getStatut().equals("EN_ATTENTE_VALIDATION")){
+						statut = "EN_ATTENTE"; 
+					} else {
+						statut = liste.getStatut(); 
+					}
+			
 	%>
 
 	<!-- 	Remplissage des cases du tableau avec les infos de la boucle -->
 
 	<div class="row p-2 ligneSuppr<%=liste.getId()%>">
-		<div class="col-sm-3"><%=liste.getDateDebut()%></div>
-		<div class="col-sm-3"><%=liste.getDateFin()%></div>
-		<div class="col-sm-3"><%=typeConge%></div>
-		<div class="col-sm-2"><%=liste.getStatut()%></div>
+		<div class="col-sm-3"><%=liste.afficherDate(liste.getDateDebut())%></div>
+		<div class="col-sm-3"><%=liste.afficherDate(liste.getDateFin())%></div>
+		<div class="col-sm-3"><%=liste.typeConge(liste.getIdAbsence())%></div>
+		<div class="col-sm-2"><%=statut %></div>
 		<div class="col-sm-1 ">
 
 			<!-- 		Affichage des boutons modifier / supprimer en fonction du statut -->
@@ -70,7 +76,7 @@
 				if (liste.getStatut().equals("INITIALE")) {
 			%>
 		<div class="btn-group" role="group">
-			<a href="updateConges?update=<%=liste.getId()%>" <button type="button" class="btn btn-dark btn-modif" id="btn-modif">
+			<a href="updateConges?update=<%=liste.getId()%>" ><button type="button" class="btn btn-dark btn-modif" id="btn-modif">
 				<i data-feather="edit-2">modifier</i>
 				</button></a>
 
@@ -80,32 +86,43 @@
 			</button>
 		</div>
 			<%
-				} else if (liste.getStatut().equals("EN_ATTENTE") || liste.getStatut().equals("VALIDEE")) {
+				} else if (liste.getStatut().equals("EN_ATTENTE_VALIDATION") || liste.getStatut().equals("VALIDEE")) {
 			%>
 			<button type="button" class="btn btn-dark btn-supp"
 				data-toggle="modal" data-target="#modal" id="<%=liste.getId()%>">
 				<i data-feather="trash">supprimer</i>
 			</button>
 			<%
+				} else if(liste.getStatut().equals("REJETEE")){
+					%>	
+				<div class="btn-group" role="group">
+			<a href="updateConges?update=<%=liste.getId()%>"> <button type="button" class="btn btn-dark btn-modif" id="btn-modif">
+				<i data-feather="edit-2">modifier</i>
+				</button></a>
+				</div>
+				<%
 				}
-			%>
-
+				%>
 
 		</div>
+
 	</div>
 
 	<%
 		}
 		}
 	%>
-
+	<div class="text-info" id="resultat"><p class="text-center">Le congé a bien été supprimé !<p</div>
 </div>
+
+
 
 <!-- Affichage des congés restants -->
 
+	
 <div class="container">
 	Demander une absence
-	<a href="updateConges?ajout=add">
+	<a href="ajoutConges?ajout=add">
 	<button class="btn btn-lg btn-outline-primary" type="button">créer</button>
 	</a>
 </div>
@@ -138,8 +155,7 @@
 			<form method="DELETE" action="afficherConges" class="formModal"
 				id="formModal">
 				<div class="modal-footer">
-					<button type="submit" class="btn btn-success" data-dismiss="modal"
-						name="suppressionConges">Confirmer</button>
+					<button type="submit" class="btn btn-success" data-dismiss="modal">Confirmer</button>
 				</div>
 			</form>
 

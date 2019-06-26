@@ -1,9 +1,8 @@
-
 <%@ page language="java" pageEncoding="UTF-8" isELIgnored="false"%>
 <div class="container-fluid m-0 p-0">
 
 	<header>
-		<nav class="navbar navbar-expand-lg sticky-top navbar-dark bg-fonce-01">
+		<nav class="navbar navbar-expand-lg sticky-top navbar-dark bg-dark">
 
 			<button class="navbar-toggler" type="button" data-toggle="collapse"
 				data-target="#navbarTogglerDemo03"
@@ -12,7 +11,8 @@
 				<span class="navbar-toggler-icon"></span>
 			</button>
 
-			<a class="navbar-brand" href="index.jsp"><img
+			<a class="navbar-brand" href="login.jsp"><img
+
 				src="img/logo.jpg" width="30" height="30" alt="Accueil">
 			</a>
 
@@ -20,16 +20,16 @@
 
 				<ul class="navbar-nav text-uppercase">
 					<li class="nav-item active"><a class="nav-link"
-						href="../gda/login.jsp">Accueil<span class="sr-only">(current)</span></a></li>
+						href="login.jsp">Accueil<span class="sr-only">(current)</span></a></li>
 					<li class="nav-item"><a class="nav-link" href="controller/afficherConges">Gestion
 							des absences</a></li>
 					<li class="nav-item"><a class="nav-link" href="controller/afficherPlanningAbs">Planning
 							des absences</a></li>
-					<li class="nav-item"><a class="nav-link" href="controller/#">Validation
+					<li class="nav-item"><a class="nav-link" href="controller/validerConges">Validation
 							demandes</a></li>
 					<li class="nav-item"><a class="nav-link" href="controller/afficherVueDepart">Vues
 							synthétiques</a></li>
-					<li class="nav-item"><a class="nav-link" href="controller/jours-feries.jsp">Jours
+					<li class="nav-item"><a class="nav-link" href="controller/jFerieRttEmp">Jours
 							fériés</a></li>
 				</ul>
 
