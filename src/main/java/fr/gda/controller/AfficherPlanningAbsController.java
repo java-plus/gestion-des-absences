@@ -13,6 +13,7 @@ import javax.servlet.http.HttpSession;
 
 import fr.gda.dao.UtilisateurDao;
 import fr.gda.model.Departement;
+import fr.gda.model.Utilisateur;
 import fr.gda.service.FormatageListAffichageVues;
 import fr.gda.service.RecupererNbreJoursDuMois;
 
@@ -22,7 +23,16 @@ public class AfficherPlanningAbsController extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
+		//
+		HttpSession session = req.getSession(false);
+
+		int utilisateurId = (int) session.getAttribute("utilisateurId");
+
 		UtilisateurDao utilisateurDao = new UtilisateurDao();
+
+		Utilisateur utilisateur = utilisateurDao.getUtilisateur(utilisateurId);
+
+		req.setAttribute("utilisateur", utilisateur);
 
 		// recuperation de tous les departements pour les afficher dans le filtre
 		List<Departement> listeDepartements = utilisateurDao.getTousLesDepartements();
@@ -32,11 +42,6 @@ public class AfficherPlanningAbsController extends HttpServlet {
 		Integer numeroMois = 8;
 		Integer annee = 2019;
 		Integer idDepartement = 1;
-
-		//
-		HttpSession session = req.getSession(false);
-
-		int utilisateurId = (int) session.getAttribute("utilisateurId");
 
 		// récupération de tous les jours du mois avec les indications pour chaque jours des congés
 		FormatageListAffichageVues formatageListVue = new FormatageListAffichageVues();

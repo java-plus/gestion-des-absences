@@ -1,5 +1,4 @@
-<%@ page language="java" pageEncoding="UTF-8" isELIgnored="false"%>
-
+<%@ page language="java" pageEncoding="UTF-8" isELIgnored="false" import="java.util.Date, java.time.LocalDate, java.util.Calendar, java.text.SimpleDateFormat"%>
 
 <!DOCTYPE html>
 <html lang="fr">
@@ -48,6 +47,33 @@
 	<%-- chargement des js de JQuery et Bootsrap et feather --%>
 	<%@ include file="jsp/global/load.jsp"%>
 	<%-- ------------------------- --%>
+	
+	
+	
+	<!-- Small modal -->
+	
+     
+    
+	<div class="modal fade bd-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+	  <div class="modal-dialog modal-sm">
+	    <div class="modal-content">
+	    
+	     <div class="modal-header">
+        <h4 class="modal-title text-dark" id="mySmallModalLabel">Export Excel</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">×</span>
+        </button>
+      </div>
+      
+      <div class="modal-body text-dark">
+       L'export excel est fait !
+      </div>
+      
+      
+	    
+	    </div>
+	  </div>
+	</div>
 
 	<script>
 	
@@ -55,22 +81,24 @@
 			
 			<%-- DEBUT ---  script pour gerer les requetes envoyées par le filtre --%>			
 	
-			$( "#form-filtres" ).on( "submit", function(event) {
+			$( "#export-excel" ).on( "click", function(event) {
 				  event.preventDefault();
-				  var dataForm  = $(this).serialize();
+				  var dataForm  = $("#form-filtres").serialize();
+				  
+				  
+				  console.log(dataForm);
 				  
 				  $.ajax({
 	 					method : "POST",
 	 					url : "afficherVueDepart?vue=collab",
 	 					data : dataForm,
-	 					dataType : "json"
+	 					dataType : "text"
 	 					
 	 				}).done(function( result, status ) {
+	 					$('.bd-example-modal-sm').modal('toggle');
 	 					
-	 					
-	 					console.log("departeemnt : " + result[0].departement);
-	 					console.log("mois = " + result[0].mois);
-	 					console.log("annee = " + result[0].annee);
+	 					console.log(result + " / " + status);
+	 				
 	 				  }).fail(function(result, status) {
 	 					  
 	 					 console.log("fail : " + result + " / "+ status);
@@ -83,10 +111,10 @@
 			$('#trier').on( "click", function(event) {
 				if($('#list-e').hasClass('flex-column-reverse')){
 					$('#list-e').removeClass( "flex-column-reverse" ).addClass( "flex-column" );
-					$(".svg.feather.feather-chevron-up").replaceWith(feather.icons.chevron-down.toSvg());
+					//$(".svg.feather.feather-chevron-up").replaceWith(feather.icons.chevron-down.toSvg());
 				} else {
 					$('#list-e').removeClass( "flex-column" ).addClass( "flex-column-reverse" );
-					$(".svg.feather.feather-chevron-up").replaceWith(feather.icons.chevron-down.toSvg());
+				//	$(".svg.feather.feather-chevron-up").replaceWith(feather.icons.chevron-down.toSvg());
 				}
 				
 

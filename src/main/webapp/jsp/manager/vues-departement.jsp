@@ -18,6 +18,8 @@ import="java.util.List, java.util.ArrayList, fr.gda.model.*, fr.gda.dao.*"%>
 	<%@ include file="../global/vues-filtres.jsp"%>
 	<%-- -------------------- --%>
 
+
+
 	<div class="row py-3 bg-primary">
 		<div class="col-sm-2 d-flex">nom<a id="trier" class="text-light ml-auto" href="#"><i data-feather="chevron-down">trier</i></a></div>
 		<div class="col-sm-10 d-flex flex-row p-0">
@@ -41,7 +43,8 @@ import="java.util.List, java.util.ArrayList, fr.gda.model.*, fr.gda.dao.*"%>
 	
 		<div class="row row-user">
 		
-			<div class="col-sm-2 nom"><%=ListNoms[i]%></div>
+			<div class="col-sm-2 nom d-flex align-items-center"><%=ListNoms[i]%></div>
+			
 			
 			<div class="col-sm-10 d-flex flex-row p-0">
 			
@@ -61,13 +64,11 @@ import="java.util.List, java.util.ArrayList, fr.gda.model.*, fr.gda.dao.*"%>
 				String classeWeekEnd = "weekend";
 				String classeNormal = "base";
 				
-				
 				if (valeur.contains("-")) {
 					String[] parts = valeur.split("-");
 					valeur = parts[0];
 					congeEtat = parts[1];
-					
-					
+						
 					if (congeEtat.equals("REJETEE")) {
 						maClasse += classeRefusee;
 					} else if (congeEtat.equals("VALIDEE")) {
@@ -80,10 +81,10 @@ import="java.util.List, java.util.ArrayList, fr.gda.model.*, fr.gda.dao.*"%>
 				} else {
 					if (valeur.equals("N")) {
 						maClasse += classeNormal;
-						valeur = "N";
+						valeur = " ";
 					} else if (valeur.equals("W")) {
 						maClasse += classeWeekEnd;
-						valeur = "W";
+						valeur = " ";
 					}
 				}
 				
@@ -115,9 +116,12 @@ import="java.util.List, java.util.ArrayList, fr.gda.model.*, fr.gda.dao.*"%>
 
 <div class="container my-5">
 
-	<button class="btn btn-outline-primary">retour</button>
+	<a class="btn btn-outline-primary" href="afficherVueDepart">retour</a>
 
-	<div class=" my-2"><h6>légende :</h6><p>C : congés, F : férié, M : mission, R : RTT, S : Sans solde</p></div>
+	<div class=" my-2">
+	<h6>légende :</h6>
+	<p>C : congés, F : férié, M : mission, R : RTT, S : Sans solde</p>
+	</div>
 
 </div>
 

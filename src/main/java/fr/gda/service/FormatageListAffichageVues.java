@@ -71,9 +71,11 @@ public class FormatageListAffichageVues {
 						// Si c'est le même utilisateur
 						if (absenceDepartementMoisAnnee.get(m).getIdUtil() == utilisateurParDepartement.get(i).getId()) {
 
+							LocalDate dateK = LocalDate.of(annee, numeroMois, k);
 							// Si c'est sous les mêmes dates de mois
-							if (absenceDepartementMoisAnnee.get(m).getDateDebut().getDayOfMonth() <= k & absenceDepartementMoisAnnee.get(m).getDateFin().getDayOfMonth() >= k) {
-								// Changement de couleur si besoin
+							if ((absenceDepartementMoisAnnee.get(m).getDateDebut().isBefore(dateK) && absenceDepartementMoisAnnee.get(m).getDateFin().isAfter(dateK)) || absenceDepartementMoisAnnee.get(m).getDateDebut().isEqual(dateK) || absenceDepartementMoisAnnee.get(m).getDateFin().isEqual(dateK)) {
+
+								// Si c'est entre les dates de début et de fin
 								if (absenceDepartementMoisAnnee.get(m).getStatut().equals("REJETEE")) {
 									String monString = absenceParPersonneDao.RecupererTypeConges(absenceDepartementMoisAnnee.get(m).getIdAbsence()).toUpperCase().substring(0, 1);
 									monString += "-REJETEE";
@@ -86,7 +88,13 @@ public class FormatageListAffichageVues {
 									String monString = absenceParPersonneDao.RecupererTypeConges(absenceDepartementMoisAnnee.get(m).getIdAbsence()).toUpperCase().substring(0, 1);
 									monString += "-EN_ATTENTE_VALIDATION";
 									listjourMois[i][k - 1] = monString;
+								} else {
+									String monString = absenceParPersonneDao.RecupererTypeConges(absenceDepartementMoisAnnee.get(m).getIdAbsence()).toUpperCase().substring(0, 1);
+									monString += "-INITIALE";
+									listjourMois[i][k - 1] = monString;
+
 								}
+
 							} else {
 								listjourMois[i][k - 1] = "N";// on donne "N" (comme "NORMAL" comme valeur pour indiquer qu'il n'y a pas de congé ce
 								// jour

@@ -1,4 +1,5 @@
-<%@ page language="java" pageEncoding="UTF-8" isELIgnored="false"%>
+<%@ page language="java" pageEncoding="UTF-8" isELIgnored="false" 
+import="java.util.List, fr.gda.controller.*, fr.gda.filter.*, fr.gda.model.*, fr.gda.dao.*, java.time.LocalDate"%>
 
 <!DOCTYPE html>
 <html lang="fr">

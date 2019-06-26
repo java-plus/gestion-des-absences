@@ -4,6 +4,7 @@
 package fr.gda.controller;
 
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.List;
 
 import javax.servlet.RequestDispatcher;
@@ -16,10 +17,11 @@ import javax.servlet.http.HttpServletResponse;
 import fr.gda.dao.UtilisateurDao;
 import fr.gda.model.Departement;
 import fr.gda.service.FormatageListAffichageVues;
+import fr.gda.service.UtilExcel;
 
 /**
  * 
- * Controleur qui intercepte les demande d affichage des pages des vues synthetiques
+ * Controleur qui intercepte les demande d affichage des pages des "vues synthetiques"
  * 
  * @author Eloi
  *
@@ -32,15 +34,31 @@ public class AfficherVuesSynthController extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
+		Integer numeroMois;
+		Integer annee;
+		Integer idDepartement;
+
 		// recuperation de tous les departements pour les afficher dans le filtre
 		UtilisateurDao utilisateurDao = new UtilisateurDao();
 		List<Departement> listeDepartements = utilisateurDao.getTousLesDepartements();
 		req.setAttribute("listeDepartements", listeDepartements);
 
-		// récuperation des valeurs indiquées par le filtre
-		Integer numeroMois = 8;
-		Integer annee = 2019;
-		Integer idDepartement = 1;
+		String stringNumeroMois = req.getParameter("inputMois");
+
+		// s'il n'y a pas de parametre passé alors on affiche par défaut le mois en cours de l'annee en cours
+		if (stringNumeroMois != null) {
+			// récuperation des valeurs indiquées par le filtre
+			numeroMois = Integer.parseInt(req.getParameter("inputMois"));
+			annee = Integer.parseInt(req.getParameter("inputAnnee"));
+			idDepartement = Integer.parseInt(req.getParameter("inputDepartement"));
+		} else {
+			// valeurs par défaut
+			LocalDate maDate = LocalDate.now();
+			numeroMois = maDate.getMonthValue();
+
+			annee = maDate.getYear();
+			idDepartement = 1;
+		}
 
 		FormatageListAffichageVues formatageListVue = new FormatageListAffichageVues();
 
@@ -49,6 +67,10 @@ public class AfficherVuesSynthController extends HttpServlet {
 
 		req.setAttribute("ListjourMois", ListjourMois);
 		req.setAttribute("ListNoms", ListNoms);
+
+		req.setAttribute("numeroMois", numeroMois);
+		req.setAttribute("annee", annee);
+		req.setAttribute("idDepartement", idDepartement);
 
 		// --------------------------------------------------------------------------------------- //
 
@@ -64,6 +86,7 @@ public class AfficherVuesSynthController extends HttpServlet {
 
 			if (choix.equals("collab")) {
 				urlDirection = "/vues-depart.jsp";
+
 			} else if (choix.equals("histo")) {
 				urlDirection = "/vues-histo.jsp";
 			} else if (choix.equals("menu")) {
@@ -71,6 +94,7 @@ public class AfficherVuesSynthController extends HttpServlet {
 			}
 
 		} else {
+
 			urlDirection = "/vues-synth.jsp"; // on considere qu'on redirige comme si le choix etait "menu"
 		}
 
@@ -80,22 +104,21 @@ public class AfficherVuesSynthController extends HttpServlet {
 
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		Integer numeroMois;
+		Integer annee;
+		Integer idDepartement;
 
-		// récupération des valeurs des input selectionnées
-		String paramDepartement = req.getParameter("inputDepartement");
-		String paramMois = req.getParameter("inputMois");
-		String paramAnnee = req.getParameter("inputAnnee");
+		idDepartement = Integer.parseInt(req.getParameter("inputDepartement"));
+		annee = Integer.parseInt(req.getParameter("inputAnnee"));
+		numeroMois = Integer.parseInt(req.getParameter("inputMois"));
 
-		// En fonction des valeurs récupérées via le fitre, on
+		UtilExcel utilexcel = new UtilExcel();
 
-		// json
-		StringBuilder strJson = new StringBuilder();
-		strJson.append("[{\"departement\" : \"").append(paramDepartement).append("\", \"mois\" : \"").append(paramMois).append("\", \"annee\" : \"").append(paramAnnee).append("\"}]");
+		utilexcel.exportExcel(numeroMois, annee, idDepartement);
 
-		resp.getWriter().append(strJson);
+		String maReponse = "ok";
 
-		// RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/vues-depart.jsp");
-		// dispatcher.forward(req, resp);
+		resp.getWriter().append(maReponse);
 
 	}
 

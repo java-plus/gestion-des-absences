@@ -1,11 +1,11 @@
-<%@ page language="java" pageEncoding="UTF-8" isELIgnored="false"
-	import="java.util.List, fr.gda.controller.*, fr.gda.filter.*, fr.gda.model.*, fr.gda.dao.*"%>
+<%@ page language="java" pageEncoding="UTF-8" isELIgnored="false"%>
 
 
 
 <%
 	String[] listJours = (String[]) request.getAttribute("listJours");
 	int decalage = (int) request.getAttribute("decalage");
+	Utilisateur utilisateur = (Utilisateur) request.getAttribute("utilisateur");
 %>
 
 
@@ -16,7 +16,7 @@
 
 
 	<%-- include des filtres --%>
-	<%@ include file="vues-filtres.jsp"%>
+<%-- 	<%@ include file="vues-filtres.jsp"%> --%>
 	<%-- -------------------- --%>
 
 
@@ -106,15 +106,11 @@
 
 <div class="container my-5">
 	<h6>Soldes des compteurs :</h6>
-	<div>
-		Congés payés :
-<%-- 		<%=utilisateur.getCongeRestant()%></div> --%>
-	<div>
-		RTT :
-<%-- 		<%=utilisateur.getRttRestant()%></div> --%>
+	<div>Congés payés :<%=utilisateur.getCongeRestant()%></div>
+	<div>RTT : <%=utilisateur.getRttRestant()%></div>
 </div>
 
-<div class=" my-5">
+<div class="container my-5">
 	<h6>légende :</h6>
 	<p>C : congés, F : férié, M : mission, R : RTT, S : Sans solde</p>
 </div>
