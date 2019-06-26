@@ -83,6 +83,7 @@
 	
 			$( "#export-excel" ).on( "click", function(event) {
 				  event.preventDefault();
+
 				  var dataForm  = $("#form-filtres").serialize();
 				  
 				  
@@ -104,7 +105,9 @@
 	 					 console.log("fail : " + result + " / "+ status);
 	 					 
 					  });
-	  	  
+	  	  				  var query = $('#form-filtres').serialize();
+				  document.location.href="export?"+query;
+
 	 				  
 			});
 			
