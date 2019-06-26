@@ -83,28 +83,8 @@
 	
 			$( "#export-excel" ).on( "click", function(event) {
 				  event.preventDefault();
-				  var dataForm  = $("#form-filtres").serialize();
-				  
-				  
-				  console.log(dataForm);
-				  
-				  $.ajax({
-	 					method : "POST",
-	 					url : "afficherVueDepart?vue=collab",
-	 					data : dataForm,
-	 					dataType : "text"
-	 					
-	 				}).done(function( result, status ) {
-	 					$('.bd-example-modal-sm').modal('toggle');
-	 					
-	 					console.log(result + " / " + status);
-	 				
-	 				  }).fail(function(result, status) {
-	 					  
-	 					 console.log("fail : " + result + " / "+ status);
-	 					 
-					  });
-	  	  
+				  var query = $('#form-filtres').serialize();
+				  document.location.href="export?"+query;
 	 				  
 			});
 			
