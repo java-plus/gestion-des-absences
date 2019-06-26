@@ -32,18 +32,19 @@ import="java.util.List, fr.gda.controller.*, fr.gda.filter.*, fr.gda.model.*, fr
 		--%>
 
 
-	<% 
-// 		if (((String)request.getAttribute("monProfil")).equals("manager")) { 
-		%>
+
+	<%
+		if (((String) session.getAttribute("profil")).equals("manager")) {
+	%>
 
 	<%@ include file="jsp/manager/menu.jsp"%>
-
-	<% 
-// 		} else {
-		%>
-<%-- 	<%@ include file="jsp/employe/menu-index.jsp"%> --%>
-<%-- 	<% } %> --%>
-
+	<%
+		} else {
+	%>
+	<%@ include file="jsp/employe/menu.jsp"%>
+	<%
+		}
+	%>
 
 
 

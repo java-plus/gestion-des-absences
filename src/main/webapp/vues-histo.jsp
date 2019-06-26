@@ -1,4 +1,4 @@
-<%@ page language="java" pageEncoding="UTF-8" isELIgnored="false" import="java.util.List, java.util.ArrayList, fr.gda.model.*"%>
+<%@ page language="java" pageEncoding="UTF-8" isELIgnored="false" import="java.util.List, java.util.ArrayList, fr.gda.model.*, java.util.Date, java.time.LocalDate, java.util.Calendar, java.text.SimpleDateFormat"%>
 <!DOCTYPE html>
 <html lang="fr">
 
