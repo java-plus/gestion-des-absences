@@ -17,6 +17,10 @@ body {
 	;
 }
 
+.row-user {
+	    min-height: 50px;
+    border-bottom: #3b3d4f  1px solid;
+}
 
  .cal-vue-conge:nth-child(odd) {
 	background-color: #393c52;
