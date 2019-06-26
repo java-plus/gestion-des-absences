@@ -22,6 +22,12 @@ import fr.gda.dao.UtilisateurDao;
 import fr.gda.model.AbsenceParPersonne;
 import fr.gda.model.Utilisateur;
 
+/**
+ * gère la modification de jour ferié
+ * 
+ * @author KHARBECHE Bilel
+ *
+ */
 @WebServlet(urlPatterns = "/controller/updateFerie/*")
 public class AdminUpdateFerieRttEmprController extends HttpServlet {
 
