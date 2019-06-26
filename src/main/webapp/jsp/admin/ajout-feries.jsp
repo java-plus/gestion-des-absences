@@ -1,5 +1,4 @@
 <%@page import="fr.gda.enumeration.TypeAbsence"%>
-<%@page import="fr.gda.utils.DateUtils"%>
 <%@page import="java.time.ZoneId"%>
 <%@page import="java.util.Locale"%>
 <%@page import="java.time.format.TextStyle"%>

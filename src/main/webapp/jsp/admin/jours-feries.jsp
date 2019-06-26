@@ -1,5 +1,4 @@
 <%@page import="javax.xml.bind.ParseConversionEvent"%>
-<%@page import="fr.gda.utils.DateUtils"%>
 <%@page import="java.time.ZoneId"%>
 <%@page import="java.util.Locale"%>
 <%@page import="java.time.format.TextStyle"%>
@@ -11,7 +10,7 @@
 <%@page import="java.time.Year"%>
 <%@page import="java.time.Instant"%>
 <%@	page
-	import="java.util.List, fr.gda.controller.*, fr.gda.filter.*, fr.gda.model.*, fr.gda.dao.*"%>
+	import="java.util.List, fr.gda.controller.*, fr.gda.filter.*, fr.gda.model.*, fr.gda.dao.* "%>
 <%@ page language="java" pageEncoding="UTF-8" isELIgnored="false"%>
 <div class="container my-5">
 
