@@ -1,5 +1,5 @@
 <%@ page language="java" pageEncoding="UTF-8" isELIgnored="false"%>
-
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html lang="fr">
 
@@ -29,11 +29,12 @@
 
 </head>
 
+
 <body>
 
 
 	<form class="form-signin" method="post"
-		action="http://localhost:8080/gda/connexion">
+		action='<c:url value="/connexion"/>'>
 		<div class="text-center mb-4">
 			<img class="mb-4 logo"
 				src="https://pbs.twimg.com/profile_images/810865682564911104/A3CM9RWz_400x400.jpg"
